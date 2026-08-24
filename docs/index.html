@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EEA EthTrust Security Levels Working Group</title>
+<meta name="description" content="EEA EthTrust Security Levels define minimum security audit standards for Ethereum smart contracts — three certification levels, [S], [M] and [Q].">
+<meta name="author" content="EEA Inc.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kode+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://entethalliance.github.io/eea-design-system/editorial.css">
+
+<style>
+/* ── Page-local styles. Everything maps onto --eea-ed-* tokens. ── */
+
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+
+.measure {
+  max-width: var(--eea-ed-measure);
+  margin: 0 auto;
+  padding-left: var(--eea-ed-shoulder);
+  padding-right: var(--eea-ed-shoulder);
+}
+
+/* ── Masthead ── */
+.masthead { padding: 3.2rem 0 0; }
+.masthead-kicker {
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label-lg);
+  letter-spacing: var(--eea-ed-track-wide);
+  text-transform: uppercase;
+  color: var(--eea-ed-accent);
+  margin: 0 0 1.1rem;
+}
+.masthead h1 {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 650;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  margin: 0 0 1.4rem;
+  max-width: 20ch;
+}
+.masthead-stand {
+  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--eea-ed-ink);
+  max-width: 62ch;
+  margin: 0 0 2rem;
+}
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.2rem;
+  align-items: baseline;
+  padding: 0.9rem 0 1.1rem;
+  border-top: 2px solid var(--eea-ed-ink);
+  border-bottom: 1px solid var(--eea-ed-line);
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  color: var(--eea-ed-ink-soft);
+}
+.masthead-meta strong { color: var(--eea-ed-ink); font-weight: 600; }
+
+/* ── Sections ── */
+section { padding: 3.4rem 0 0.6rem; }
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label-lg);
+  letter-spacing: var(--eea-ed-track-wide);
+  text-transform: uppercase;
+  color: var(--eea-ed-ink-soft);
+  margin: 0 0 1.6rem;
+}
+.kicker::before {
+  content: attr(data-n);
+  color: var(--eea-ed-accent);
+  font-weight: 600;
+}
+.kicker::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dotted var(--eea-ed-ink-mute);
+  transform: translateY(-0.3em);
+}
+section h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+}
+.prose { max-width: 68ch; font-size: 1.02rem; line-height: 1.65; }
+.prose a { color: var(--eea-ed-accent); text-decoration: none; border-bottom: 1px solid var(--eea-ed-line); }
+.prose a:hover { color: var(--eea-ed-accent-deep); border-bottom-color: var(--eea-ed-accent); }
+
+/* ── Level plates ── */
+.levels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0;
+  border: 1px solid var(--eea-ed-ink);
+  margin: 2.2rem 0 1rem;
+  background: var(--eea-ed-ground);
+}
+.level {
+  padding: 1.6rem 1.5rem 1.7rem;
+  border-right: 1px solid var(--eea-ed-line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.level:last-child { border-right: 0; }
+.level-depth { display: flex; gap: 3px; height: 5px; }
+.level-depth i { flex: 1; background: var(--eea-ed-rule); }
+.level[data-depth="1"] .level-depth i:nth-child(-n+1),
+.level[data-depth="2"] .level-depth i:nth-child(-n+2),
+.level[data-depth="3"] .level-depth i:nth-child(-n+3) { background: var(--eea-ed-accent); }
+.level-mark {
+  font-family: var(--eea-ed-font-mono);
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--eea-ed-accent);
+}
+.level h3 { margin: 0; font-size: 1.05rem; font-weight: 650; letter-spacing: -0.01em; }
+.level p { margin: 0; font-size: 0.93rem; line-height: 1.55; color: var(--eea-ed-ink-soft); }
+.levels-note {
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  color: var(--eea-ed-ink-mute);
+  margin: 0 0 0.4rem;
+}
+
+/* ── Resources ── */
+.res-feature {
+  border: 1px solid var(--eea-ed-ink);
+  background: var(--eea-ed-ground);
+  padding: 1.7rem 1.8rem 1.8rem;
+  margin: 0 0 1.6rem;
+}
+.res-feature-tag {
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  color: var(--eea-ed-page);
+  background: var(--eea-ed-accent);
+  display: inline-block;
+  padding: 3px 9px;
+  margin: 0 0 1rem;
+}
+.res-feature h3 { margin: 0 0 0.4rem; font-size: 1.25rem; font-weight: 650; }
+.res-feature p { margin: 0 0 1.2rem; color: var(--eea-ed-ink-soft); font-size: 0.97rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.btn {
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label-lg);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--eea-ed-ink);
+  color: var(--eea-ed-page);
+  background: var(--eea-ed-ink);
+  transition: background 120ms linear, color 120ms linear;
+}
+.btn:hover { background: var(--eea-ed-accent-deep); border-color: var(--eea-ed-accent-deep); }
+.btn.ghost { background: transparent; color: var(--eea-ed-ink); }
+.btn.ghost:hover { background: var(--eea-ed-ink); color: var(--eea-ed-page); }
+
+.res-prev { list-style: none; margin: 0; padding: 0; max-width: 46rem; }
+.res-prev li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.2rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px dotted var(--eea-ed-ink-mute);
+}
+.res-prev a { color: var(--eea-ed-ink); font-weight: 550; text-decoration: none; border-bottom: 1px solid var(--eea-ed-line); }
+.res-prev a:hover { color: var(--eea-ed-accent); border-bottom-color: var(--eea-ed-accent); }
+.res-prev .when {
+  margin-left: auto;
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  color: var(--eea-ed-ink-soft);
+}
+
+/* ── Contribute / contact ── */
+.contrib {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.4rem;
+  margin: 0.4rem 0 1rem;
+}
+.contrib-card {
+  border-top: 2px solid var(--eea-ed-ink);
+  padding: 1.1rem 0 0;
+}
+.contrib-card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 650; }
+.contrib-card p { margin: 0 0 0.9rem; font-size: 0.95rem; line-height: 1.6; color: var(--eea-ed-ink-soft); }
+.contrib-card p a { color: var(--eea-ed-accent); text-decoration: none; border-bottom: 1px solid var(--eea-ed-line); }
+.contrib-card p a:hover { color: var(--eea-ed-accent-deep); border-bottom-color: var(--eea-ed-accent); }
+
+/* ── Colophon extras ── */
+.eea-colophon { margin-top: 4rem; }
+.colophon-social { margin-top: 0.9rem; display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.colophon-social a {
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+}
+
+/* ── Load reveal — one staggered pass, masthead only ── */
+@media (prefers-reduced-motion: no-preference) {
+  .masthead > * { opacity: 0; transform: translateY(10px); animation: rise 480ms cubic-bezier(.2,.6,.2,1) forwards; }
+  .masthead > *:nth-child(2) { animation-delay: 70ms; }
+  .masthead > *:nth-child(3) { animation-delay: 140ms; }
+  .masthead > *:nth-child(4) { animation-delay: 210ms; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+}
+</style>
+</head>
+<body class="eea-editorial">
+
+<header class="eea-site-bar">
+  <div class="eea-site-bar-inner">
+    <a class="eea-site-id" href="https://entethalliance.org/">
+      <img class="eea-site-id-logo" src="eea-logo.webp" alt="EEA" width="36" height="36">
+      <span class="eea-site-id-rule" aria-hidden="true"></span>
+      <span class="eea-site-id-stack">
+        <span class="eea-site-id-name">EEA EthTrust Security WG</span>
+        <span class="eea-site-id-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </span>
+    </a>
+    <nav class="eea-site-links" aria-label="EthTrust Security Levels WG">
+      <a href="#focus">Our focus</a>
+      <a href="#resources">Resources</a>
+      <a href="#contribute">Contribute</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="measure masthead">
+    <p class="masthead-kicker">EEA Working Group</p>
+    <h1>EthTrust Security Levels</h1>
+    <p class="masthead-stand">Baseline requirements for Ethereum smart contract
+    security audits — a certification framework that lets projects and audit
+    firms signal, in one mark, how deep an audit went.</p>
+    <div class="masthead-meta">
+      <span>Specification <strong>Version&nbsp;3</strong> · March&nbsp;2025</span>
+      <span>Three certification levels · <strong>[S]&nbsp;[M]&nbsp;[Q]</strong></span>
+      <span>Also developing · <strong>STIX for DeFi</strong></span>
+    </div>
+  </div>
+
+  <section id="focus" class="measure">
+    <p class="kicker" data-n="01">Our focus</p>
+    <h2>Minimum standards for smart contract security audits</h2>
+    <p class="prose">The EEA EthTrust Security Levels Working Group defines
+    baseline requirements for Ethereum smart contract security audits. These
+    serve as a certification framework for projects and audit firms to signal
+    audit depth and quality.</p>
+
+    <div class="levels" role="list">
+      <div class="level" role="listitem" data-depth="1">
+        <div class="level-depth" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="level-mark" aria-hidden="true">[S]</div>
+        <h3>Automated checks</h3>
+        <p>Requirements that a well-configured static analysis toolchain can
+        verify across the full contract source.</p>
+      </div>
+      <div class="level" role="listitem" data-depth="2">
+        <div class="level-depth" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="level-mark" aria-hidden="true">[M]</div>
+        <h3>Manual audit</h3>
+        <p>Human review of the contract by qualified security auditors, beyond
+        what automated tooling can establish.</p>
+      </div>
+      <div class="level" role="listitem" data-depth="3">
+        <div class="level-depth" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="level-mark" aria-hidden="true">[Q]</div>
+        <h3>Full logic &amp; documentation review</h3>
+        <p>The deepest level — audited business logic and documentation,
+        end to end, against the declared intent of the contract.</p>
+      </div>
+    </div>
+    <p class="levels-note">Audit depth increases left to right</p>
+  </section>
+
+  <section id="resources" class="measure">
+    <p class="kicker" data-n="02">Resources</p>
+    <h2>The specification</h2>
+
+    <div class="res-feature">
+      <span class="res-feature-tag">Current — Version 3</span>
+      <h3>EEA EthTrust Security Levels Specification v3</h3>
+      <p>Published March 2025.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://entethalliance.org/specs/ethtrust-sl/v3/">Full specification</a>
+        <a class="btn ghost" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html">Checklist of requirements</a>
+      </div>
+    </div>
+
+    <ul class="res-prev">
+      <li><a href="https://entethalliance.org/specs/ethtrust-sl/v2">Version 2</a><span class="when">Published 13 Dec 2023</span></li>
+      <li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/">Version 1</a><span class="when">Published 22 Aug 2022</span></li>
+    </ul>
+  </section>
+
+  <section id="contribute" class="measure">
+    <p class="kicker" data-n="03">How to contribute</p>
+    <h2>Two open strands of work</h2>
+    <div class="contrib">
+      <div class="contrib-card" id="contact">
+        <h3>EthTrust Security Levels</h3>
+        <p>To contribute to the specification, or to learn more about the
+        working group, email
+        <a href="mailto:editor@entethalliance.org">editor@entethalliance.org</a>.</p>
+      </div>
+      <div class="contrib-card">
+        <h3>STIX for DeFi</h3>
+        <p>We are developing extensions to the STIX standard for DeFi-specific
+        incident reporting. Join the
+        <a href="https://t.me/+lh_czW2S07BiNTc0">Web3 STIX Telegram channel</a>
+        and contribute on the
+        <a href="https://github.com/EntEthAlliance/defi-for-stix/">DeFi for STIX GitHub repository</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="eea-colophon">
+  <div class="eea-colophon-inner">
+    <div class="eea-colophon-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p>The EthTrust Security Levels Working Group is part of the
+    <a href="https://entethalliance.org/">Enterprise Ethereum Alliance</a>.
+    Enterprise Ethereum Alliance is a trademark of the Ethereum Foundation;
+    use by the EEA is under license and does not imply partnership or
+    endorsement.</p>
+    <div class="colophon-social">
+      <a href="https://twitter.com/EntEthAlliance">X / Twitter</a>
+      <a href="https://www.linkedin.com/company/ethereum-alliance/">LinkedIn</a>
+      <a href="https://www.youtube.com/channel/UClC49LtcE4Wuo4POqa4J0bA">YouTube</a>
+      <a href="https://t.me/+lh_czW2S07BiNTc0">Telegram</a>
+    </div>
+    <p class="eea-colophon-meta">© 2026 Enterprise Ethereum Alliance</p>
+  </div>
+</footer>
+
+</body>
+</html>
