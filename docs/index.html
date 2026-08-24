@@ -209,6 +209,8 @@ section h2 {
   padding: 3px 9px;
   margin: 0 0 1rem;
 }
+.res-feature.review-draft { border-color: #9B413C; }
+.res-feature.review-draft .res-feature-tag { background: #9B413C; }
 .res-feature h3 { margin: 0 0 0.4rem; font-size: 1.25rem; font-weight: 650; }
 .res-feature p { margin: 0 0 1.2rem; color: var(--eea-ed-ink-soft); font-size: 0.97rem; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
@@ -379,10 +381,20 @@ section h2 {
     <div class="res-feature">
       <span class="res-feature-tag">Current — Version 3</span>
       <h3>EEA EthTrust Security Levels Specification v3</h3>
-      <p>Published March 2025.</p>
+      <p>Published March 2025. This remains the current approved EEA specification and certification baseline.</p>
       <div class="btn-row">
         <a class="btn" href="spec/v3/">Full specification</a>
         <a class="btn ghost" href="spec/v3/checklist.html">Checklist of requirements</a>
+      </div>
+    </div>
+
+    <div class="res-feature review-draft">
+      <span class="res-feature-tag">Public review — Version 4 draft</span>
+      <h3>EthTrust v4 proposed technical refresh</h3>
+      <p>AI-generated initial draft for expert validation. Compare v3 → v4 changes, review candidate requirements, and see the proposed GBBC RMF relationship. Not an approved EEA specification.</p>
+      <div class="btn-row">
+        <a class="btn" href="spec/v4/">Review the v4 draft</a>
+        <a class="btn ghost" href="https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6">Technical refresh issue</a>
       </div>
     </div>
 
