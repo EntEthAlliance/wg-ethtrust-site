@@ -197,6 +197,33 @@ section h2 {
   color: var(--eea-ed-ink-soft);
 }
 
+/* ── Contributors ── */
+.contributors {
+  list-style: none;
+  margin: 1.6rem 0 1rem;
+  padding: 0;
+  columns: 3;
+  column-gap: 2.4rem;
+}
+.contributors li {
+  break-inside: avoid;
+  padding: 0.55rem 0;
+  border-bottom: 1px dotted var(--eea-ed-ink-mute);
+  font-size: 0.97rem;
+  font-weight: 550;
+}
+.contributors .org {
+  display: block;
+  font-family: var(--eea-ed-font-mono);
+  font-size: var(--eea-ed-label-sm);
+  letter-spacing: var(--eea-ed-track);
+  text-transform: uppercase;
+  color: var(--eea-ed-ink-soft);
+  margin-top: 2px;
+}
+@media (max-width: 900px) { .contributors { columns: 2; } }
+@media (max-width: 560px) { .contributors { columns: 1; } }
+
 /* ── Contribute / contact ── */
 .contrib {
   display: grid;
@@ -248,6 +275,7 @@ section h2 {
     <nav class="eea-site-links" aria-label="EthTrust Security Levels WG">
       <a href="#focus">Our focus</a>
       <a href="#resources">Resources</a>
+      <a href="#contributors">Contributors</a>
       <a href="#contribute">Contribute</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -311,8 +339,8 @@ section h2 {
       <h3>EEA EthTrust Security Levels Specification v3</h3>
       <p>Published March 2025.</p>
       <div class="btn-row">
-        <a class="btn" href="https://entethalliance.org/specs/ethtrust-sl/v3/">Full specification</a>
-        <a class="btn ghost" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html">Checklist of requirements</a>
+        <a class="btn" href="spec/v3/">Full specification</a>
+        <a class="btn ghost" href="spec/v3/checklist.html">Checklist of requirements</a>
       </div>
     </div>
 
@@ -322,8 +350,41 @@ section h2 {
     </ul>
   </section>
 
+  <section id="contributors" class="measure">
+    <p class="kicker" data-n="03">Contributors</p>
+    <h2>The people behind version 3</h2>
+    <p class="prose">As credited in the specification itself — alongside all
+    those who contributed to the previous versions that version&nbsp;3
+    extends.</p>
+    <ul class="contributors" role="list">
+      <li>Chaals Neville</li>
+      <li>Anish Agrawal <span class="org">Olympix</span></li>
+      <li>Kenan Bešić <span class="org">ChainSecurity</span></li>
+      <li>Daniel Burnett</li>
+      <li>Valerian Callens</li>
+      <li>Luke Ciattaglia <span class="org">Hacken</span></li>
+      <li>Christopher Cordi</li>
+      <li>Ignacio Freire <span class="org">Olympix</span></li>
+      <li>Aminadav Glickshtein <span class="org">EY</span></li>
+      <li>Opal Graham <span class="org">CertiK</span></li>
+      <li>Channi Greenwall <span class="org">Olympix</span></li>
+      <li>James Harsh</li>
+      <li>Sebastian Holler</li>
+      <li>George Kobakhidze <span class="org">Diligence</span></li>
+      <li>Michael Lewellen <span class="org">OpenZeppelin</span></li>
+      <li>Luis Lubeck <span class="org">Hacken</span></li>
+      <li>Dominik Muhs</li>
+      <li>Anton Permenev <span class="org">ChainSecurity</span></li>
+      <li>Juliano Rizzo <span class="org">Coinspect</span></li>
+      <li>Gernot Salzer</li>
+      <li>Clara Schneidewinde</li>
+      <li>Tobias Vogel <span class="org">Diligence</span></li>
+      <li>Morgan Weaver <span class="org">OpenZeppelin</span></li>
+    </ul>
+  </section>
+
   <section id="contribute" class="measure">
-    <p class="kicker" data-n="03">How to contribute</p>
+    <p class="kicker" data-n="04">How to contribute</p>
     <h2>Two open strands of work</h2>
     <div class="contrib">
       <div class="contrib-card" id="contact">
