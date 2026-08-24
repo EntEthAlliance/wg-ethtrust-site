@@ -1,0 +1,3205 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 24.34.0"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
+span.example-title {
+    text-transform: none;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example span.example-title {
+    color: #999;
+}
+
+.warning > p:first-child { margin-top: 0 }
+.warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+span.warning { padding: .1em .5em .15em; }
+
+.warning {
+    border-color: #f11;
+    border-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 1.3em;
+    float: left;
+    padding-right: .3em;
+    margin-top: -0.3em;
+}
+
+
+</style>
+
+<title>Checklist for EEA EthTrust Security Levels Version 2</title>
+
+
+
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+li.conjunction {list-style-type: none; font-weight: bolder; text-transform: uppercase;}
+
+*[id^=req-1]:not(.removed), .reqEx-1 { border: 1px purple solid; background-color: #dff; padding: 0.5em }
+*[id^=req-2]:not(.removed), .reqEx-2 { border: 1px purple double; background-color: #dff; padding: 0.5em }
+*[id^=req-3]:not(.removed) { border: 3px purple dashed; background-color: #dff; padding: 0.5em }
+*[id^=req-R]:not(.removed) { border: 3px gold dashed; background-color: #def; padding: 0.5em }
+
+</style>
+
+<style id="respec-mainstyle">/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+
+
+/* Override code highlighter background */
+.hljs {
+  background: transparent !important;
+}
+
+/* --- INLINES --- */
+h1 abbr,
+h2 abbr,
+h3 abbr,
+h4 abbr,
+h5 abbr,
+h6 abbr,
+a abbr {
+  border: none;
+}
+
+dfn {
+  font-weight: bold;
+}
+
+a.internalDFN {
+  color: inherit;
+  border-bottom: 1px solid #99c;
+  text-decoration: none;
+}
+
+a.externalDFN {
+  color: inherit;
+  border-bottom: 1px dotted #ccc;
+  text-decoration: none;
+}
+
+a.bibref {
+  text-decoration: none;
+}
+
+
+
+#references :target {
+  background: #eaf3ff;
+  animation: pop 0.4s ease-in-out 0s 1;
+}
+
+cite .bibref {
+  font-style: normal;
+}
+
+code {
+  color: #c83500;
+}
+
+th code {
+  color: inherit;
+}
+
+
+/* --- TOC --- */
+
+.toc a,
+.tof a {
+  text-decoration: none;
+}
+
+a .secno,
+a .figno {
+  color: #000;
+}
+
+ul.tof,
+ol.tof {
+  list-style: none outside none;
+}
+
+.caption {
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* --- TABLE --- */
+
+table.simple {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-bottom: 3px solid #005a9c;
+}
+
+.simple th {
+  background: #005a9c;
+  color: #fff;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.simple th a {
+  color: #fff;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.simple th[scope="row"] {
+  background: inherit;
+  color: inherit;
+  border-top: 1px solid #ddd;
+}
+
+.simple td {
+  padding: 3px 10px;
+  border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+  background: #f0f6ff;
+}
+
+/* --- DL --- */
+
+.section dd > p:first-child {
+  margin-top: 0;
+}
+
+.section dd > p:last-child {
+  margin-bottom: 0;
+}
+
+.section dd {
+  margin-bottom: 1em;
+}
+
+.section dl.attrs dd,
+.section dl.eldef dd {
+  margin-bottom: 0;
+}
+
+#issue-summary > ul,
+.respec-dfn-list {
+  column-count: 2;
+}
+
+#issue-summary li,
+.respec-dfn-list li {
+  list-style: none;
+}
+
+
+
+a[href].self-link:hover {
+  opacity: 1;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+}
+
+aside.example .marker > a.self-link {
+  color: inherit;
+}
+
+h2 > a.self-link,
+h3 > a.self-link,
+h4 > a.self-link,
+h5 > a.self-link,
+h6 > a.self-link {
+  border: none;
+  color: inherit;
+  font-size: 83%;
+  height: 2em;
+  left: -1.6em;
+  opacity: 0.5;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+  transition: opacity 0.2s;
+  width: 2em;
+}
+
+h2 > a.self-link::before,
+h3 > a.self-link::before,
+h4 > a.self-link::before,
+h5 > a.self-link::before,
+h6 > a.self-link::before {
+  content: "§";
+  display: block;
+}
+
+@media (max-width: 767px) {
+  dd {
+    margin-left: 0;
+  }
+
+  /* Don't position self-link in headings off-screen */
+  h2 > a.self-link,
+  h3 > a.self-link,
+  h4 > a.self-link,
+  h5 > a.self-link,
+  h6 > a.self-link {
+    left: auto;
+    top: auto;
+  }
+}
+
+@media print {
+  .removeOnSave {
+    display: none;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+var {
+  position: relative;
+  cursor: pointer;
+}
+
+
+</style>
+<link href="https://www.w3.org/StyleSheets/TR/2016/base.css" rel="stylesheet">
+<meta name="description" content="This document is a checklist for the EEA EthTrust Security Levels Specification,
+Version 2"><link rel="stylesheet" href="../ethtrust-editorial-spec.css">
+</head>
+
+<body class="h-entry">
+<div class="ethtrust-return"><a href="https://entethalliance.github.io/wg-ethtrust-site/">&#8592; EthTrust Security Levels Working Group</a></div>
+<div class="head">
+      <a class="logo" href=""><img id="eea-logo" alt="EEA" width="180" height="90" src="eea_logo.svg"></a> <h1 id="title" class="title p-name">Checklist for EEA EthTrust Security Levels Version 2</h1>
+
+      <h2>
+        EEA Document
+        <time class="dt-published" datetime="2023-12-13">13 December 2023</time>
+      </h2>
+      <dl>
+        <dt>This version:</dt><dd><a href="https://entethalliance.org/specs/ethtrust-sl/v2/checklist.html">https://entethalliance.org/specs/ethtrust-sl/v2/checklist.html</a></dd>
+
+        <dt>Latest editor's draft:</dt><dd><a href="https://entethalliance.github.io/eta-registry/checklist.html">https://entethalliance.github.io/eta-registry/checklist.html</a></dd>
+
+
+
+      </dl>
+
+
+
+      <p class="copyright">Copyright © 2023
+      <a href="https://entethalliance.org/">Enterprise Ethereum Alliance</a>. </p>
+      <hr title="Separator for header">
+    </div>
+
+<section id="sotd" class="introductory"><h2>Status of This Document</h2>
+<p><em>This section describes the status of this document at the time of its publication. Newer documents may supersede this document.</em></p>
+<p>This specification is licensed by the Enterprise Ethereum Alliance, Inc.
+(<abbr>EEA</abbr>) under the terms of the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a> [<cite><a class="bibref" href="#bib-license" title="Apache license version 2.0" data-link-type="biblio">License</a></cite>].
+Unless otherwise explicitly authorised in writing by the EEA,
+you can only use this document in accordance with those terms.</p>
+<p>Unless required by applicable law or agreed to in writing, this document
+is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied.</p>
+
+
+<p>Please send any comments to the EEA at
+<a href="https://entethalliance.org/contact/">https://entethalliance.org/contact/</a>, or as issues via the
+<a href="https://github.com/EntEthAlliance/EthTrust-public/issues/">EthTrust-public GitHub repository</a>.</p>
+
+<p>The Working Group <em>expects</em> at the time of publication to publish the next release version of this checklist alongside the next version
+of the Specification, in 2025.</p>
+    </section>
+
+    <nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc">
+
+<li class="tocline"><a class="tocxref" href="#sec-typographic-conventions"><bdi class="secno">1.1.2 </bdi>Typographic Conventions</a></li></ol></li>
+<li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">2. </bdi>Conformance</a><ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-conformance-claims"><bdi class="secno">2.1 </bdi>Conformance Claims</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-summary-of-requirements"><bdi class="secno">2.2 </bdi>Security Level Requirements</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-summary-recommended"><bdi class="secno">2.3 </bdi>Recommended Good Practices</a></li></ol></li>
+<li class="tocline"><a class="tocxref" href="#sec-additional-information"><bdi class="secno">A. </bdi>Additional Information</a><ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-definitions"><bdi class="secno">A.1 </bdi>Defined Terms</a></li></ol></li>
+<li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc">
+<li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">B.1 </bdi>Normative references</a></li>
+<li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+
+<section id="sec-introduction" class="informative"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction<a class="self-link" aria-label="§" href="#sec-introduction"></a></h2>
+<p><em>This section is non-normative.</em></p>
+<p>This companion document is a checklist for [<cite><a class="bibref" href="#bib-ethtrust-sl-v2" title="EEA EthTrust Security Levels Specification, Version 2" data-link-type="biblio">EthTrust-sl-v2</a></cite>], the EEA EthTrust Security Levels Specification.
+It lists the requirements for granting <a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a> to a smart contract written in Solidity as a convenience for security reviewers, developers,
+or others, who are familiar with the EEA EthTrust Security Levels Specification, and want an <i>aide memoire</i>.</p>
+
+<p>In case of any discrepancy between this checklist, and the relevant version of the
+EEA EthTrust Security Levels Specification,
+readers should assume that this document is in error, and the definitive version is the text in the specification.</p>
+
+<p><a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a> is a claim by a security reviewer that the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+is not vulnerable to a number of known attacks or failures to operate as expected,
+based on the reviewer's assessment against those specific requirements.</p>
+<p><a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a>
+<b>does not and cannot</b> ensure that the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+is completely secure from any attack.
+
+<section id="sec-typographic-conventions"><h4 id="x1-1-2-typographic-conventions"><bdi class="secno">1.1.2 </bdi>Typographic Conventions<a class="self-link" aria-label="§" href="#sec-typographic-conventions"></a></h4>
+
+<p>Definitions of terms are formatted <dfn data-dfn-type="dfn" id="dfn-like-this">Like this</dfn>.
+  Most of the terms are defined in the main specification document. Some definitions are repeated in this document.
+  References to defined terms are rendered as links
+  <a href="index.html#dfn-like-this" class="internalDFN" data-link-type="dfn">Like This</a>.</p><p>References to other documents are links to the relevant entry
+in the <a href="#references" class="sec-ref">§&nbsp;<bdi class="secno">B. </bdi>References</a> section, within square brackets, such as: [<cite><a class="bibref" href="#bib-cwe" title="Common Weakness Enumeration" data-link-type="biblio">CWE</a></cite>].</p>
+<p>Links to requirements begin with a <a href="index.html#dfn-security-levels" class="internalDFN" data-link-type="dfn">Security Level</a>: <b>[S]</b>, <b>[M]</b>
+or <b>[Q]</b>, and recommended good practices begin with <b>[GP]</b>. They then include
+the requirement or good practice name. They are rendered as links in bold type, for example:</p>
+<p class="example">Example of a link to <a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>.</p>
+<p>Variables, introduced to be described further on in a statement or requirement, are formatted as
+<var>var</var>.</p></section>
+
+ </section>
+</section>
+<section id="conformance"><h2 id="x2-conformance"><bdi class="secno">2. </bdi>Conformance<a class="self-link" aria-label="§" href="#conformance"></a></h2>
+<p>
+            The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">RECOMMENDED</em>, and <em class="rfc2119">SHOULD</em> in this document
+            are to be interpreted as described in
+            <a href="https://tools.ietf.org/html/bcp14">BCP 14</a>
+            [<cite><a class="bibref" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels" data-link-type="biblio">RFC2119</a></cite>]
+            [<cite><a class="bibref" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words" data-link-type="biblio">RFC8174</a></cite>] when, and only when, they appear
+            in all capitals, as shown here.
+          </p>
+<p>The EthTrust Security Levels Specification defines a number of requirements. As described in more detail by
+<a href="index.html#sec-reading-requirements" class="sec-ref">§&nbsp;<bdi class="secno">1.1.3 </bdi>How to Read a Requirement</a> of that document, each requirement
+has a Security Level (<b>[S]</b>, <b>[M]</b> or <b>[Q]</b>), and a statement of the requirement that
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> meet.</p>
+<p>In order to achieve <a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a> at a specific Security Level, the
+  <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> meet <b>all the requirements for that Security Level</b>,
+including all the requirements for lower Security Levels. Some requirements can either be
+met directly, or by meeting one or more <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding requirements</a>
+that mean the requirement is considered met.</p>
+<p>Section <a href="#sec-good-practice-recommendations" class="sec-ref">§&nbsp;<bdi class="secno">4.4 </bdi>Recommended Good Practices</a>,
+contains further recommendations. Although they are formatted similarly to requirements,
+they begin with a "level" marker <b>[GP]</b>. There is no requirement to test for these;
+however careful implementation and testing is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>.</p>
+<p>Note that good implementation of the Recommended Good Practices can enhance security,
+but in some cases incomplete or low-quality implementation could <strong>reduce</strong> security.</p>
+<p>To provide as strong a level of assurance as possible, <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">SHOULD</em> meet as many requirements as possible at all Security Levels.</p>
+<p>This document does not create an affirmative duty of compliance on any party, though
+requirements to comply with it could be created by contract negotiations
+or other processes with prospective customers or investors.</p>
+<section id="sec-conformance-claims"><h3 id="x2-1-conformance-claims"><bdi class="secno">2.1 </bdi>Conformance Claims<a class="self-link" aria-label="§" href="#sec-conformance-claims"></a></h3>
+<p>To grant <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+<dfn data-dfn-type="dfn" id="dfn-eea-ethtrust-certification">EEA EthTrust Certification</dfn>,
+an auditor provides a <a href="#dfn-valid-conformance-claim" class="internalDFN" data-link-type="dfn">Valid Conformance Claim</a>, that the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+  meets the requirements of the <a href="index.html#dfn-security-levels" class="internalDFN" data-link-type="dfn">Security Level</a> for which it is certified.</p>
+<p>There is no required format for a <a href="#dfn-valid-conformance-claim" class="internalDFN" data-link-type="dfn">Valid conformance claim</a> for Version 1 of this
+specification, beyond being legible and containing the required information
+as specified in this section.</p>
+
+<p>A <dfn data-dfn-type="dfn" data-plurals="valid conformance claims" id="dfn-valid-conformance-claim">Valid Conformance Claim</dfn> <em class="rfc2119" title="MUST">MUST</em> include:</p><ul>
+<li>The date on which the certification was issued, in 'YYYY-MM-DD' format</li>
+<li>The <a href="index.html#dfn-evm-version" class="internalDFN" data-link-type="dfn">EVM version(s)</a> (of those listed at [<cite><a class="bibref" href="#bib-evm-version" title="Using the Compiler - Solidity Documentation. (§Targets)" data-link-type="biblio">EVM-version</a></cite>]) for which the certification is valid</li>
+<li>The version of the EEA EthTrust Security Levels specification
+for which the contract is certified (this specification is version 1)</li>
+<li>A name and a URL for the organisation or software issuing the certification</li>
+<li>The <a href="index.html#dfn-security-levels" class="internalDFN" data-link-type="dfn">Security Level</a> (<b>[S]</b>, <b>[M]</b> or <b>[Q]</b>) that the
+<a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a>
+claims.</li>
+<li>A [<cite><a class="bibref" href="#bib-sha3-256" title="FIPS 202 - SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions" data-link-type="biblio">SHA3-256</a></cite>] hash of the compiled bytecode for each contract in the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> certified,
+sorted ascending by the hash value interpreted as a number</li>
+<li>A [<cite><a class="bibref" href="#bib-sha3-256" title="FIPS 202 - SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions" data-link-type="biblio">SHA3-256</a></cite>] hash of the Solidity source code for each contract in the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> certified,
+sorted ascending by the hash value interpreted as a number</li>
+<li>The compiler options applied for each compilation</li>
+<li>The contract metadata generated by the compiler</li>
+<li>A list of the requirements which were tested and a statement for each one,
+noting whether the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> meets the requirement.
+This <em class="rfc2119" title="MAY">MAY</em> include further information.</li>
+<li>An explicit notice stating that <a href="#dfn-eea-ethtrust-certified" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a> does not provide any warranty or formal guarantee<ul>
+<li>of the overall security of the <a href="#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>, nor</li>
+<li>that the project is free from bugs or vulnerabilities.
+This notice <em class="rfc2119" title="SHOULD">SHOULD</em> state that <a href="#dfn-eea-ethtrust-certified" class="internalDFN" data-link-type="dfn">EEA EthTrust Certification</a> represents the best efforts of the issuer
+to detect and identify certain known vulnerabilities that can affect Smart Contracts.</li>
+</ul>
+</li>
+<li>For conformance claims where certification is granted
+because the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> met an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> or a
+  <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a>, the conformance claim <em class="rfc2119" title="MUST">MUST</em> include the results
+for the <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement(s)</a> met, and <em class="rfc2119" title="MAY">MAY</em> omit the results for the
+requirement(s) whose results were thus unnecessary to determine conformance.</li>
+</ul>
+<p>A <a href="#dfn-valid-conformance-claim" class="internalDFN" data-link-type="dfn">Valid Conformance Claim</a> for <a href="index.html#dfn-security-level-q" class="internalDFN" data-link-type="dfn">Security Level [Q]</a> <em class="rfc2119" title="MUST">MUST</em> contain
+a [<cite><a class="bibref" href="#bib-sha3-256" title="FIPS 202 - SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions" data-link-type="biblio">SHA3-256</a></cite>] hash of the documentation provided to meet
+<a href="#summ-req-3-documented"><strong>[Q] Document Contract Logic</strong></a> and
+<a href="#summ-req-3-document-system"><strong>[Q] Document System Architecture</strong></a>.</p>
+<p>A <a href="#dfn-valid-conformance-claim" class="internalDFN" data-link-type="dfn">Valid Conformance Claim</a> <em class="rfc2119" title="SHOULD">SHOULD</em> include</p><ul>
+<li>a contact address for questions about or challenges to the certification.</li>
+<li>descriptions of conformance to the good practices described in <a href="#sec-good-practice-recommendations" class="sec-ref">§&nbsp;<bdi class="secno">4.4 </bdi>Recommended Good Practices</a>.</li>
+</ul>
+<p>A <a href="#dfn-valid-conformance-claim" class="internalDFN" data-link-type="dfn">Valid Conformance Claim</a> <em class="rfc2119" title="MAY">MAY</em> include:</p><ul>
+<li>An address where a [<cite><a class="bibref" href="#bib-sha3-256" title="FIPS 202 - SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions" data-link-type="biblio">SHA3-256</a></cite>] hash of the conformance claim has been recorded
+on an identified network, e.g. Ethereum Mainnet.</li>
+<li>An address of the contract deployed on an identified network, e.g. Ethereum Mainnet.</li>
+</ul>
+</section>
+
+<section id="sec-summary-of-requirements"><h3 id="a-2-summary-of-requirements"><bdi class="secno">2.2 </bdi>Security Level Requirements<a class="self-link" aria-label="§" href="#sec-summary-of-requirements"></a></h3>
+
+<table>
+  <thead>
+    <tr><th>Requirement</th><th>Status</th></tr>
+  </thead>
+  <tr>
+    <td>
+<div id="summ-req-1-eip155-chainid"><a href="index.html#req-1-eip155-chainid"><b>[S] Encode Hashes with <code>chainid</code></b></a><b><a href="#summ-req-1-eip155-chainid" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> create hashes for transactions that incorporate <code>chainid</code> values
+following the recommendation described in [<cite><a class="bibref" href="#bib-eip-155" title="Simple Replay Attack Protection" data-link-type="biblio">EIP-155</a></cite>]</p></div>
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-eip155-chainid" id="req-1-eip155-chainid-NT" value="NT" checked />
+      <label for="req-1-eip155-chainid-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-eip155-chainid" id="req-1-eip155-chainid-P" value="Pass">
+  <label for="req-1-eip155-chainid-P">Passes</label></li>
+    <li><input type="radio" name="req-1-eip155-chainid" id="req-1-eip155-chainid-NA" value="NA">
+  <label for="req-1-eip155-chainid-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-eip155-chainid" id="req-1-eip155-chainid-INC" value="Incomplete">
+  <label for="req-1-eip155-chainid-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-eip155-chainid" id="req-1-eip155-chainid-F" value="Fail">
+  <label for="req-1-eip155-chainid-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-no-create2"><a href="index.html#req-1-no-create2"><b>[S] No <code>CREATE2</code></b></a><b><a href="#summ-req-1-no-create2" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain a <code>CREATE2</code> instruction.
+    <br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-2-protect-create2"><b>[M] Protect <code>CREATE2</code> Calls</b></a>, <b>and</b></li>
+<li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>,</li>
+</ul></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-no-create2" id="req-1-no-create2-NT" value="NT" checked>
+  <label for="req-1-no-create2-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-no-create2" id="req-1-no-create2-P" value="Pass">
+  <label for="req-1-no-create2-P">Passes</label></li>
+    <li><input type="radio" name="req-1-no-create2" id="req-1-no-create2-NA" value="NA">
+  <label for="req-1-no-create2-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-no-create2" id="req-1-no-create2-INC" value="Incomplete">
+  <label for="req-1-no-create2-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-no-create2" id="req-1-no-create2-F" value="Fail">
+  <label for="req-1-no-create2-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-no-tx.origin">
+<a href="index.html#req-1-no-tx.origin"><b>[S] No <code>tx.origin</code></b></a><b><a href="#summ-req-1-no-tx.origin" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain a <code>tx.origin</code> instruction
+  <br><b>unless</b> it meets the <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a>
+<a href="#summ-req-3-verify-tx.origin"><b>[Q] Verify <code>tx.origin</code> Usage</b></a></p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-no-tx.origin" id="req-1-no-tx.origin-NT" value="NT" checked>
+  <label for="req-1-no-tx.origin-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-no-tx.origin" id="req-1-no-tx.origin-P" value="Pass">
+  <label for="req-1-no-tx.origin-P">Passes</label></li>
+    <li><input type="radio" name="req-1-no-tx.origin" id="req-1-no-tx.origin-NA" value="NA">
+  <label for="req-1-no-tx.origin-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-no-tx.origin" id="req-1-no-tx.origin-INC" value="Incomplete">
+  <label for="req-1-no-tx.origin-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-no-tx.origin" id="req-1-no-tx.origin-F" value="Fail">
+  <label for="req-1-no-tx.origin-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-exact-balance-check">
+<a href="index.html#req-1-exact-balance-check"><b>[S] No Exact Balance Check</b></a><b><a href="#summ-req-1-exact-balance-check" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> test that the balance of an account is exactly equal to
+(i.e. <code>==</code>) a specified amount or the value of a variable
+<br><b>unless</b> it meets the <a>Overriding Requirement</a>
+<a href="#summ-req-2-verify-exact-balance-check"><b>[M] Verify Exact Balance Checks</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-exact-balance-check" id="req-1-exact-balance-check-NT" value="NT" checked>
+  <label for="req-1-exact-balance-check-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-exact-balance-check" id="req-1-exact-balance-check-P" value="Pass">
+  <label for="req-1-exact-balance-check-P">Passes</label></li>
+    <li><input type="radio" name="req-1-exact-balance-check" id="req-1-exact-balance-check-NA" value="NA">
+  <label for="req-1-exact-balance-check-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-exact-balance-check" id="req-1-exact-balance-check-INC" value="Incomplete">
+  <label for="req-1-exact-balance-check-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-exact-balance-check" id="req-1-exact-balance-check-F" value="Fail">
+  <label for="req-1-exact-balance-check-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-inheritance-conflict">
+<a href="index.html#req-1-inheritance-conflict"><b>[S] No Conflicting Names</b></a><b><a href="#summ-req-1-inheritance-conflict" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> include more than one variable, or operative function with
+different code, with the same name
+<br><b>unless</b> it meets the
+  <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a>:
+  <a href="#summ-req-2-safe-inheritance-order"><b>[M] Document Name Conflicts</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-inheritance-conflict" id="req-1-inheritance-conflict-NT" value="NT" checked>
+  <label for="req-1-inheritance-conflict-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-inheritance-conflict" id="req-1-inheritance-conflict-P" value="Pass">
+  <label for="req-1-inheritance-conflict-P">Passes</label></li>
+    <li><input type="radio" name="req-1-inheritance-conflict" id="req-1-inheritance-conflict-NA" value="NA">
+  <label for="req-1-inheritance-conflict-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-inheritance-conflict" id="req-1-inheritance-conflict-INC" value="Incomplete">
+  <label for="req-1-inheritance-conflict-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-inheritance-conflict" id="req-1-inheritance-conflict-F" value="Fail">
+  <label for="req-1-inheritance-conflict-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-no-hashing-consecutive-variable-length-args">
+<a href="index.html#req-1-no-hashing-consecutive-variable-length-args"><b>[S] No Hashing Consecutive Variable Length Arguments</b></a><b><a href="#summ-req-1-no-hashing-consecutive-variable-length-args" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use <code>abi.encodePacked()</code>
+     with consecutive variable length arguments.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-no-hashing-consecutive-variable-length-args" id="req-1-no-hashing-consecutive-variable-length-args-NT" value="NT" checked>
+  <label for="req-1-no-hashing-consecutive-variable-length-args-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-no-hashing-consecutive-variable-length-args" id="req-1-no-hashing-consecutive-variable-length-args-P" value="Pass">
+  <label for="req-1-no-hashing-consecutive-variable-length-args-P">Passes</label></li>
+    <li><input type="radio" name="req-1-no-hashing-consecutive-variable-length-args" id="req-1-no-hashing-consecutive-variable-length-args-NA" value="NA">
+  <label for="req-1-no-hashing-consecutive-variable-length-args-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-no-hashing-consecutive-variable-length-args" id="req-1-no-hashing-consecutive-variable-length-args-INC" value="Incomplete">
+  <label for="req-1-no-hashing-consecutive-variable-length-args-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-no-hashing-consecutive-variable-length-args" id="req-1-no-hashing-consecutive-variable-length-args-F" value="Fail">
+  <label for="req-1-no-hashing-consecutive-variable-length-args-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-self-destruct"><a href="index.html#req-1-self-destruct"><b>[S] No <code>selfdestruct()</code></b></a><b><a href="#summ-req-1-self-destruct" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain the <code>selfdestruct()</code> instruction
+or its now-deprecated alias <code>suicide()</code>
+<br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-2-self-destruct"><b>[M] Protect Self-destruction</b></a>, <b>and</b>
+</li>
+<li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-self-destruct" id="req-1-self-destruct-NT" value="NT" checked>
+  <label for="req-1-self-destruct-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-self-destruct" id="req-1-self-destruct-P" value="Pass">
+  <label for="req-1-self-destruct-P">Passes</label></li>
+    <li><input type="radio" name="req-1-self-destruct" id="req-1-self-destruct-NA" value="NA">
+  <label for="req-1-self-destruct-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-self-destruct" id="req-1-self-destruct-INC" value="Incomplete">
+  <label for="req-1-self-destruct-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-self-destruct" id="req-1-self-destruct-F" value="Fail">
+  <label for="req-1-self-destruct-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-no-assembly"><a href="index.html#req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a><b><a href="#summ-req-1-no-assembly" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain the <code>assembly {}</code> instruction
+  <br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-2-safe-assembly"><b>[M] Avoid Common <code>assembly {}</code> Attack Vectors</b></a>,</li>
+<li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>,</li>
+<li><a href="#summ-req-2-compiler-SOL-2022-5-assembly"><b>[M] Compiler Bug SOL-2022-5 in <code>assembly {}</code></b></a>,</li>
+<li><a href="#summ-req-2-compiler-SOL-2022-7"><b>[M] Compiler Bug SOL-2022-7</b></a>,</li>
+<li><a href="#summ-req-2-compiler-SOL-2022-4"><b>[M] Compiler Bug SOL-2022-4</b></a>,</li>
+<li><a href="#summ-req-2-compiler-SOL-2021-3"><b>[M] Compiler Bug SOL-2021-3</b></a>, <b>and</b></li>
+<li>if using Solidity compiler version 0.5.5 or 0.5.6,
+  <a href="https://entethalliance.org/specs/ethtrust-sl/v1#req-2-compiler-SOL-2019-2-assembly"><b>[M]
+  Compiler Bug SOL-2019-2 in `assembly {}`</b></a> in
+  <a href="https://entethalliance.org/specs/ethtrust-sl/v1/">EEA EthTrust Security Levels Specification Version 1</a>.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-no-assembly" id="req-1-no-assembly-NT" value="NT" checked>
+  <label for="req-1-no-assembly-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-no-assembly" id="req-1-no-assembly-P" value="Pass">
+  <label for="req-1-no-assembly-P">Passes</label></li>
+    <li><input type="radio" name="req-1-no-assembly" id="req-1-no-assembly-NA" value="NA">
+  <label for="req-1-no-assembly-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-no-assembly" id="req-1-no-assembly-INC" value="Incomplete">
+  <label for="req-1-no-assembly-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-no-assembly" id="req-1-no-assembly-F" value="Fail">
+  <label for="req-1-no-assembly-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-unicode-bdo">
+<a href="index.html#req-1-unicode-bdo"><b>[S] No Unicode Direction Control Characters</b></a><b><a href="#summ-req-1-unicode-bdo" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain any of the <a href="index.html#dfn-unicode-direction-control-characters">Unicode Direction Control Characters</a>
+<code>U+2066</code>, <code>U+2067</code>, <code>U+2068</code>, <code>U+2029</code>,
+  <code>U+202A</code>, <code>U+202B</code>, <code>U+202C</code>, <code>U+202D</code>,
+or <code>U+202E</code>
+<br><b>unless</b> it meets the <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a>
+<a href="#summ-req-2-unicode-bdo"><b>[M] No Unnecessary Unicode Controls</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-unicode-bdo" id="req-1-unicode-bdo-NT" value="NT" checked>
+  <label for="req-1-unicode-bdo-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-unicode-bdo" id="req-1-unicode-bdo-P" value="Pass">
+  <label for="req-1-unicode-bdo-P">Passes</label></li>
+    <li><input type="radio" name="req-1-unicode-bdo" id="req-1-unicode-bdo-NA" value="NA">
+  <label for="req-1-unicode-bdo-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-unicode-bdo" id="req-1-unicode-bdo-INC" value="Incomplete">
+  <label for="req-1-unicode-bdo-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-unicode-bdo" id="req-1-unicode-bdo-F" value="Fail">
+  <label for="req-1-unicode-bdo-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+    <p id="summ-req-1-check-return">
+    <a href="index.html#req-1-check-return"><b>[S] Check External Calls Return</b></a><b><a href="#summ-req-1-check-return" class="selflink"> 🔗 </a></b><br>
+    <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that makes external calls using the <a href="index.html#dfn-low-level-call-functions" class="internalDFN" data-link-type="dfn">Low-level Call Functions</a> (i.e. <code>call()</code>,
+    <code>delegatecall()</code>, <code>staticcall()</code>, and <code>send()</code>)
+    <em class="rfc2119" title="MUST">MUST</em> check the returned value from each usage to determine whether the call failed,
+    <br><b>unless</b> it meets the <a>Overriding Requirement</a>
+    <a href="#summ-req-2-handle-return"><b>[M] Handle External Call Returns</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-check-return" id="req-1-check-return-NT" value="NT" checked>
+  <label for="req-1-check-return-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-check-return" id="req-1-check-return-P" value="Pass">
+  <label for="req-1-check-return-P">Passes</label></li>
+    <li><input type="radio" name="req-1-check-return" id="req-1-check-return-NA" value="NA">
+  <label for="req-1-check-return-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-check-return" id="req-1-check-return-INC" value="Incomplete">
+  <label for="req-1-check-return-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-check-return" id="req-1-check-return-F" value="Fail">
+  <label for="req-1-check-return-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-use-c-e-i"><a href="index.html#req-1-use-c-e-i"><b>[S] Use Check-Effects-Interaction</b></a><b><a href="#summ-req-1-use-c-e-i" class="selflink"> 🔗 </a></b><br>
+
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that makes external calls <em class="rfc2119" title="MUST">MUST</em> use the
+  <a href="index.html#dfn-checks-effects-interactions" class="internalDFN" data-link-type="dfn">Checks-Effects-Interactions</a>
+  pattern to protect against <a href="index.html#dfn-re-entrancy-attacks" class="internalDFN" data-link-type="dfn">Re-entrancy Attacks</a>
+<br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-2-external-calls"><b>[M] Protect External Calls</b></a>, <b>and</b></li>
+<li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a></li>
+</ul>
+<p><b>or</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-3-external-calls"><b>[Q] Verify External Calls</b></a>,</li>
+<li><a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>,</li>
+<li><a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>, <b>and</b></li>
+<li><a href="#summ-req-3-implement-as-documented"><b>[Q] Implement as Documented</b></a>.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-use-c-e-i" id="req-1-use-c-e-i-NT" value="NT" checked>
+  <label for="req-1-use-c-e-i-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-use-c-e-i" id="req-1-use-c-e-i-P" value="Pass">
+  <label for="req-1-use-c-e-i-P">Passes</label></li>
+    <li><input type="radio" name="req-1-use-c-e-i" id="req-1-use-c-e-i-NA" value="NA">
+  <label for="req-1-use-c-e-i-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-use-c-e-i" id="req-1-use-c-e-i-INC" value="Incomplete">
+  <label for="req-1-use-c-e-i-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-use-c-e-i" id="req-1-use-c-e-i-F" value="Fail">
+  <label for="req-1-use-c-e-i-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-delegatecall">
+  <p><a href="index.html#req-1-delegatecall"><b>[S] No <code>delegatecall()</code></b></a><b><a href="#summ-req-1-delegatecall" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain the <code>delegatecall()</code> instruction
+  <br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a>:</p>
+  <ul>
+    <li><a href="#summ-req-2-external-calls"><b>[M] Protect External Calls</b></a>, <b>and</b></li>
+    <li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>.</li>
+  </ul>
+  <p><b>or</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a>:</p>
+<ul>
+<li><a href="#summ-req-3-external-calls"><b>[Q] Verify External Calls</b></a>,</li>
+<li><a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>,</li>
+<li><a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>, <b>and</b></li>
+<li><a href="#summ-req-3-implement-as-documented"><b>[Q] Implement as Documented</b></a>.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-delegatecall" id="req-1-delegatecall-NT" value="NT" checked>
+  <label for="req-1-delegatecall-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-delegatecall" id="req-1-delegatecall-P" value="Pass">
+  <label for="req-1-delegatecall-P">Passes</label></li>
+    <li><input type="radio" name="req-1-delegatecall" id="req-1-delegatecall-NA" value="NA">
+  <label for="req-1-delegatecall-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-delegatecall" id="req-1-delegatecall-INC" value="Incomplete">
+  <label for="req-1-delegatecall-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-delegatecall" id="req-1-delegatecall-F" value="Fail">
+  <label for="req-1-delegatecall-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-overflow-underflow"><a href="index.html#req-1-overflow-underflow"><b>[S] No Overflow/Underflow</b></a><b><a href="#summ-req-1-overflow-underflow" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.8.0
+  <br><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-2-overflow-underflow"><b>[M] Safe Overflow/Underflow</b></a>, <b>and</b></li>
+<li><a href="#summ-req-2-documented"><b>[M] Document Special Code Use</b></a>.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-overflow-underflow" id="req-1-overflow-underflow-NT" value="NT" checked>
+  <label for="req-1-overflow-underflow-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-overflow-underflow" id="req-1-overflow-underflow-P" value="Pass">
+  <label for="req-1-overflow-underflow-P">Passes</label></li>
+    <li><input type="radio" name="req-1-overflow-underflow" id="req-1-overflow-underflow-NA" value="NA">
+  <label for="req-1-overflow-underflow-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-overflow-underflow" id="req-1-overflow-underflow-INC" value="Incomplete">
+  <label for="req-1-overflow-underflow-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-overflow-underflow" id="req-1-overflow-underflow-F" value="Fail">
+  <label for="req-1-overflow-underflow-F">Fails</label></li>
+  </ul>
+</td>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2023-3">
+<a href="index.html#req-1-compiler-SOL-2023-3"><b>[S] Compiler Bug SOL-2023-3</b><b><a href="#summ-req-1-compiler-SOL-2023-3" class="selflink"> 🔗 </a></b><br>
+<a>Tested code</a> that includes Yul code and uses the `verbatim` instruction twice, in each case surrounded identical code,
+MUST disable the Block Deduplicator when using a Solidity compiler version between 0.8.5 and 0.8.22 (inclusive).
+</p>
+</td>
+<td>
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2023-3" id="req-1-compiler-SOL-2023-3-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2023-3-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2023-3" id="req-1-compiler-SOL-2023-3-P" value="Pass">
+  <label for="req-1-compiler-SOL-2023-3-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2023-3" id="req-1-compiler-SOL-2023-3-NA" value="NA">
+  <label for="req-1-compiler-SOL-2023-3-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2023-3" id="req-1-compiler-SOL-2023-3-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2023-3-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2023-3" id="req-1-compiler-SOL-2023-3-F" value="Fail">
+  <label for="req-1-compiler-SOL-2023-3-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2022-6">
+<a href="index.html#req-1-compiler-SOL-2022-6"><b>[S] Compiler Bug SOL-2022-6</b></a><b><a href="#summ-req-1-compiler-SOL-2022-6" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that ABI-encodes a tuple (including a <code>struct</code>, <code>return</code> value, or paramater list)
+with the ABIEncoderV2, that includes a dynamic component and whose last element is a
+<code>calldata</code> static array of base type <code>uint</code> or <code>bytes32</code>
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version between 0.5.8 and 0.8.15 (inclusive).
+</p>
+</td>
+<td>
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-6" id="req-1-compiler-SOL-2022-6-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2022-6-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-6" id="req-1-compiler-SOL-2022-6-P" value="Pass">
+  <label for="req-1-compiler-SOL-2022-6-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-6" id="req-1-compiler-SOL-2022-6-NA" value="NA">
+  <label for="req-1-compiler-SOL-2022-6-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-6" id="req-1-compiler-SOL-2022-6-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2022-6-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-6" id="req-1-compiler-SOL-2022-6-F" value="Fail">
+  <label for="req-1-compiler-SOL-2022-6-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2022-5-push">
+<a href="index.html#req-1-compiler-SOL-2022-5-push"><b>[S] Compiler Bug SOL-2022-5 with <code>.push()</code></b></a><b><a href="#summ-req-1-compiler-SOL-2022-5-push" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that copies <code>bytes</code> arrays from <code>calldata</code> or
+<code>memory</code> whose size is not a multiple of 32 bytes, and has an empty <code>.push()</code>
+instruction that writes to the resulting array,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.8.15.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-5-push" id="req-1-compiler-SOL-2022-5-push-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2022-5-push-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-5-push" id="req-1-compiler-SOL-2022-5-push-P" value="Pass">
+  <label for="req-1-compiler-SOL-2022-5-push-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-5-push" id="req-1-compiler-SOL-2022-5-push-NA" value="NA">
+  <label for="req-1-compiler-SOL-2022-5-push-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-5-push" id="req-1-compiler-SOL-2022-5-push-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2022-5-push-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-5-push" id="req-1-compiler-SOL-2022-5-push-F" value="Fail">
+  <label for="req-1-compiler-SOL-2022-5-push-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-SOL-2022-3"><a href="index.html#req-1-compiler-SOL-2022-3"><b>[S] Compiler Bug SOL-2022-3</b></a><b><a href="#summ-req-1-compiler-SOL-2022-3" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that</p>
+<ul>
+<li>uses <code>memory</code> and <code>calldata</code> pointers for the same function, <b>and</b></li>
+<li>changes the data location of a function during inheritance, <b>and</b></li>
+<li>performs an internal call at a location that is only aware of the original function
+signature from the base contract</li>
+</ul>
+<p><em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version between 0.6.9 and 0.8.13 (inclusive).</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-3" id="req-1-compiler-SOL-2022-3-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2022-3-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-3" id="req-1-compiler-SOL-2022-3-P" value="Pass">
+  <label for="req-1-compiler-SOL-2022-3-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-3" id="req-1-compiler-SOL-2022-3-NA" value="NA">
+  <label for="req-1-compiler-SOL-2022-3-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-3" id="req-1-compiler-SOL-2022-3-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2022-3-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-3" id="req-1-compiler-SOL-2022-3-F" value="Fail">
+  <label for="req-1-compiler-SOL-2022-3-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-SOL-2022-2"><a href="index.html#req-1-compiler-SOL-2022-2"><b>[S] Compiler Bug SOL-2022-2</b></a><b><a href="#summ-req-1-compiler-SOL-2022-2" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> with a nested array that</p>
+<ul>
+<li>passes it to an external function, <b>or</b></li>
+<li>passes it as input to <code>abi.encode()</code>, <b>or</b></li>
+<li>uses it in an event</li>
+</ul>
+<p><em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version between 0.6.9 and 0.8.13 (inclusive).</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-2" id="req-1-compiler-SOL-2022-2-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2022-2-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-2" id="req-1-compiler-SOL-2022-2-P" value="Pass">
+  <label for="req-1-compiler-SOL-2022-2-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-2" id="req-1-compiler-SOL-2022-2-NA" value="NA">
+  <label for="req-1-compiler-SOL-2022-2-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-2" id="req-1-compiler-SOL-2022-2-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2022-2-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-2" id="req-1-compiler-SOL-2022-2-F" value="Fail">
+  <label for="req-1-compiler-SOL-2022-2-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-SOL-2022-1"><a href="index.html#req-1-compiler-SOL-2022-1"><b>[S] Compiler Bug SOL-2022-1</b></a><b><a href="#summ-req-1-compiler-SOL-2022-1" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that</p>
+<ul>
+<li>uses Number literals for a <a href="index.html#dfn-bytesnn" class="internalDFN" data-link-type="dfn"><code>bytesNN</code></a> type shorter than 32 bytes, <b>or</b></li>
+<li>uses String literals for any <a href="index.html#dfn-bytesnn" class="internalDFN" data-link-type="dfn"><code>bytesNN</code></a> type,</li>
+</ul>
+<p><b>and</b> passes such literals to <code>abi.encodeCall()</code> as the first parameter,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use Solidity compiler version 0.8.11 nor 0.8.12.
+</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-1" id="req-1-compiler-SOL-2022-1-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2022-1-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-1" id="req-1-compiler-SOL-2022-1-P" value="Pass">
+  <label for="req-1-compiler-SOL-2022-1-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-1" id="req-1-compiler-SOL-2022-1-NA" value="NA">
+  <label for="req-1-compiler-SOL-2022-1-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-1" id="req-1-compiler-SOL-2022-1-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2022-1-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2022-1" id="req-1-compiler-SOL-2022-1-F" value="Fail">
+  <label for="req-1-compiler-SOL-2022-1-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-sol-2021-4">
+<a href="index.html#req-1-compiler-sol-2021-4"><b>[S] Compiler Bug SOL-2021-4</b></a><b><a href="#summ-req-1-compiler-sol-2021-4" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that uses custom value types shorter than 32 bytes <em class="rfc2119" title="MUST NOT">MUST NOT</em> use Solidity compiler version 0.8.8.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-4" id="req-1-compiler-SOL-2021-4-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2021-4-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-4" id="req-1-compiler-SOL-2021-4-P" value="Pass">
+  <label for="req-1-compiler-SOL-2021-4-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-4" id="req-1-compiler-SOL-2021-4-NA" value="NA">
+  <label for="req-1-compiler-SOL-2021-4-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-4" id="req-1-compiler-SOL-2021-4-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2021-4-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-4" id="req-1-compiler-SOL-2021-4-F" value="Fail">
+  <label for="req-1-compiler-SOL-2021-4-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2021-2">
+<a href="index.html#req-1-compiler-SOL-2021-2"><b>[S] Compiler Bug SOL-2021-2</b></a><b><a href="#summ-req-1-compiler-SOL-2021-2" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that uses <code>abi.decode()</code> on byte arrays as <code>memory</code>,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use the ABIEncoderV2 with a Solidity compiler version between 0.4.16 and 0.8.3
+(inclusive).
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-2" id="req-1-compiler-SOL-2021-2-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2021-2-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-2" id="req-1-compiler-SOL-2021-2-P" value="Pass">
+  <label for="req-1-compiler-SOL-2021-2-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-2" id="req-1-compiler-SOL-2021-2-NA" value="NA">
+  <label for="req-1-compiler-SOL-2021-2-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-2" id="req-1-compiler-SOL-2021-2-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2021-2-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-2" id="req-1-compiler-SOL-2021-2-F" value="Fail">
+  <label for="req-1-compiler-SOL-2021-2-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-SOL-2021-1"><a href="index.html#req-1-compiler-SOL-2021-1"><b>[S] Compiler Bug SOL-2021-1</b></a><b><a href="#summ-req-1-compiler-SOL-2021-1" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that has 2 or more occurrences of an instruction
+<code>keccak(<var>mem</var>,<var>length</var>)</code> where</p>
+<ul>
+<li>the values of <var>mem</var> are equal, <b>and</b></li>
+<li>the values of <var>length</var> are unequal, <b>and</b></li>
+<li>the values of <var>length</var> are not multiples of 32,</li>
+</ul>
+<p><em class="rfc2119" title="MUST NOT">MUST NOT</em> use the Optimizer with a Solidity compiler version older than 0.8.3.
+</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-1" id="req-1-compiler-SOL-2021-1-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2021-1-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-1" id="req-1-compiler-SOL-2021-1-P" value="Pass">
+  <label for="req-1-compiler-SOL-2021-1-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-1" id="req-1-compiler-SOL-2021-1-NA" value="NA">
+  <label for="req-1-compiler-SOL-2021-1-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-1" id="req-1-compiler-SOL-2021-1-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2021-1-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2021-1" id="req-1-compiler-SOL-2021-1-F" value="Fail">
+  <label for="req-1-compiler-SOL-2021-1-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-11-push">
+<a href="#security-levels-spec.htmlreq-1-compiler-SOL-2020-11-push"><b>[S] Compiler Bug SOL-2020-11-push</b></a><b><a href="#summ-req-1-compiler-SOL-2020-11-push" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that copies an empty byte array to storage, and subsequently increases
+the size of the array using <code>push()</code> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version
+older than 0.7.4.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-11-push" id="req-1-compiler-SOL-2020-11-push-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-11-push-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-11-push" id="req-1-compiler-SOL-2020-11-push-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-11-push-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-11-push" id="req-1-compiler-SOL-2020-11-push-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-11-push-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-11-push" id="req-1-compiler-SOL-2020-11-push-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-11-push-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-11-push" id="req-1-compiler-SOL-2020-11-push-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-11-push-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-10">
+<a href="#security-levels-spec.htmlreq-1-compiler-SOL-2020-10"><b>[S] Compiler Bug SOL-2020-10</b></a><b><a href="#summ-req-1-compiler-SOL-2020-10" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that copies an array of types shorter than 16 bytes to a longer array
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.7.3.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-10" id="req-1-compiler-SOL-2020-10-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-10-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-10" id="req-1-compiler-SOL-2020-10-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-10-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-10" id="req-1-compiler-SOL-2020-10-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-10-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-10" id="req-1-compiler-SOL-2020-10-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-10-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-10" id="req-1-compiler-SOL-2020-10-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-10-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-9">
+<a href="#security-levels-spec.htmlreq-1-compiler-SOL-2020-9"><b>[S] Compiler Bug SOL-2020-9</b></a><b><a href="#summ-req-1-compiler-SOL-2020-9" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that defines <a href="index.html#dfn-free-functions" class="internalDFN" data-link-type="dfn">Free Functions</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use Solidity compiler version 0.7.1.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-9" id="req-1-compiler-SOL-2020-9-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-9-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-9" id="req-1-compiler-SOL-2020-9-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-9-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-9" id="req-1-compiler-SOL-2020-9-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-9-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-9" id="req-1-compiler-SOL-2020-9-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-9-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-9" id="req-1-compiler-SOL-2020-9-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-9-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-8">
+<a href="index.html#req-1-compiler-SOL-2020-8"><b>[S] Compiler Bug SOL-2020-8</b></a><b><a href="#summ-req-1-compiler-SOL-2020-8" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that calls internal library functions with <code>calldata</code> parameters
+called via <code>using for</code> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use Solidity compiler version 0.6.9.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-8" id="req-1-compiler-SOL-2020-8-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-8-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-8" id="req-1-compiler-SOL-2020-8-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-8-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-8" id="req-1-compiler-SOL-2020-8-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-8-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-8" id="req-1-compiler-SOL-2020-8-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-8-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-8" id="req-1-compiler-SOL-2020-8-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-8-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-6">
+<a href="index.html#req-1-compiler-SOL-2020-6"><b>[S] Compiler Bug SOL-2020-6</b></a><b><a href="#summ-req-1-compiler-SOL-2020-6" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that accesses an array slice using an expression for the starting index
+that can evaluate to a value other than zero
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use the ABIEncoderV2 with a Solidity compiler version between 0.6.0 and 0.6.7 (inclusive).
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-6" id="req-1-compiler-SOL-2020-6-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-6-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-6" id="req-1-compiler-SOL-2020-6-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-6-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-6" id="req-1-compiler-SOL-2020-6-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-6-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-6" id="req-1-compiler-SOL-2020-6-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-6-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-6" id="req-1-compiler-SOL-2020-6-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-6-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-7">
+<a href="index.html#req-1-compiler-SOL-2020-7"><b>[S] Compiler Bug SOL-2020-7</b></a><b><a href="#summ-req-1-compiler-SOL-2020-7" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that passes a string literal containing two consecutive backslash ("\")
+characters to an encoding function or an external call
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use the ABIEncoderV2 with a Solidity compiler version between 0.5.14 and 0.6.7 (inclusive).
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-7" id="req-1-compiler-SOL-2020-7-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-7-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-7" id="req-1-compiler-SOL-2020-7-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-7-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-7" id="req-1-compiler-SOL-2020-7-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-7-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-7" id="req-1-compiler-SOL-2020-7-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-7-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-7" id="req-1-compiler-SOL-2020-7-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-7-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-5">
+<a href="index.html#req-1-compiler-SOL-2020-5"><b>[S] Compiler Bug SOL-2020-5</b></a><b><a href="#summ-req-1-compiler-SOL-2020-5" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that defines a contract that does not include a constructor, but
+has a base contract that defines a constructor not defined as <code>payable</code>
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version between 0.4.5 and 0.6.7 (inclusive),
+<b>unless</b> it meets the <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a>
+<a href="#summ-req-2-compiler-check-payable-constructor"><b>[M] Check Constructor Payment</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-5" id="req-1-compiler-SOL-2020-5-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-5-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-5" id="req-1-compiler-SOL-2020-5-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-5-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-5" id="req-1-compiler-SOL-2020-5-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-5-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-5" id="req-1-compiler-SOL-2020-5-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-5-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-5" id="req-1-compiler-SOL-2020-5-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-5-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-SOL-2020-4"><a href="index.html#req-1-compiler-SOL-2020-4"><b>[S] Compiler Bug SOL-2020-4</b></a><b><a href="#summ-req-1-compiler-SOL-2020-4" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that makes assignments to tuples that</p>
+<ul>
+<li>have nested tuples, <b>or</b></li>
+<li>include a pointer to an external function, <b>or</b></li>
+<li>reference a dynamically sized <code>calldata</code> array</li>
+</ul>
+<p><em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.6.4.</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-4" id="req-1-compiler-SOL-2020-4-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-4-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-4" id="req-1-compiler-SOL-2020-4-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-4-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-4" id="req-1-compiler-SOL-2020-4-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-4-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-4" id="req-1-compiler-SOL-2020-4-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-4-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-4" id="req-1-compiler-SOL-2020-4-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-4-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-3">
+<a href="#summ-req-1-compiler-SOL-2020-3"><b>[S] Compiler Bug SOL-2020-3</b></a><b><a href="#summ-req-1-compiler-SOL-2020-3" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that declares arrays of size larger than 2^256-1 <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.6.5.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-3" id="req-1-compiler-SOL-2020-3-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-3-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-3" id="req-1-compiler-SOL-2020-3-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-3-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-3" id="req-1-compiler-SOL-2020-3-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-3-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-3" id="req-1-compiler-SOL-2020-3-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-3-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-3" id="req-1-compiler-SOL-2020-3-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-3-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-compiler-SOL-2020-1">
+<a href="index.html#req-1-compiler-SOL-2020-1"><b>[S] Compiler Bug SOL-2020-1</b></a><b><a href="#summ-req-1-compiler-SOL-2020-1" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that declares variables inside a <code>for</code> loop that contains a <code>break</code>
+or <code>continue</code> statement <em class="rfc2119" title="MUST NOT">MUST NOT</em> use the Yul Optimizer with Solidity compiler version 0.6.0
+nor a Solidity compiler version between 0.5.8 and 0.5.15 (inclusive).
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-1" id="req-1-compiler-SOL-2020-1-NT" value="NT" checked>
+  <label for="req-1-compiler-SOL-2020-1-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-1" id="req-1-compiler-SOL-2020-1-P" value="Pass">
+  <label for="req-1-compiler-SOL-2020-1-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-1" id="req-1-compiler-SOL-2020-1-NA" value="NA">
+  <label for="req-1-compiler-SOL-2020-1-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-1" id="req-1-compiler-SOL-2020-1-INC" value="Incomplete">
+  <label for="req-1-compiler-SOL-2020-1-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-SOL-2020-1" id="req-1-compiler-SOL-2020-1-F" value="Fail">
+  <label for="req-1-compiler-SOL-2020-1-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-1-compiler-060"><a href="index.html#req-1-compiler-060"><b>[S] Use a Modern Compiler</b></a><b><a href="#summ-req-1-compiler-060" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.6.0,
+<b>unless</b> it meets all the following requirements from the
+<a href="https://entethalliance.org/specs/ethtrust-sl/v1/">EEA EthTrust Security Levels Specification Version 1</a>,
+as if they were <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirements</a>:</p>
+<ul>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2020-11-length"><b>[S]
+Compiler Bug SOL-2020-11-length</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-10"><b>[S]
+Compiler Bug SOL-2019-10</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-3679"><b>[S]
+Compiler Bugs SOL-2019-3,6,7,9</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-8"><b>[S]
+Compiler Bug SOL-2019-8</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-5"><b>[S]
+Compiler Bug SOL-2019-5</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-4">
+<b>[S] Compiler Bug SOL-2019-4</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-2">
+<b>[S] Compiler Bug SOL-2019-2</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2019-1">
+<b>[S] Compiler Bug SOL-2019-1</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-explicit-storage">
+  <b>[S] Explicit Storage</b></a> (including through its overriding requirement
+  <a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-explicit-storage">
+  <b>[M] Declare <code>storage</code> Explicitly</b></a> if appropriate)</li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2018-4">
+<b>[S] Compiler Bug SOL-2018-4</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2018-3">
+<b>[S] Compiler Bug SOL-2018-3</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2018-2">
+<b>[S] Compiler Bug SOL-2018-2</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2018-1">
+<b>[S] Compiler Bug SOL-2018-1</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2017-5">
+<b>[S] Compiler Bug SOL-2017-5</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2017-4">
+<b>[S] Compiler Bug SOL-2017-4</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2017-3">
+<b>[S] Compiler Bug SOL-2017-3</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2017-2">
+<b>[S] Compiler Bug SOL-2017-2</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2017-1">
+<b>[S] Compiler Bug SOL-2017-1</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-11">
+<b>[S] Compiler Bug SOL-2016-11</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-10">
+<b>[S] Compiler Bug SOL-2016-10</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-9">
+<b>[S] Compiler Bug SOL-2016-9</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-8">
+<b>[S] Compiler Bug SOL-2016-8</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-7">
+<b>[S] Compiler Bug SOL-2016-7</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-6">
+<b>[S] Compiler Bug SOL-2016-6</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-5">
+<b>[S] Compiler Bug SOL-2016-5</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-4">
+<b>[S] Compiler Bug SOL-2016-4</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-1-compiler-SOL-2016-3">
+<b>[S] Compiler Bug SOL-2016-3</b></a></li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-compiler-060" id="req-1-compiler-060-NT" value="NT" checked>
+  <label for="req-1-compiler-060-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-compiler-060" id="req-1-compiler-060-P" value="Pass">
+  <label for="req-1-compiler-060-P">Passes</label></li>
+    <li><input type="radio" name="req-1-compiler-060" id="req-1-compiler-060-NA" value="NA">
+  <label for="req-1-compiler-060-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-compiler-060" id="req-1-compiler-060-INC" value="Incomplete">
+  <label for="req-1-compiler-060-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-compiler-060" id="req-1-compiler-060-F" value="Fail">
+  <label for="req-1-compiler-060-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-1-no-ancient-compilers">
+<a href="index.html#req-1-no-ancient-compilers"><b>[S] No Ancient Compilers</b></a><b><a href="#summ-req-1-no-ancient-compilers" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.3.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-1-no-ancient-compilers" id="req-1-no-ancient-compilers-NT" value="NT" checked>
+  <label for="req-1-no-ancient-compilers-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-1-no-ancient-compilers" id="req-1-no-ancient-compilers-P" value="Pass">
+  <label for="req-1-no-ancient-compilers-P">Passes</label></li>
+    <li><input type="radio" name="req-1-no-ancient-compilers" id="req-1-no-ancient-compilers-NA" value="NA">
+  <label for="req-1-no-ancient-compilers-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-1-no-ancient-compilers" id="req-1-no-ancient-compilers-INC" value="Incomplete">
+  <label for="req-1-no-ancient-compilers-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-1-no-ancient-compilers" id="req-1-no-ancient-compilers-F" value="Fail">
+  <label for="req-1-no-ancient-compilers-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-pass-l1">
+<a href="index.html#req-2-pass-l1"><b>[M] Pass Security Level [S]</b></a><b><a href="#summ-req-2-pass-l1" class="selflink"> 🔗 </a></b><br>
+  To be eligible for <a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust certification</a> at <a href="index.html#dfn-security-level-m" class="internalDFN" data-link-type="dfn">Security Level [M]</a>,
+  <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> meet the requirements for <a href="#sec-levels-one" class="sec-ref">§&nbsp;<bdi class="secno">4.1 </bdi>Security Level [S]</a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-pass-l1" id="req-2-pass-l1-NT" value="NT" checked>
+  <label for="req-2-pass-l1-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-pass-l1" id="req-2-pass-l1-P" value="Pass">
+  <label for="req-2-pass-l1-P">Passes</label></li>
+    <li><input type="radio" name="req-2-pass-l1" id="req-2-pass-l1-NA" value="NA">
+  <label for="req-2-pass-l1-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-pass-l1" id="req-2-pass-l1-INC" value="Incomplete">
+  <label for="req-2-pass-l1-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-pass-l1" id="req-2-pass-l1-F" value="Fail">
+  <label for="req-2-pass-l1-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-enforce-eval-order">
+<a href="index.html#req-2-enforce-eval-order"><b>[M] Explicitly Disambiguate Evaluation Order</b></a><b><a href="#summ-req-2-enforce-eval-order" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain statements where variable evaluation order
+can result in different outcomes</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-enforce-eval-order" id="req-2-enforce-eval-order-NT" value="NT" checked>
+  <label for="req-2-enforce-eval-order-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-enforce-eval-order" id="req-2-enforce-eval-order-P" value="Pass">
+  <label for="req-2-enforce-eval-order-P">Passes</label></li>
+    <li><input type="radio" name="req-2-enforce-eval-order" id="req-2-enforce-eval-order-NA" value="NA">
+  <label for="req-2-enforce-eval-order-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-enforce-eval-order" id="req-2-enforce-eval-order-INC" value="Incomplete">
+  <label for="req-2-enforce-eval-order-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-enforce-eval-order" id="req-2-enforce-eval-order-F" value="Fail">
+  <label for="req-2-enforce-eval-order-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-no-failing-asserts">
+<a href="index.html#req-2-no-failing-asserts"><b>[M] No Failing <code>assert()</code> Statements</b></a><b><a href="#summ-req-2-no-failing-asserts" class="selflink"> 🔗 </a></b><br>
+<code>assert()</code> statements in <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> fail.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-no-failing-asserts" id="req-2-no-failing-asserts-NT" value="NT" checked>
+  <label for="req-2-no-failing-asserts-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-no-failing-asserts" id="req-2-no-failing-asserts-P" value="Pass">
+  <label for="req-2-no-failing-asserts-P">Passes</label></li>
+    <li><input type="radio" name="req-2-no-failing-asserts" id="req-2-no-failing-asserts-NA" value="NA">
+  <label for="req-2-no-failing-asserts-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-no-failing-asserts" id="req-2-no-failing-asserts-INC" value="Incomplete">
+  <label for="req-2-no-failing-asserts-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-no-failing-asserts" id="req-2-no-failing-asserts-F" value="Fail">
+  <label for="req-2-no-failing-asserts-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-verify-exact-balance-check">
+<a href="index.html#req-2-verify-exact-balance-check"><b>[M] Verify Exact Balance Checks</b><b><a href="#summ-req-2-verify-exact-balance-check" class="selflink"> 🔗 </a></b><br>
+<a>Tested code</a> that checks whether the balance of an account is exactly equal to
+(i.e. <code>==</code>) a specified amount or the value of a variable.
+MUST protect itself against transfers affecting the balance tested.
+<br>This is an <a>Overriding Requirement</a> for
+<a href="#summ-req-1-exact-balance-check"><b>[S] No Exact Balance Check</b></a>.</p>
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-verify-exact-balance-check" id="req-2-verify-exact-balance-check-NT" value="NT" checked>
+  <label for="req-2-verify-exact-balance-check-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-verify-exact-balance-check" id="req-2-verify-exact-balance-check-P" value="Pass">
+  <label for="req-2-verify-exact-balance-check-P">Passes</label></li>
+    <li><input type="radio" name="req-2-verify-exact-balance-check" id="req-2-verify-exact-balance-check-NA" value="NA">
+  <label for="req-2-verify-exact-balance-check-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-verify-exact-balance-check" id="req-2-verify-exact-balance-check-INC" value="Incomplete">
+  <label for="req-2-verify-exact-balance-check-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-verify-exact-balance-check" id="req-2-verify-exact-balance-check-F" value="Fail">
+  <label for="req-2-verify-exact-balance-check-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+
+<tr>
+  <td>
+<p id="summ-req-2-unicode-bdo">
+<a href="index.html#req-2-unicode-bdo"><b>[M] No Unnecessary Unicode Controls</b></a><b><a href="#summ-req-2-unicode-bdo" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use <a href="index.html#dfn-unicode-direction-control-characters" class="internalDFN" data-link-type="dfn">Unicode direction control characters</a>
+<b>unless</b> they are necessary to render text appropriately,
+and the resulting text does not mislead readers.
+<br>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+    <a href="#summ-req-1-unicode-bdo"><b>[S] No Unicode Direction Control Characters</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-unicode-bdo" id="req-2-unicode-bdo-NT" value="NT" checked>
+  <label for="req-2-unicode-bdo-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-unicode-bdo" id="req-2-unicode-bdo-P" value="Pass">
+  <label for="req-2-unicode-bdo-P">Passes</label></li>
+    <li><input type="radio" name="req-2-unicode-bdo" id="req-2-unicode-bdo-NA" value="NA">
+  <label for="req-2-unicode-bdo-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-unicode-bdo" id="req-2-unicode-bdo-INC" value="Incomplete">
+  <label for="req-2-unicode-bdo-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-unicode-bdo" id="req-2-unicode-bdo-F" value="Fail">
+  <label for="req-2-unicode-bdo-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-no-homoglyph-attack">
+<a href="index.html#req-2-no-homoglyph-attack"><b>[M] No Homoglyph-style Attack</b></a><b><a href="#summ-req-2-no-homoglyph-attack" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> not use homoglyphs, Unicode control characters, combining characters, or characters from multiple
+Unicode blocks if the impact is misleading.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-no-homoglyph-attack" id="req-2-no-homoglyph-attack-NT" value="NT" checked>
+  <label for="req-2-no-homoglyph-attack-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-no-homoglyph-attack" id="req-2-no-homoglyph-attack-P" value="Pass">
+  <label for="req-2-no-homoglyph-attack-P">Passes</label></li>
+    <li><input type="radio" name="req-2-no-homoglyph-attack" id="req-2-no-homoglyph-attack-NA" value="NA">
+  <label for="req-2-no-homoglyph-attack-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-no-homoglyph-attack" id="req-2-no-homoglyph-attack-INC" value="Incomplete">
+  <label for="req-2-no-homoglyph-attack-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-no-homoglyph-attack" id="req-2-no-homoglyph-attack-F" value="Fail">
+  <label for="req-2-no-homoglyph-attack-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-external-calls"><a href="index.html#req-2-external-calls"><b>[M] Protect External Calls</b></a><b><a href="#summ-req-2-external-calls" class="selflink"> 🔗 </a></b><br>
+  For <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that makes external calls:</p>
+<ul>
+<li>all addresses called by the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a>, <em class="rfc2119" title="MUST">MUST</em> correspond to the exact code of the contracts tested <b>and</b></li>
+<li>all contracts called <em class="rfc2119" title="MUST">MUST</em> be within the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a>, <b>and</b></li>
+<li>all contracts called <em class="rfc2119" title="MUST">MUST</em> be controlled by the same entity, <b>and</b></li>
+<li>the protection against <a href="index.html#dfn-re-entrancy-attacks" class="internalDFN" data-link-type="dfn">Re-entrancy Attacks</a> for the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+      <em class="rfc2119" title="MUST">MUST</em> be equivalent to what the <a href="index.html#dfn-checks-effects-interactions" class="internalDFN" data-link-type="dfn">Checks-Effects-Interactions</a> pattern offers,</li></ul>
+<p><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-3-external-calls"><b>[Q] Verify External Calls</b></a>,</li>
+<li><a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>,</li>
+<li><a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>, <b>and</b></li>
+<li><a href="#summ-req-3-implement-as-documented"><b>[Q] Implement as Documented</b></a>.</li>
+</ul>
+<p>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+  <a href="#summ-req-1-use-c-e-i"><b>[S] Use Check-Effects-Interaction</b></a>.
+  </p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-external-calls" id="req-2-external-calls-NT" value="NT" checked>
+  <label for="req-2-external-calls-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-external-calls" id="req-2-external-calls-P" value="Pass">
+  <label for="req-2-external-calls-P">Passes</label></li>
+    <li><input type="radio" name="req-2-external-calls" id="req-2-external-calls-NA" value="NA">
+  <label for="req-2-external-calls-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-external-calls" id="req-2-external-calls-INC" value="Incomplete">
+  <label for="req-2-external-calls-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-external-calls" id="req-2-external-calls-F" value="Fail">
+  <label for="req-2-external-calls-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-avoid-readonly-reentrancy">
+<a href="index.html#req-2-avoid-readonly-reentrancy"><b>[M] Avoid Read-only Re-entrancy Attacks</b></a><b><a href="#summ-req-2-avoid-readonly-reentrancy" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that makes external calls <em class="rfc2119" title="MUST">MUST</em> protect itself against <a href="index.html#dfn-read-only-re-entrancy-attack" class="internalDFN" data-link-type="dfn">Read-only Re-entrancy Attacks</a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-avoid-readonly-reentrancy" id="req-2-avoid-readonly-reentrancy-NT" value="NT" checked>
+  <label for="req-2-avoid-readonly-reentrancy-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-avoid-readonly-reentrancy" id="req-2-avoid-readonly-reentrancy-P" value="Pass">
+  <label for="req-2-avoid-readonly-reentrancy-P">Passes</label></li>
+    <li><input type="radio" name="req-2-avoid-readonly-reentrancy" id="req-2-avoid-readonly-reentrancy-NA" value="NA">
+  <label for="req-2-avoid-readonly-reentrancy-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-avoid-readonly-reentrancy" id="req-2-avoid-readonly-reentrancy-INC" value="Incomplete">
+  <label for="req-2-avoid-readonly-reentrancy-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-avoid-readonly-reentrancy" id="req-2-avoid-readonly-reentrancy-F" value="Fail">
+  <label for="req-2-avoid-readonly-reentrancy-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-handle-return">
+<a href="index.html#req-2-handle-return"><b>[M] Handle External Call Returns</b></a><b><a href="#summ-req-2-handle-return" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that makes external calls <em class="rfc2119" title="MUST">MUST</em> reasonably handle possible errors.
+<br>This is an <a>Overriding Requirement</a> for
+<a href="#summ-req-1-check-return"><b>[S] Check External Calls Return</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-handle-return" id="req-2-handle-return-NT" value="NT" checked>
+  <label for="req-2-handle-return-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-handle-return" id="req-2-handle-return-P" value="Pass">
+  <label for="req-2-handle-return-P">Passes</label></li>
+    <li><input type="radio" name="req-2-handle-return" id="req-2-handle-return-NA" value="NA">
+  <label for="req-2-handle-return-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-handle-return" id="req-2-handle-return-INC" value="Incomplete">
+  <label for="req-2-handle-return-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-handle-return" id="req-2-handle-return-F" value="Fail">
+  <label for="req-2-handle-return-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-documented"><a href="index.html#req-2-documented"><b>[M] Document Special Code Use</b></a><b><a href="#summ-req-2-documented" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> document the need for each instance of:</p>
+<ul>
+<li><code>CREATE2</code>,</li>
+<li><code>assembly {}</code>,</li>
+<li><code>selfdestruct()</code> or its deprecated alias <code>suicide()</code>,</li>
+<li>external calls,</li>
+<li><code>delegatecall()</code>,</li>
+<li>code that can cause an overflow or underflow,</li></ul>
+<li>use of <code>block.number</code> or <code>block.timestamp</code>, <b>or</b></li>
+<li>use of oracles and pseudo-randomness, </li>
+<p><b>and</b> <em class="rfc2119" title="MUST">MUST</em> describe how the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> protects against misuse or errors in these cases,
+    <b>and</b> the documentation <em class="rfc2119" title="MUST">MUST</em> be available to anyone who can call the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>.
+</p>
+<p>This is part of several <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Sets of Overriding Requirements</a>, one for each of</p><ul>
+  <li><a href="#summ-req-1-no-create2"><b>[S] No <code>CREATE2</code></b></a>,</li>
+    <li><a href="#summ-req-1-self-destruct"><b>[S] No <code>selfdestruct()</code></b></a>,</li>
+  	<li><a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>,</li>
+    <li><a href="#summ-req-1-use-c-e-i"><b>[S] Use Check-Effects-Interaction</b></a>,</li>
+    <li><a href="#summ-req-1-overflow-underflow"><b>[S] No Overflow/Underflow</b></a>, and</li>
+    <li><a href="#summ-req-1-no-delegatecall"><b>[S] No <code>delegatecall()</code></b></a>.</li>
+</ul></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-documented" id="req-2-documented-NT" value="NT" checked>
+  <label for="req-2-documented-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-documented" id="req-2-documented-P" value="Pass">
+  <label for="req-2-documented-P">Passes</label></li>
+    <li><input type="radio" name="req-2-documented" id="req-2-documented-NA" value="NA">
+  <label for="req-2-documented-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-documented" id="req-2-documented-INC" value="Incomplete">
+  <label for="req-2-documented-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-documented" id="req-2-documented-F" value="Fail">
+  <label for="req-2-documented-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-check-rounding"><a href="index.html#req-2-check-rounding"><b>[M] Ensure Proper Rounding of Computations Affecting Value</b></a><b><a href="#summ-req-2-check-rounding" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> identify and protect against exploiting rounding errors:</p>
+<ul>
+<li>The possible range of error introduced by such rounding <em class="rfc2119" title="MUST">MUST</em> be documented.</li>
+<li><a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> unintentionally create or lose value through rounding.</li>
+<li><a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> apply rounding in a way that does not allow round-trips "creating" value
+to repeat causing unexpectedly large transfers.
+</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-check-rounding" id="req-2-check-rounding-NT" value="NT" checked>
+  <label for="req-2-check-rounding-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-check-rounding" id="req-2-check-rounding-P" value="Pass">
+  <label for="req-2-check-rounding-P">Passes</label></li>
+    <li><input type="radio" name="req-2-check-rounding" id="req-2-check-rounding-NA" value="NA">
+  <label for="req-2-check-rounding-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-check-rounding" id="req-2-check-rounding-INC" value="Incomplete">
+  <label for="req-2-check-rounding-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-check-rounding" id="req-2-check-rounding-F" value="Fail">
+  <label for="req-2-check-rounding-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-self-destruct"><a href="index.html#req-2-self-destruct"><b>[M] Protect Self-destruction</b></a><b><a href="#summ-req-2-self-destruct" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that contains the <code>selfdestruct()</code> or <code>suicide()</code>
+  instructions <em class="rfc2119" title="MUST">MUST</em></p>
+<ul>
+<li>ensure that only authorised parties can call the method, <b>and</b></li>
+<li><em class="rfc2119" title="MUST">MUST</em> protect those calls in a way that is fully compatible with the claims of the contract author.</li>
+</ul>
+<p><b>unless</b> it meets the
+    <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a><a href="#summ-req-3-access-control"><b>[Q] Enforce Least Privilege</b></a></p>
+<p>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+  <a href="#summ-req-1-self-destruct"><b>[S] No <code>selfdestruct()</code></b></a>.
+</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-self-destruct" id="req-2-self-destruct-NT" value="NT" checked>
+  <label for="req-2-self-destruct-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-self-destruct" id="req-2-self-destruct-P" value="Pass">
+  <label for="req-2-self-destruct-P">Passes</label></li>
+    <li><input type="radio" name="req-2-self-destruct" id="req-2-self-destruct-NA" value="NA">
+  <label for="req-2-self-destruct-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-self-destruct" id="req-2-self-destruct-INC" value="Incomplete">
+  <label for="req-2-self-destruct-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-self-destruct" id="req-2-self-destruct-F" value="Fail">
+  <label for="req-2-self-destruct-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-safe-assembly"><a href="index.html#req-2-safe-assembly"><b>[M] Avoid Common <code>assembly {}</code> Attack Vectors</b></a><b><a href="#summ-req-2-safe-assembly" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use the <code>assembly {}</code> instruction to change a variable
+  <b>unless</b> the code cannot:
+</p><ul><li>create storage pointer collisions, <b>nor</b></li>
+<li>allow arbitrary values to be assigned to variables of type <code>function</code>.</li></ul>
+<p>This is part of a <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+      <a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>.</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-safe-assembly" id="req-2-safe-assembly-NT" value="NT" checked>
+  <label for="req-2-safe-assembly-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-safe-assembly" id="req-2-safe-assembly-P" value="Pass">
+  <label for="req-2-safe-assembly-P">Passes</label></li>
+    <li><input type="radio" name="req-2-safe-assembly" id="req-2-safe-assembly-NA" value="NA">
+  <label for="req-2-safe-assembly-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-safe-assembly" id="req-2-safe-assembly-INC" value="Incomplete">
+  <label for="req-2-safe-assembly-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-safe-assembly" id="req-2-safe-assembly-F" value="Fail">
+  <label for="req-2-safe-assembly-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-protect-create2"><a href="index.html#req-2-protect-create2"><b>[M] Protect <code>CREATE2</code> Calls</b></a><b><a href="#summ-req-2-protect-create2" class="selflink"> 🔗 </a></b>
+<br>For <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that uses the <code>CREATE2</code> instruction,
+any contract to be deployed using <code>CREATE2</code></p>
+<ul>
+<li><em class="rfc2119" title="MUST">MUST</em> be within the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>, <b>and</b></li>
+<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> use any <code>selfdestruct()</code>, <code>delegatecall()</code> nor
+    <code>callcode()</code> instructions, <b>and</b></li>
+<li><em class="rfc2119" title="MUST">MUST</em> be fully compatible with the claims of the contract author,</li>
+</ul>
+<p><b>unless</b> it meets the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a></p>
+<ul>
+<li><a href="#summ-req-3-external-calls"><b>[Q] Verify External Calls</b></a>,</li>
+<li><a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>,</li>
+<li><a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>, <b>and</b></li>
+<li><a href="#summ-req-3-implement-as-documented"><b>[Q] Implement as Documented</b></a>.</li>
+</ul>
+<p>This is part of a <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+      <a href="#summ-req-1-no-create2"><b>[S] No <code>CREATE2</code></b></a>.</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-protect-create2" id="req-2-protect-create2-NT" value="NT" checked>
+  <label for="req-2-protect-create2-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-protect-create2" id="req-2-protect-create2-P" value="Pass">
+  <label for="req-2-protect-create2-P">Passes</label></li>
+    <li><input type="radio" name="req-2-protect-create2" id="req-2-protect-create2-NA" value="NA">
+  <label for="req-2-protect-create2-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-protect-create2" id="req-2-protect-create2-INC" value="Incomplete">
+  <label for="req-2-protect-create2-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-protect-create2" id="req-2-protect-create2-F" value="Fail">
+  <label for="req-2-protect-create2-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-overflow-underflow"><a href="index.html#req-2-overflow-underflow"><b>[M] No Overflow/Underflow</b></a><b><a href="#summ-req-2-overflow-underflow" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> contain calculations that can overflow or underflow <b>unless</b></p>
+<ul>
+<li>there is a demonstrated need (e.g. for use in a modulo operation) and</li>
+<li>there are guards around any calculations, if necessary, to ensure behavior consistent with the claims of the contract author.</li></ul>
+<p>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+      <a href="#summ-req-1-overflow-underflow"><b>[S] No Overflow/Underflow</b></a>.</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-overflow-underflow" id="req-2-overflow-underflow-NT" value="NT" checked>
+  <label for="req-2-overflow-underflow-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-overflow-underflow" id="req-2-overflow-underflow-P" value="Pass">
+  <label for="req-2-overflow-underflow-P">Passes</label></li>
+    <li><input type="radio" name="req-2-overflow-underflow" id="req-2-overflow-underflow-NA" value="NA">
+  <label for="req-2-overflow-underflow-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-overflow-underflow" id="req-2-overflow-underflow-INC" value="Incomplete">
+  <label for="req-2-overflow-underflow-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-overflow-underflow" id="req-2-overflow-underflow-F" value="Fail">
+  <label for="req-2-overflow-underflow-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-safe-inheritance-order">
+<a href="index.html#req-2-safe-inheritance-order"><b>[M] Document Name Conflicts</b></a><b><a href="#summ-req-2-safe-inheritance-order" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> clearly document the order of inheritance for each function or variable that shares a name with another function or variable.
+<br>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+<a href="#summ-req-1-inheritance-conflict"><b>[S] No Conflicting Names</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-safe-inheritance-order" id="req-2-safe-inheritance-order-NT" value="NT" checked>
+  <label for="req-2-safe-inheritance-order-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-safe-inheritance-order" id="req-2-safe-inheritance-order-P" value="Pass">
+  <label for="req-2-safe-inheritance-order-P">Passes</label></li>
+    <li><input type="radio" name="req-2-safe-inheritance-order" id="req-2-safe-inheritance-order-NA" value="NA">
+  <label for="req-2-safe-inheritance-order-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-safe-inheritance-order" id="req-2-safe-inheritance-order-INC" value="Incomplete">
+  <label for="req-2-safe-inheritance-order-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-safe-inheritance-order" id="req-2-safe-inheritance-order-F" value="Fail">
+  <label for="req-2-safe-inheritance-order-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-random-enough">
+<a href="index.html#req-2-random-enough"><b>[M] Sources of Randomness</b></a><b><a href="#summ-req-2-random-enough" class="selflink"> 🔗 </a></b><br>
+  Sources of randomness used in <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> be
+sufficiently resistant to prediction that their purpose is met.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-random-enough" id="req-2-random-enough-NT" value="NT" checked>
+  <label for="req-2-random-enough-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-random-enough" id="req-2-random-enough-P" value="Pass">
+  <label for="req-2-random-enough-P">Passes</label></li>
+    <li><input type="radio" name="req-2-random-enough" id="req-2-random-enough-NA" value="NA">
+  <label for="req-2-random-enough-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-random-enough" id="req-2-random-enough-INC" value="Incomplete">
+  <label for="req-2-random-enough-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-random-enough" id="req-2-random-enough-F" value="Fail">
+  <label for="req-2-random-enough-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-block-data-misuse">
+<a href="index.html#req-2-block-data-misuse"><b>[M] Don't Misuse Block Data</b></a><b><a href="#summ-req-2-block-data-misuse" class="selflink"> 🔗 </a></b><br>
+  Block numbers and timestamps used in <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> not introduce vulnerabilities
+to <a href="index.html#dfn-mev" class="internalDFN" data-link-type="dfn">MEV</a> or similar attacks.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-block-data-misuse" id="req-2-block-data-misuse-NT" value="NT" checked>
+  <label for="req-2-block-data-misuse-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-block-data-misuse" id="req-2-block-data-misuse-P" value="Pass">
+  <label for="req-2-block-data-misuse-P">Passes</label></li>
+    <li><input type="radio" name="req-2-block-data-misuse" id="req-2-block-data-misuse-NA" value="NA">
+  <label for="req-2-block-data-misuse-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-block-data-misuse" id="req-2-block-data-misuse-INC" value="Incomplete">
+  <label for="req-2-block-data-misuse-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-block-data-misuse" id="req-2-block-data-misuse-F" value="Fail">
+  <label for="req-2-block-data-misuse-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-signature-verification">
+<a href="index.html#req-2-signature-verification"><b>[M] Proper Signature Verification</b></a><b><a href="#summ-req-2-signature-verification" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> properly verify signatures to ensure authenticity of messages that were signed off-chain.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-signature-verification" id="req-2-signature-verification-NT" value="NT" checked>
+  <label for="req-2-signature-verification-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-signature-verification" id="req-2-signature-verification-P" value="Pass">
+  <label for="req-2-signature-verification-P">Passes</label></li>
+    <li><input type="radio" name="req-2-signature-verification" id="req-2-signature-verification-NA" value="NA">
+  <label for="req-2-signature-verification-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-signature-verification" id="req-2-signature-verification-INC" value="Incomplete">
+  <label for="req-2-signature-verification-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-signature-verification" id="req-2-signature-verification-F" value="Fail">
+  <label for="req-2-signature-verification-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-malleable-signatures-for-replay"><a href="index.html#req-2-malleable-signatures-for-replay"><b>[M] No Improper Usage of Signatures for Replay Attack Protection</b></a><b><a href="#summ-req-2-malleable-signatures-for-replay" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> using signatures to prevent replay attacks <em class="rfc2119" title="MUST">MUST</em> ensure that signatures cannot be reused:</p>
+<ul>
+<li>In the same function to verify the same message,
+</li>
+<li>In more than one function to verify the same message within the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>,
+</li>
+<li>In more than one contract address to verify the same message, in which the same account(s) may be signing messages, <b>and</b>
+</li>
+<li>In the same contract address across multiple chains.</li>
+</ul>
+<p><b>unless</b> it meets the <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a>
+<a href="#summ-req-3-intended-replay"><b>[Q] Intended Replay</b></a>. Additionally, <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> verify that multiple signatures cannot be created for the same message, as is the case with <a href="index.html#dfn-malleable-signatures" class="internalDFN" data-link-type="dfn">Malleable Signatures</a>.</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-malleable-signatures-for-replay" id="req-2-malleable-signatures-for-replay-NT" value="NT" checked>
+  <label for="req-2-malleable-signatures-for-replay-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-malleable-signatures-for-replay" id="req-2-malleable-signatures-for-replay-P" value="Pass">
+  <label for="req-2-malleable-signatures-for-replay-P">Passes</label></li>
+    <li><input type="radio" name="req-2-malleable-signatures-for-replay" id="req-2-malleable-signatures-for-replay-NA" value="NA">
+  <label for="req-2-malleable-signatures-for-replay-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-malleable-signatures-for-replay" id="req-2-malleable-signatures-for-replay-INC" value="Incomplete">
+  <label for="req-2-malleable-signatures-for-replay-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-malleable-signatures-for-replay" id="req-2-malleable-signatures-for-replay-F" value="Fail">
+  <label for="req-2-malleable-signatures-for-replay-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-compiler-SOL-2023-1">
+<a href="index.html#req-2-compiler-SOL-2023-1"><b>[M] Solidity Compiler Bug 2023-1</b></a><b><a href="#summ-req-2-compiler-SOL-2023-1" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that contains a compound expression with side effects that uses <code>.selector</code>
+<em class="rfc2119" title="MUST">MUST</em> use the viaIR option with Solidity compiler versions between 0.6.2 and 0.8.20 inclusive.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-1" id="req-2-compiler-SOL-2023-1-NT" value="NT" checked>
+  <label for="req-2-compiler-SOL-2023-1-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-1" id="req-2-compiler-SOL-2023-1-P" value="Pass">
+  <label for="req-2-compiler-SOL-2023-1-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-1" id="req-2-compiler-SOL-2023-1-NA" value="NA">
+  <label for="req-2-compiler-SOL-2023-1-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-1" id="req-2-compiler-SOL-2023-1-INC" value="Incomplete">
+  <label for="req-2-compiler-SOL-2023-1-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-1" id="req-2-compiler-SOL-2023-1-F" value="Fail">
+  <label for="req-2-compiler-SOL-2023-1-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-compiler-SOL-2022-7">
+<a href="index.html#req-2-compiler-SOL-2022-7"><b>[M] Compiler Bug SOL-2022-7</b></a><b><a href="#summ-req-2-compiler-SOL-2022-7" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that has
+storage writes followed by conditional early terminations from inline assembly functions containing
+<code>return()</code> or <code>stop()</code> instructions,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> not use a Solidity compiler version between 0.8.13 and 0.8.17 inclusive.
+  <br>This is part of the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+  <a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-7" id="req-2-compiler-SOL-2022-7-NT" value="NT" checked>
+  <label for="req-2-compiler-SOL-2022-7-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-7" id="req-2-compiler-SOL-2022-7-P" value="Pass">
+  <label for="req-2-compiler-SOL-2022-7-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-7" id="req-2-compiler-SOL-2022-7-NA" value="NA">
+  <label for="req-2-compiler-SOL-2022-7-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-7" id="req-2-compiler-SOL-2022-7-INC" value="Incomplete">
+  <label for="req-2-compiler-SOL-2022-7-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2023-7" id="req-2-compiler-SOL-2022-7-F" value="Fail">
+  <label for="req-2-compiler-SOL-2022-7-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-compiler-SOL-2022-5-assembly">
+<a href="index.html#req-2-compiler-SOL-2022-5-assembly"><b>[M] Compiler Bug SOL-2022-5 in <code>assembly {}</code></b></a><b><a href="#summ-req-2-compiler-SOL-2022-5-assembly" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that copies <code>bytes</code> arrays from calldata or memory whose size is not
+a multiple of 32 bytes, and has an <code>assembly {}</code> instruction that reads that data
+without explicitly matching the length that was copied,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.8.15.
+<br>This is part of the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+  <a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-5-assembly" id="req-2-compiler-SOL-2022-5-assembly-NT" value="NT" checked>
+  <label for="req-2-compiler-SOL-2022-5-assembly-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-5-assembly" id="req-2-compiler-SOL-2022-5-assembly-P" value="Pass">
+  <label for="req-2-compiler-SOL-2022-5-assembly-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-5-assembly" id="req-2-compiler-SOL-2022-5-assembly-NA" value="NA">
+  <label for="req-2-compiler-SOL-2022-5-assembly-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-5-assembly" id="req-2-compiler-SOL-2022-5-assembly-INC" value="Incomplete">
+  <label for="req-2-compiler-SOL-2022-5-assembly-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-5-assembly" id="req-2-compiler-SOL-2022-5-assembly-F" value="Fail">
+  <label for="req-2-compiler-SOL-2022-5-assembly-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-compiler-SOL-2022-4">
+<a href="index.html#req-2-compiler-SOL-2022-4"><b>[M] Compiler Bug SOL-2022-4</b></a><b><a href="#summ-req-2-compiler-SOL-2022-4" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that has at least two <code>assembly {}</code> instructions, such that one writes
+to memory e.g. by storing a value in a variable, but does not access that memory again,
+and code in a another <code>assembly {}</code> instruction refers to that memory,
+<em class="rfc2119" title="MUST NOT">MUST NOT</em> use the yulOptimizer with Solidity compiler versions 0.8.13 or 0.8.14.
+<br>This is part of the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+  <a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-4" id="req-2-compiler-SOL-2022-4-NT" value="NT" checked>
+  <label for="req-2-compiler-SOL-2022-4-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-4" id="req-2-compiler-SOL-2022-4-P" value="Pass">
+  <label for="req-2-compiler-SOL-2022-4-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-4" id="req-2-compiler-SOL-2022-4-NA" value="NA">
+  <label for="req-2-compiler-SOL-2022-4-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-4" id="req-2-compiler-SOL-2022-4-INC" value="Incomplete">
+  <label for="req-2-compiler-SOL-2022-4-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-4" id="req-2-compiler-SOL-2022-4-F" value="Fail">
+  <label for="req-2-compiler-SOL-2022-4-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-2-compiler-SOL-2021-3">
+<a href="index.html#req-2-compiler-SOL-2021-3"><b>[M] Compiler Bug SOL-2021-3</b></a><b><a href="#summ-req-2-compiler-SOL-2021-3" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that reads an <code>immutable</code> signed integer of a <code>type</code> shorter than
+256 bits within an <code>assembly {}</code> instruction <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version
+between 0.6.5 and 0.8.8 (inclusive).
+<br>This is part of the <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+  <a href="#summ-req-1-no-assembly"><b>[S] No <code>assembly {}</code></b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-3" id="req-2-compiler-SOL-2021-3-NT" value="NT" checked>
+  <label for="req-2-compiler-SOL-2021-3-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-3" id="req-2-compiler-SOL-2021-3-P" value="Pass">
+  <label for="req-2-compiler-SOL-2021-3-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-3" id="req-2-compiler-SOL-2021-3-NA" value="NA">
+  <label for="req-2-compiler-SOL-2021-3-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-3" id="req-2-compiler-SOL-2021-3-INC" value="Incomplete">
+  <label for="req-2-compiler-SOL-2021-3-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-SOL-2022-3" id="req-2-compiler-SOL-2021-3-F" value="Fail">
+  <label for="req-2-compiler-SOL-2021-3-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-compiler-check-payable-constructor"><a href="index.html#req-2-compiler-check-payable-constructor"><b>[M] Compiler Bug Check Constructor Payment</b></a><b><a href="#summ-req-2-compiler-check-payable-constructor" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that allows payment to a constructor function that is</p>
+<ul>
+<li>defined in a base contract, <b>and</b></li>
+<li>used by default in another contract without an explicit constructor, <b>and</b></li>
+<li>not explicity marked <code>payable</code>,</li>
+</ul>
+<p><em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version between 0.4.5 and 0.6.7 (inclusive).
+<br>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+<a href="#summ-req-1-compiler-SOL-2020-5"><b>[S] Compiler Bug SOL-2020-5</b></a>.
+</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-check-payable-constructor" id="req-2-compiler-check-payable-constructor-NT" value="NT" checked>
+  <label for="req-2-compiler-check-payable-constructor-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-check-payable-constructor" id="req-2-compiler-check-payable-constructor-P" value="Pass">
+  <label for="req-2-compiler-check-payable-constructor-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-check-payable-constructor" id="req-2-compiler-check-payable-constructor-NA" value="NA">
+  <label for="req-2-compiler-check-payable-constructor-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-check-payable-constructor" id="req-2-compiler-check-payable-constructor-INC" value="Incomplete">
+  <label for="req-2-compiler-check-payable-constructor-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-check-payable-constructor" id="req-2-compiler-check-payable-constructor-F" value="Fail">
+  <label for="req-2-compiler-check-payable-constructor-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-2-compiler-060"><a href="index.html#req-2-compiler-060"><b>[M] Use a Modern Compiler</b></a><b><a href="#summ-req-2-compiler-060" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> use a Solidity compiler version older than 0.6.0,
+<b>unless</b> it meets all the following requirements from the
+<a href="https://entethalliance.org/specs/ethtrust-sl/v1/">EEA EthTrust Security Levels Specification Version 1</a>,
+as if they were <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirements</a>:</p>
+<ul>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-compiler-SOL-2020-2"><b>[M] Compiler Bug SOL-2020-2</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-compiler-SOL-2019-2-assembly"><b>[M] Compiler Bug SOL-2019-2 in <code>assembly {}</code></b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-compiler-check-identity-calls"><b>[M] Compiler Bug Check Identity Calls</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-validate-ecrecover-input"><b>[M] Validate <code>ecrecover()</code> input</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-compiler-no-zero-ether-send"><b>[M] Compiler Bug No Zero Ether Send</b></a></li>
+<li><a href="https://entethalliance.org/specs/ethtrust-sl/v1/#req-2-explicit-storage">
+  <b>[M] Declare <code>storage</code> Explicitly</b></a></li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-2-compiler-060" id="req-2-compiler-060-NT" value="NT" checked>
+  <label for="req-2-compiler-060-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-2-compiler-060" id="req-2-compiler-060-P" value="Pass">
+  <label for="req-2-compiler-060-P">Passes</label></li>
+    <li><input type="radio" name="req-2-compiler-060" id="req-2-compiler-060-NA" value="NA">
+  <label for="req-2-compiler-060-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-2-compiler-060" id="req-2-compiler-060-INC" value="Incomplete">
+  <label for="req-2-compiler-060-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-2-compiler-060" id="req-2-compiler-060-F" value="Fail">
+  <label for="req-2-compiler-060-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-pass-l2">
+<a href="index.html#req-3-pass-l2"><b>[Q] Pass Security Level [M]</b></a><b><a href="#summ-req-3-pass-l2" class="selflink"> 🔗 </a></b><br>
+  To be eligible for <a href="#dfn-eea-ethtrust-certification" class="internalDFN" data-link-type="dfn">EEA EthTrust certification</a> at <a href="index.html#dfn-security-level-q" class="internalDFN" data-link-type="dfn">Security Level [Q]</a>,
+  <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> meet the requirements for <a href="#sec-levels-two" class="sec-ref">§&nbsp;<bdi class="secno">4.2 </bdi>Security Level [M]</a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-pass-l2" id="req-3-pass-l2-NT" value="NT" checked>
+  <label for="req-3-pass-l2-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-pass-l2" id="req-3-pass-l2-P" value="Pass">
+  <label for="req-3-pass-l2-P">Passes</label></li>
+    <li><input type="radio" name="req-3-pass-l2" id="req-3-pass-l2-NA" value="NA">
+  <label for="req-3-pass-l2-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-pass-l2" id="req-3-pass-l2-INC" value="Incomplete">
+  <label for="req-3-pass-l2-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-pass-l2" id="req-3-pass-l2-F" value="Fail">
+  <label for="req-3-pass-l2-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-3-linted"><a href="index.html#req-3-linted"><b>[Q] Code Linting</b></a><b><a href="#summ-req-3-linted" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a></p>
+<ul>
+<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> create unnecessary variables, <b>and</b></li>
+<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> include code that cannot be reached in execution<br>
+<b>except</b> for code explicitly intended to manage unexpected errors, such as
+    <code>assert()</code> statements, <b>and</b></li>
+<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> contain a function that has the same name as the smart contract
+<b>unless</b> it is explicitly declared as a constructor using the <code>constructor</code> keyword, <b>and</b></li>
+<li><em class="rfc2119" title="MUST">MUST</em> explicitly declare the visibility of all functions and variables.</li>
+</ul>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-linted" id="req-3-linted-NT" value="NT" checked>
+  <label for="req-3-linted-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-linted" id="req-3-linted-P" value="Pass">
+  <label for="req-3-linted-P">Passes</label></li>
+    <li><input type="radio" name="req-3-linted" id="req-3-linted-NA" value="NA">
+  <label for="req-3-linted-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-linted" id="req-3-linted-INC" value="Incomplete">
+  <label for="req-3-linted-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-linted" id="req-3-linted-F" value="Fail">
+  <label for="req-3-linted-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-enough-gas">
+<a href="index.html#req-3-enough-gas"><b>[Q] Manage Gas Use Increases</b></a><b><a href="#summ-req-3-enough-gas" class="selflink"> 🔗 </a></b><br>
+  Sufficient Gas <em class="rfc2119" title="MUST">MUST</em> be available to work with data structures in the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>
+  that grow over time, in accordance with descriptions provided for
+  <a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-enough-gas" id="req-3-enough-gas-NT" value="NT" checked>
+  <label for="req-3-enough-gas-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-enough-gas" id="req-3-enough-gas-P" value="Pass">
+  <label for="req-3-enough-gas-P">Passes</label></li>
+    <li><input type="radio" name="req-3-enough-gas" id="req-3-enough-gas-NA" value="NA">
+  <label for="req-3-enough-gas-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-enough-gas" id="req-3-enough-gas-INC" value="Incomplete">
+  <label for="req-3-enough-gas-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-enough-gas" id="req-3-enough-gas-F" value="Fail">
+  <label for="req-3-enough-gas-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-protect-gas">
+<a href="index.html#req-3-protect-gas"><b>[Q] Protect Gas Usage</b></a><b><a href="#summ-req-3-protect-gas" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> protect against malicious actors stealing or wasting gas.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-protect-gas" id="req-3-protect-gas-NT" value="NT" checked>
+  <label for="req-3-protect-gas-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-protect-gas" id="req-3-protect-gas-P" value="Pass">
+  <label for="req-3-protect-gas-P">Passes</label></li>
+    <li><input type="radio" name="req-3-protect-gas" id="req-3-protect-gas-NA" value="NA">
+  <label for="req-3-protect-gas-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-protect-gas" id="req-3-protect-gas-INC" value="Incomplete">
+  <label for="req-3-protect-gas-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-protect-gas" id="req-3-protect-gas-F" value="Fail">
+  <label for="req-3-protect-gas-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-check-oracles">
+<a href="index.html#req-3-check-oracles"><b>[Q] Protect against Oracle Failure</b></a><b><a href="#summ-req-3-check-oracles" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> protect itself against malfunctions in <a href="index.html#dfn-oracles" class="internalDFN" data-link-type="dfn">Oracles</a> it relies on.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-check-oracles" id="req-3-check-oracles-NT" value="NT" checked>
+  <label for="req-3-check-oracles-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-check-oracles" id="req-3-check-oracles-P" value="Pass">
+  <label for="req-3-check-oracles-P">Passes</label></li>
+    <li><input type="radio" name="req-3-check-oracles" id="req-3-check-oracles-NA" value="NA">
+  <label for="req-3-check-oracles-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-check-oracles" id="req-3-check-oracles-INC" value="Incomplete">
+  <label for="req-3-check-oracles-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-check-oracles" id="req-3-check-oracles-F" value="Fail">
+  <label for="req-3-check-oracles-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-block-front-running">
+<a href="index.html#req-3-block-front-running"><b>[Q] Protect against Front-Running</b></a><b><a href="#summ-req-3-block-front-running" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> require information
+in a form that can be used to enable a <a href="index.html#dfn-front-running" class="internalDFN" data-link-type="dfn">Front-Running</a> attack.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-block-front-running" id="req-3-block-front-running-NT" value="NT" checked>
+  <label for="req-3-block-front-running-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-block-front-running" id="req-3-block-front-running-P" value="Pass">
+  <label for="req-3-block-front-running-P">Passes</label></li>
+    <li><input type="radio" name="req-3-block-front-running" id="req-3-block-front-running-NA" value="NA">
+  <label for="req-3-block-front-running-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-block-front-running" id="req-3-block-front-running-INC" value="Incomplete">
+  <label for="req-3-block-front-running-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-block-front-running" id="req-3-block-front-running-F" value="Fail">
+  <label for="req-3-block-front-running-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-block-mev">
+<a href="index.html#req-3-block-mev"><b>[Q] Protect against MEV Attacks</b></a><b><a href="#summ-req-3-block-mev" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that is susceptible to <a href="index.html#dfn-mev" class="internalDFN" data-link-type="dfn">MEV</a> attacks <em class="rfc2119" title="MUST">MUST</em> follow appropriate
+design patterns to mitigate this risk.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-block-mev" id="req-3-block-mev-NT" value="NT" checked>
+  <label for="req-3-block-mev-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-block-mev" id="req-3-block-mev-P" value="Pass">
+  <label for="req-3-block-mev-P">Passes</label></li>
+    <li><input type="radio" name="req-3-block-mev" id="req-3-block-mev-NA" value="NA">
+  <label for="req-3-block-mev-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-block-mev" id="req-3-block-mev-INC" value="Incomplete">
+  <label for="req-3-block-mev-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-block-mev" id="req-3-block-mev-F" value="Fail">
+  <label for="req-3-block-mev-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-protect-governance">
+<a href="index.html#req-3-protect-governance"><b>[Q] Protect against Governance Takeovers</b></a><b><a href="#summ-req-3-protect-governance" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> which includes a governance system <em class="rfc2119" title="MUST">MUST</em> protect against one external
+entity taking control via exploit of the governance design.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-protect-governance" id="req-3-protect-governance-NT" value="NT" checked>
+  <label for="req-3-protect-governance-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-protect-governance" id="req-3-protect-governance-P" value="Pass">
+  <label for="req-3-protect-governance-P">Passes</label></li>
+    <li><input type="radio" name="req-3-protect-governance" id="req-3-protect-governance-NA" value="NA">
+  <label for="req-3-protect-governance-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-protect-governance" id="req-3-protect-governance-INC" value="Incomplete">
+  <label for="req-3-protect-governance-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-protect-governance" id="req-3-protect-governance-F" value="Fail">
+  <label for="req-3-protect-governance-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-all-valid-inputs">
+<a href="index.html#req-3-all-valid-inputs"><b>[Q] Process All Inputs</b></a><b><a href="#summ-req-3-all-valid-inputs" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="MUST">MUST</em> validate inputs, and function correctly whether the input
+is as designed or malformed.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-all-valid-inputs" id="req-3-all-valid-inputs-NT" value="NT" checked>
+  <label for="req-3-all-valid-inputs-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-all-valid-inputs" id="req-3-all-valid-inputs-P" value="Pass">
+  <label for="req-3-all-valid-inputs-P">Passes</label></li>
+    <li><input type="radio" name="req-3-all-valid-inputs" id="req-3-all-valid-inputs-NA" value="NA">
+  <label for="req-3-all-valid-inputs-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-all-valid-inputs" id="req-3-all-valid-inputs-INC" value="Incomplete">
+  <label for="req-3-all-valid-inputs-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-all-valid-inputs" id="req-3-all-valid-inputs-F" value="Fail">
+  <label for="req-3-all-valid-inputs-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-event-on-state-change">
+<a href="index.html#req-3-event-on-state-change"><b>[Q] State Changes Trigger Events</b></a><b><a href="#summ-req-3-event-on-state-change" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> emit a contract event for all transactions that cause state changes.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-event-on-state-change" id="req-3-event-on-state-change-NT" value="NT" checked>
+  <label for="req-3-event-on-state-change-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-event-on-state-change" id="req-3-event-on-state-change-P" value="Pass">
+  <label for="req-3-event-on-state-change-P">Passes</label></li>
+    <li><input type="radio" name="req-3-event-on-state-change" id="req-3-event-on-state-change-NA" value="NA">
+  <label for="req-3-event-on-state-change-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-event-on-state-change" id="req-3-event-on-state-change-INC" value="Incomplete">
+  <label for="req-3-event-on-state-change-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-event-on-state-change" id="req-3-event-on-state-change-F" value="Fail">
+  <label for="req-3-event-on-state-change-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-no-private-data">
+<a href="index.html#req-3-no-private-data"><b>[Q] No Private Data</b></a><b><a href="#summ-req-3-no-private-data" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> store <a href="index.html#dfn-private-data" class="internalDFN" data-link-type="dfn">Private Data</a> on the blockchain</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-no-private-data" id="req-3-no-private-data-NT" value="NT" checked>
+  <label for="req-3-no-private-data-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-no-private-data" id="req-3-no-private-data-P" value="Pass">
+  <label for="req-3-no-private-data-P">Passes</label></li>
+    <li><input type="radio" name="req-3-no-private-data" id="req-3-no-private-data-NA" value="NA">
+  <label for="req-3-no-private-data-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-no-private-data" id="req-3-no-private-data-INC" value="Incomplete">
+  <label for="req-3-no-private-data-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-no-private-data" id="req-3-no-private-data-F" value="Fail">
+  <label for="req-3-no-private-data-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-intended-replay">
+<a href="index.html#req-3-intended-replay"><b>[Q] Intended Replay</b></a><b><a href="#summ-req-3-intended-replay" class="selflink"> 🔗 </a></b><br>
+  If a signature within the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> can be reused, the replay instance <em class="rfc2119" title="MUST">MUST</em> be intended, documented,
+  <b>and</b> safe for re-use.<br>
+<br>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for <a href="#summ-req-2-malleable-signatures-for-replay"><b>[M] No Improper Usage of Signatures for Replay Attack Protection</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-intended-replay" id="req-3-intended-replay-NT" value="NT" checked>
+  <label for="req-3-intended-replay-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-intended-replay" id="req-3-intended-replay-P" value="Pass">
+  <label for="req-3-intended-replay-P">Passes</label></li>
+    <li><input type="radio" name="req-3-intended-replay" id="req-3-intended-replay-NA" value="NA">
+  <label for="req-3-intended-replay-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-intended-replay" id="req-3-intended-replay-INC" value="Incomplete">
+  <label for="req-3-intended-replay-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-intended-replay" id="req-3-intended-replay-F" value="Fail">
+  <label for="req-3-intended-replay-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-documented">
+<a href="index.html#req-3-documented"><b>[Q] Document Contract Logic</b></a><b><a href="#summ-req-3-documented" class="selflink"> 🔗 </a></b><br>
+    A specification of the business logic that the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> functionality is intended
+to implement <em class="rfc2119" title="MUST">MUST</em> be available to anyone who can call the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-documented" id="req-3-documented-NT" value="NT" checked>
+  <label for="req-3-documented-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-documented" id="req-3-documented-P" value="Pass">
+  <label for="req-3-documented-P">Passes</label></li>
+    <li><input type="radio" name="req-3-documented" id="req-3-documented-NA" value="NA">
+  <label for="req-3-documented-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-documented" id="req-3-documented-INC" value="Incomplete">
+  <label for="req-3-documented-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-documented" id="req-3-documented-F" value="Fail">
+  <label for="req-3-documented-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-document-system">
+<a href="index.html#req-3-document-system"><b>[Q] Document System Architecture</b></a><b><a href="#summ-req-3-document-system" class="selflink"> 🔗 </a></b><br>
+    Documentation of the system architecture for the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> be provided that
+conveys the overrall system design, privileged roles, security assumptions and intended usage.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-document-system" id="req-3-document-system-NT" value="NT" checked>
+  <label for="req-3-document-system-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-document-system" id="req-3-document-system-P" value="Pass">
+  <label for="req-3-document-system-P">Passes</label></li>
+    <li><input type="radio" name="req-3-document-system" id="req-3-document-system-NA" value="NA">
+  <label for="req-3-document-system-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-document-system" id="req-3-document-system-INC" value="Incomplete">
+  <label for="req-3-document-system-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-document-system" id="req-3-document-system-F" value="Fail">
+  <label for="req-3-document-system-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-annotate">
+<a href="index.html#req-3-annotate"><b>[Q] Annotate Code with NatSpec</b></a><b><a href="#summ-req-3-annotate" class="selflink"> 🔗 </a></b><br>
+    All public interfaces contained in the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> be annotated with inline
+comments according to the [<cite><a class="bibref" href="#bib-natspec" title="NatSpec Format - Solidity Documentation." data-link-type="biblio">NatSpec</a></cite>] format that explain the intent behind each function, parameter,
+event, and return variable, along with developer notes for safe usage.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-annotate" id="req-3-annotate-NT" value="NT" checked>
+  <label for="req-3-annotate-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-annotate" id="req-3-annotate-P" value="Pass">
+  <label for="req-3-annotate-P">Passes</label></li>
+    <li><input type="radio" name="req-3-annotate" id="req-3-annotate-NA" value="NA">
+  <label for="req-3-annotate-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-annotate" id="req-3-annotate-INC" value="Incomplete">
+  <label for="req-3-annotate-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-annotate" id="req-3-annotate-F" value="Fail">
+  <label for="req-3-annotate-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-implement-as-documented">
+<a href="index.html#req-3-implement-as-documented"><b>[Q] Implement as Documented</b></a><b><a href="#summ-req-3-implement-as-documented" class="selflink"> 🔗 </a></b><br>
+  The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> <em class="rfc2119" title="MUST">MUST</em> behave as described in the documentation provided for
+  <a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>, <b>and</b>
+<a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-implement-as-documented" id="req-3-implement-as-documented-NT" value="NT" checked>
+  <label for="req-3-implement-as-documented-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-implement-as-documented" id="req-3-implement-as-documented-P" value="Pass">
+  <label for="req-3-implement-as-documented-P">Passes</label></li>
+    <li><input type="radio" name="req-3-implement-as-documented" id="req-3-implement-as-documented-NA" value="NA">
+  <label for="req-3-implement-as-documented-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-implement-as-documented" id="req-3-implement-as-documented-INC" value="Incomplete">
+  <label for="req-3-implement-as-documented-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-implement-as-documented" id="req-3-implement-as-documented-F" value="Fail">
+  <label for="req-3-implement-as-documented-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-access-control">
+<a href="index.html#req-3-access-control"><b>[Q] Enforce Least Privilege</b></a><b><a href="#summ-req-3-access-control" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> that enables privileged access <em class="rfc2119" title="MUST">MUST</em> implement appropriate access control mechanisms that provide the least privilege necessary for those interactions,
+based on the documentation provided for
+<a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a>.
+    <br>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+    <a href="#summ-req-2-self-destruct"><b>[S] Protect Self-destruction</b></a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-access-control" id="req-3-access-control-NT" value="NT" checked>
+  <label for="req-3-access-control-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-access-control" id="req-3-access-control-P" value="Pass">
+  <label for="req-3-access-control-P">Passes</label></li>
+    <li><input type="radio" name="req-3-access-control" id="req-3-access-control-NA" value="NA">
+  <label for="req-3-access-control-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-access-control" id="req-3-access-control-INC" value="Incomplete">
+  <label for="req-3-access-control-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-access-control" id="req-3-access-control-F" value="Fail">
+  <label for="req-3-access-control-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-revocable-permisions">
+<a href="index.html#req-3-revocable-permisions"><b>[Q] Use Revocable and Transferable Access Control Permissions</b></a><b><a href="#summ-req-3-revocable-permisions" class="selflink"> 🔗 </a></b><br>
+  If the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> makes uses of Access Control for privileged actions, it <em class="rfc2119" title="MUST">MUST</em> implement a mechanism
+to revoke and transfer those permissions.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-revocable-permisions" id="req-3-revocable-permisions-NT" value="NT" checked>
+  <label for="req-3-revocable-permisions-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-revocable-permisions" id="req-3-revocable-permisions-P" value="Pass">
+  <label for="req-3-revocable-permisions-P">Passes</label></li>
+    <li><input type="radio" name="req-3-revocable-permisions" id="req-3-revocable-permisions-NA" value="NA">
+  <label for="req-3-revocable-permisions-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-revocable-permisions" id="req-3-revocable-permisions-INC" value="Incomplete">
+  <label for="req-3-revocable-permisions-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-revocable-permisions" id="req-3-revocable-permisions-F" value="Fail">
+  <label for="req-3-revocable-permisions-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-3-no-single-admin-eoa">
+<a href="index.html#req-3-no-single-admin-eoa"><b>[Q] No Single Admin EOA for Privileged Actions</b></a><b><a href="#summ-req-3-no-single-admin-eoa" class="selflink"> 🔗 </a></b><br>
+  If the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested code</a> makes uses of Access Control for privilieged actions, it <em class="rfc2119" title="MUST">MUST</em> ensure that all critical administrative tasks require multiple signatures to be executed,
+unless there is a multisg admin that has greater privileges and can revoke permissions in case of a compromised or rogue EOA and reverse any adverse action the EOA has taken.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-no-single-admin-eoa" id="req-3-no-single-admin-eoa-NT" value="NT" checked>
+  <label for="req-3-no-single-admin-eoa-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-no-single-admin-eoa" id="req-3-no-single-admin-eoa-P" value="Pass">
+  <label for="req-3-no-single-admin-eoa-P">Passes</label></li>
+    <li><input type="radio" name="req-3-no-single-admin-eoa" id="req-3-no-single-admin-eoa-NA" value="NA">
+  <label for="req-3-no-single-admin-eoa-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-no-single-admin-eoa" id="req-3-no-single-admin-eoa-INC" value="Incomplete">
+  <label for="req-3-no-single-admin-eoa-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-no-single-admin-eoa" id="req-3-no-single-admin-eoa-F" value="Fail">
+  <label for="req-3-no-single-admin-eoa-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-3-external-calls"><a href="index.html#req-3-external-calls"><b>[Q] Verify External Calls</b></a><b><a href="#summ-req-3-external-calls" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that contains external calls</p>
+<ul>
+<li><em class="rfc2119" title="MUST">MUST</em> document the need for them, <b>and</b></li>
+<li><em class="rfc2119" title="MUST">MUST</em> protect them in a way that is fully compatible
+with the claims of the contract author.</li>
+</ul>
+<p>This is part of a <a href="index.html#dfn-sets-of-overriding-requirements" class="internalDFN" data-link-type="dfn">Set of Overriding Requirements</a> for
+  <a href="#summ-req-1-use-c-e-i"><b>[S] Use Check-Effects-Interaction</b></a>, and for
+  <a href="#summ-req-2-external-calls"><b>[M] Protect External Calls</b></a>.</p>
+</div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-external-calls" id="req-3-external-calls-NT" value="NT" checked>
+  <label for="req-3-external-calls-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-external-calls" id="req-3-external-calls-P" value="Pass">
+  <label for="req-3-external-calls-P">Passes</label></li>
+    <li><input type="radio" name="req-3-external-calls" id="req-3-external-calls-NA" value="NA">
+  <label for="req-3-external-calls-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-external-calls" id="req-3-external-calls-INC" value="Incomplete">
+  <label for="req-3-external-calls-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-external-calls" id="req-3-external-calls-F" value="Fail">
+  <label for="req-3-external-calls-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<div id="summ-req-3-verify-tx.origin"><a href="index.html#req-3-verify-tx.origin"><b>[Q] Verify <code>tx.origin</code> Usage</b></a><b><a href="#summ-req-3-verify-tx.origin" class="selflink"> 🔗 </a></b><br>
+For <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> that uses <code>tx.origin</code>, each instance</p>
+<ul>
+<li><em class="rfc2119" title="MUST">MUST</em> be consistent with the stated security and functionality objectives of the
+<a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>, <b>and</b></li>
+<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> allow assertions about contract functionality made for
+<a href="#summ-req-3-documented"><b>[Q] Document Contract Logic</b></a> or
+      <a href="#summ-req-3-document-system"><b>[Q] Document System Architecture</b></a>
+to be violated by another contract, even where that contract is called by
+a user authorized to interact directly with the <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a>.</li>
+</ul>
+<p>This is an <a href="index.html#dfn-overriding-requirement" class="internalDFN" data-link-type="dfn">Overriding Requirement</a> for
+  <a href="#summ-req-1-no-tx.origin"><b>[S] No <code>tx.origin</code></b></a>.
+</p></div>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-3-verify-tx.origin" id="req-3-verify-tx.origin-NT" value="NT" checked>
+  <label for="req-3-verify-tx.origin-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-3-verify-tx.origin" id="req-3-verify-tx.origin-P" value="Pass">
+  <label for="req-3-verify-tx.origin-P">Passes</label></li>
+    <li><input type="radio" name="req-3-verify-tx.origin" id="req-3-verify-tx.origin-NA" value="NA">
+  <label for="req-3-verify-tx.origin-NA">Not Applicable (Passes)</label></li>
+    <li><input type="radio" name="req-3-verify-tx.origin" id="req-3-verify-tx.origin-INC" value="Incomplete">
+  <label for="req-3-verify-tx.origin-INC">Incomplete (Fails)</label></li>
+    <li><input type="radio" name="req-3-verify-tx.origin" id="req-3-verify-tx.origin-F" value="Fail">
+  <label for="req-3-verify-tx.origin-F">Fails</label></li>
+  </ul>
+</td>
+</tr>
+</table>
+
+</section>
+
+<section id="sec-summary-recommended"><h3 id="2-3-summary-recommended"><bdi class="secno">2.3 </bdi>Recommended Good Practices<a class="self-link" aria-label="§" href="#sec-summary-of-requirements"></a></h3>
+
+
+<table>
+  <thead>
+    <tr><th>Recommended Practice</th><th>Status</th></tr>
+  </thead>
+<tr>
+  <td>
+<p id="summ-req-R-check-new-bugs">
+<a href="index.html#req-R-check-new-bugs"><b>[GP] Check For and Address New Security Bugs</b></a><b><a href="#summ-req-R-check-new-bugs" class="selflink"> 🔗 </a></b>
+<br>Check [<cite><a class="bibref" href="#bib-solidity-bugs-json" title="A JSON-formatted list of some known security-relevant Solidity bugs" data-link-type="biblio">solidity-bugs-json</a></cite>] and other sources for bugs announced after 1 November 2023
+and address them.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-check-new-bugs" id="req-R-check-new-bugs-NT" value="NT" checked>
+  <label for="req-R-check-new-bugs-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-check-new-bugs" id="req-R-check-new-bugs-P" value="Pass">
+  <label for="req-R-check-new-bugs-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-check-new-bugs" id="req-R-check-new-bugs-F" value="Fail">
+  <label for="req-R-check-new-bugs-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-meet-all-possible">
+<a href="index.html#req-R-meet-all-possible"><b>[GP] Meet As Many Requirements As Possible</b></a><b><a href="#summ-req-R-meet-all-possible" class="selflink"> 🔗 </a></b>
+<br>The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> meet as many requirements of this specification as possible
+at Security Levels above the Security Level for which it is certified.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-meet-all-possible" id="req-R-meet-all-possible-NT" value="NT" checked>
+  <label for="req-R-meet-all-possible-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-meet-all-possible" id="req-R-meet-all-possible-P" value="Pass">
+  <label for="req-R-meet-all-possible-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-meet-all-possible" id="req-R-meet-all-possible-F" value="Fail">
+  <label for="req-R-meet-all-possible-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-use-latest-compiler">
+<a href="index.html#req-R-use-latest-compiler"><b>[GP] Use Latest Compiler</b></a><b><a href="#summ-req-R-use-latest-compiler" class="selflink"> 🔗 </a></b>
+<br>The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> use the latest available stable Solidity compiler version.</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-use-latest-compiler" id="req-R-use-latest-compiler-NT" value="NT" checked>
+  <label for="req-R-use-latest-compiler-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-use-latest-compiler" id="req-R-use-latest-compiler-P" value="Pass">
+  <label for="req-R-use-latest-compiler-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-use-latest-compiler" id="req-R-use-latest-compiler-F" value="Fail">
+  <label for="req-R-use-latest-compiler-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-clean-code">
+<a href="index.html#req-R-clean-code"><b>[GP] Write clear, legible Solidity code</b></a><b><a href="#summ-req-R-clean-code" class="selflink"> 🔗 </a></b>
+<br>The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> be written for easy understanding.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-clean-code" id="req-R-clean-code-NT" value="NT" checked>
+  <label for="req-R-clean-code-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-clean-code" id="req-R-clean-code-P" value="Pass">
+  <label for="req-R-clean-code-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-clean-code" id="req-R-clean-code-F" value="Fail">
+  <label for="req-R-clean-code-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-follow-erc-standards">
+<a href="index.html#req-R-follow-erc-standards"><b>[GP] Follow Accepted ERC Standards</b></a><b><a href="#summ-req-R-follow-erc-standards" class="selflink"> 🔗 </a></b>
+<br>The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> conform to finalized [<cite><a class="bibref" href="#bib-erc" title="ERC Final - Ethereum Improvement Proposals" data-link-type="biblio">ERC</a></cite>] standards when it is
+reasonably capable of doing so for its use-case.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-follow-erc-standards" id="req-R-follow-erc-standards-NT" value="NT" checked>
+  <label for="req-R-follow-erc-standards-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-follow-erc-standards" id="req-R-follow-erc-standards-P" value="Pass">
+  <label for="req-R-follow-erc-standards-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-follow-erc-standards" id="req-R-follow-erc-standards-F" value="Fail">
+  <label for="req-R-follow-erc-standards-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-define-license">
+<a href="index.html#req-R-define-license"><b>[GP] Define a Software License</b></a><b><a href="#summ-req-R-define-license" class="selflink"> 🔗 </a></b><br>
+  The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> define a software license.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-define-license" id="req-R-define-license-NT" value="NT" checked>
+  <label for="req-R-define-license-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-define-license" id="req-R-define-license-P" value="Pass">
+  <label for="req-R-define-license-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-define-license" id="req-R-define-license-F" value="Fail">
+  <label for="req-R-define-license-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-notify-news">
+<a href="index.html#req-R-notify-news"><b>[GP] Disclose New Vulnerabilities Responsibly</b></a><b><a href="#summ-req-R-notify-news" class="selflink"> 🔗 </a></b><br>
+Security vulnerabilities that are not addressed by this specification
+<em class="rfc2119" title="SHOULD">SHOULD</em> be brought to the attention of the Working Group
+and others through responsible disclosure as described in
+<a href="#sec-notifying-new-vulnerabilities" class="sec-ref">§&nbsp;<bdi class="secno">1.4 </bdi>Feedback and new vulnerabilities</a>.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-notify-news" id="req-R-notify-news-NT" value="NT" checked>
+  <label for="req-R-notify-news-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-notify-news" id="req-R-notify-news-P" value="Pass">
+  <label for="req-R-notify-news-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-notify-news" id="req-R-notify-news-NA" value="NA">
+  <label for="req-R-notify-news-NA">Not Applicable</label></li>
+    <li><input type="radio" name="req-R-notify-news" id="req-R-notify-news-F" value="Fail">
+  <label for="req-R-notify-news-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-fuzzing-in-testing">
+<a href="index.html#req-R-fuzzing-in-testing"><b>[GP] Use Fuzzing</b></a><b><a href="#summ-req-R-fuzzing-in-testing" class="selflink"> 🔗 </a></b><br>
+<a href="index.html#dfn-fuzzing" class="internalDFN" data-link-type="dfn">Fuzzing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> be used to probe <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> for errors.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-fuzzing-in-testing" id="req-R-fuzzing-in-testing-NT" value="NT" checked>
+  <label for="req-R-fuzzing-in-testing-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-fuzzing-in-testing" id="req-R-fuzzing-in-testing-P" value="Pass">
+  <label for="req-R-fuzzing-in-testing-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-fuzzing-in-testing" id="req-R-fuzzing-in-testing-F" value="Fail">
+  <label for="req-R-fuzzing-in-testing-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-formal-verification">
+<a href="index.html#req-R-formal-verification"><b>[GP] Use Formal Verification</b></a><b><a href="#summ-req-R-formal-verification" class="selflink"> 🔗 </a></b><br>
+The <a href="index.html#dfn-tested-code" class="internalDFN" data-link-type="dfn">Tested Code</a> <em class="rfc2119" title="SHOULD">SHOULD</em> undergo formal verification.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-formal-verification" id="req-R-formal-verification-NT" value="NT" checked>
+  <label for="req-R-formal-verification-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-formal-verification" id="req-R-formal-verification-P" value="Pass">
+  <label for="req-R-formal-verification-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-formal-verification" id="req-R-formal-verification-F" value="Fail">
+  <label for="req-R-formal-verification-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-multisig-threshold">
+<a href="index.html#req-R-multisig-threshold"><b>[GP] Select an appropriate threshold for multisig wallets</b></a><b><a href="#summ-req-R-multisig-threshold" class="selflink"> 🔗 </a></b><br>
+  Multisignature requirements for privileged actions <em class="rfc2119" title="SHOULD">SHOULD</em> have a sufficient number of signers, and NOT require "1 of N" nor all signatures.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-multisig-threshold" id="req-R-multisig-threshold-NT" value="NT" checked>
+  <label for="req-R-multisig-threshold-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-multisig-threshold" id="req-R-multisig-threshold-P" value="Pass">
+  <label for="req-R-multisig-threshold-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-multisig-threshold" id="req-R-multisig-threshold-NA" value="NA">
+  <label for="req-R-multisig-threshold-NA">Not Applicable</label></li>
+    <li><input type="radio" name="req-R-multisig-threshold" id="req-R-multisig-threshold-F" value="Fail">
+  <label for="req-R-multisig-threshold-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+<tr>
+  <td>
+<p id="summ-req-R-timelock-for-privileged-actions">
+<a href="index.html#req-R-timelock-for-privileged-actions"><b> [GP] Use TimeLock delays for sensitive operations</b></a><b><a href="#summ-req-R-timelock-for-privileged-actions" class="selflink"> 🔗 </a></b>
+<br> Sensitive operations that affect all or a majority of users <em class="rfc2119" title="SHOULD">SHOULD</em> use [<cite><a class="bibref" href="#bib-timelock" title="Protect Your Users With Smart Contract Timelocks" data-link-type="biblio">TimeLock</a></cite>] delays.
+</p>
+
+</td>
+<td>
+
+  <ul>
+    <li><input type="radio" name="req-R-timelock-for-privileged-actions" id="req-R-timelock-for-privileged-actions-NT" value="NT" checked>
+  <label for="req-R-timelock-for-privileged-actions-NT">Not Tested</label></li>
+    <li><input type="radio" name="req-R-timelock-for-privileged-actions" id="req-R-timelock-for-privileged-actions-P" value="Pass">
+  <label for="req-R-timelock-for-privileged-actions-P">Implemented</label></li>
+    <li><input type="radio" name="req-R-timelock-for-privileged-actions" id="req-R-timelock-for-privileged-actions-NA" value="NA">
+  <label for="req-R-timelock-for-privileged-actions-NA">Not Applicable</label></li>
+    <li><input type="radio" name="req-R-timelock-for-privileged-actions" id="req-R-timelock-for-privileged-actions-F" value="Fail">
+  <label for="req-R-timelock-for-privileged-actions-F">Not Implemented</label></li>
+  </ul>
+</td>
+</tr>
+</table>
+</section>
+</form></section>
+
+<section id="sec-additional-information" class="appendix"><h2 id="a-additional-information"><bdi class="secno">A. </bdi>Additional Information<a class="self-link" aria-label="§" href="#sec-additional-information"></a></h2>
+
+<section id="sec-definitions"><h3 id="a-1-defined-terms"><bdi class="secno">A.1 </bdi>Defined Terms<a class="self-link" aria-label="§" href="#sec-definitions"></a></h3>
+
+<p>The following terms are defined in this document:</p>
+
+<div class="inside"><ul class="respec-dfn-list">
+<li id="item-5"><a id="dfnanchor-5" href="#dfn-eea-ethtrust-certification">EEA Ethtrust Certification</a></li>
+<li id="item-47"><a id="dfnanchor-47" href="#dfn-valid-conformance-claim">Valid Conformance Claim</a></li>
+</ul></div>
+
+<p>
+The following terms used in this checklist are defined in the <a href="index.html">EEA EthTrust Security Levels Specification</a>.
+</p>
+<div class="inside"><ul class="respec-dfn-list">
+
+<li id="item-3"><a id="dfnanchor-3" href="index.html#dfn-checks-effects-interactions">checks-effects-interactions</a></li>
+<li id="item-8"><a id="dfnanchor-8" href="index.html#dfn-evm-version">EVM Versions</a></li>
+<li id="item-12"><a id="dfnanchor-12" href="index.html#dfn-free-functions">Free Functions</a></li>
+<li id="item-13"><a id="dfnanchor-13" href="index.html#dfn-front-running">Front-running</a></li>
+<li id="item-14"><a id="dfnanchor-14" href="index.html#dfn-future-block-attacks">Future Block Attacks</a></li>
+<li id="item-15"><a id="dfnanchor-15" href="index.html#dfn-fuzzing">Fuzzing</a></li>
+<li id="item-23"><a id="dfnanchor-23" href="index.html#dfn-low-level-call-functions">Low-level Call Functions</a></li>
+<li id="item-24"><a id="dfnanchor-24" href="index.html#dfn-malleable-signatures">Malleable Signatures</a></li>
+<li id="item-25"><a id="dfnanchor-25" href="index.html#dfn-mev">MEV</a></li>
+<li id="item-27"><a id="dfnanchor-27" href="index.html#dfn-oracles">Oracles</a></li>
+<li id="item-28"><a id="dfnanchor-28" href="index.html#dfn-overriding-requirement">Overriding Requirements</a></li>
+<li id="item-29"><a id="dfnanchor-29" href="index.html#dfn-private-data">Private Data</a></li>
+<li id="item-32"><a id="dfnanchor-32" href="index.html#dfn-re-entrancy-attacks">Re-entrancy Attacks</a></li>
+<li id="item-33"><a id="dfnanchor-33" href="index.html#dfn-read-only-re-entrancy-attack">Read-only Re-entrancy Attack</a></li>
+<li id="item-34"><a id="dfnanchor-34" href="index.html#dfn-related-requirements">Related Requirements</a></li>
+<li id="item-35"><a id="dfnanchor-35" href="index.html#dfn-sandwich-attacks">Sandwich Attacks</a></li>
+<li id="item-36"><a id="dfnanchor-36" href="index.html#dfn-security-level-s">Security Level [S]</a></li>
+<li id="item-36"><a id="dfnanchor-36" href="index.html#dfn-security-level-m">Security Level [M]</a></li>
+<li id="item-37"><a id="dfnanchor-37" href="index.html#dfn-security-level-q">Security Level [Q]</a></li>
+<li id="item-39"><a id="dfnanchor-39" href="index.html#dfn-security-levels">Security Levels</a></li>
+<li id="item-40"><a id="dfnanchor-40" href="index.html#dfn-set-of-contracts">Set of Contracts</a></li>
+<li id="item-41"><a id="dfnanchor-41" href="index.html#dfn-sets-of-overriding-requirements">Set of Overriding Requirements</a></li>
+<li id="item-42"><a id="dfnanchor-42" href="index.html#dfn-tested-code">Tested Code</a></li>
+<li id="item-45"><a id="dfnanchor-45" href="index.html#dfn-unicode-direction-control-characters">Unicode Direction Control Characters</a></li>
+</ul>
+</div></section>
+
+<section id="references" class="appendix">
+      <h2 id="b-references"><bdi class="secno">B. </bdi>References<a class="self-link" aria-label="§" href="#references"></a></h2>
+
+
+<section id="normative-references">
+        <h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references<a class="self-link" aria-label="§" href="#normative-references"></a></h3>
+      <dl class="bibliography">
+
+<dt id="bib-cwe">[CWE]</dt><dd><a href="https://cwe.mitre.org/index.html"><cite>Common Weakness Enumeration</cite></a>.  MITRE. URL: <a href="https://cwe.mitre.org/index.html">https://cwe.mitre.org/index.html</a></dd>
+<dt id="bib-eip-155">[EIP-155]</dt><dd><a href="https://eips.ethlibrary.io/eip-155.html"><cite>Simple Replay Attack Protection</cite></a>.  Ethereum Foundation. URL: <a href="https://eips.ethlibrary.io/eip-155.html">https://eips.ethlibrary.io/eip-155.html</a></dd>
+<dt id="bib-erc">[ERC]</dt><dd><a href="https://eips.ethereum.org/erc"><cite>ERC Final - Ethereum Improvement Proposals</cite></a>.  Ethereum Foundation. URL: <a href="https://eips.ethereum.org/erc">https://eips.ethereum.org/erc</a></dd>
+<dt id="bib-ethtrust-sl-v2">[EthTrust-sl-v2]</dt><dd><a href="https://entethalliance.org/specs/ethtrust-sl/v2/"><cite>EEA EthTrust Security Levels Specification. Version 2</cite></a>.  Enterprise Ethereum Alliance. URL: <a href="https://entethalliance.org/specs/ethtrust-sl/v2/">https://entethalliance.org/specs/ethtrust-sl/v2/</a></dd>
+<dt id="bib-evm-version">[EVM-version]</dt><dd><a href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#target-options"><cite>Using the Compiler - Solidity Documentation. (§Targets)</cite></a>.  Ethereum Foundation. URL: <a href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#target-options">https://docs.soliditylang.org/en/latest/using-the-compiler.html#target-options</a></dd>
+<dt id="bib-natspec">[NatSpec]</dt><dd><a href="https://docs.soliditylang.org/en/latest/natspec-format.html"><cite>NatSpec Format - Solidity Documentation.</cite></a>.  Ethereum Foundation. URL: <a href="https://docs.soliditylang.org/en/latest/natspec-format.html">https://docs.soliditylang.org/en/latest/natspec-format.html</a></dd>
+<dt id="bib-rfc2119">[RFC2119]</dt><dd><a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a></dd>
+<dt id="bib-rfc8174">[RFC8174]</dt><dd><a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a></dd>
+<dt id="bib-sha3-256">[SHA3-256]</dt><dd><a href="http://dx.doi.org/10.6028/NIST.FIPS.202"><cite>FIPS 202 - SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions</cite></a>.  The National Institute of Standards (US Department of Commerce). URL: <a href="http://dx.doi.org/10.6028/NIST.FIPS.202">http://dx.doi.org/10.6028/NIST.FIPS.202</a></dd>
+<dt id="bib-solidity-alerts">[solidity-alerts]</dt><dd><a href="https://blog.soliditylang.org/category/security-alerts/"><cite>Solidity Blog - Security Alerts</cite></a>.  Ethereum Foundation. URL: <a href="https://blog.soliditylang.org/category/security-alerts/">https://blog.soliditylang.org/category/security-alerts/</a></dd>
+<dt id="bib-solidity-bugs">[solidity-bugs]</dt><dd><a href="https://github.com/ethereum/solidity/blob/develop/docs/bugs.rst"><cite>List of Known Bugs</cite></a>.  Ethereum Foundation. URL: <a href="https://github.com/ethereum/solidity/blob/develop/docs/bugs.rst">https://github.com/ethereum/solidity/blob/develop/docs/bugs.rst</a></dd>
+<dt id="bib-solidity-bugs-json">[solidity-bugs-json]</dt><dd><a href="https://github.com/ethereum/solidity/blob/develop/docs/bugs.json"><cite>A JSON-formatted list of some known security-relevant Solidity bugs</cite></a>.  Ethereum Foundation. URL: <a href="https://github.com/ethereum/solidity/blob/develop/docs/bugs.json">https://github.com/ethereum/solidity/blob/develop/docs/bugs.json</a></dd>
+<dt id="bib-swcregistry">[swcregistry]</dt><dd><a href="https://swcregistry.io"><cite>Smart Contract Weakness Classification Registry</cite></a>.  ConsenSys Diligence. URL: <a href="https://swcregistry.io">https://swcregistry.io</a></dd>
+<dt id="bib-timelock">[TimeLock]</dt><dd><a href="https://blog.openzeppelin.com/protect-your-users-with-smart-contract-timelocks/"><cite>Protect Your Users With Smart Contract Timelocks</cite></a>.  OpenZeppelin. URL: <a href="https://blog.openzeppelin.com/protect-your-users-with-smart-contract-timelocks/">https://blog.openzeppelin.com/protect-your-users-with-smart-contract-timelocks/</a></dd>
+      </dl></section>
+<section id="informative-references">
+        <h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references<a class="self-link" aria-label="§" href="#informative-references"></a></h3>
+      <dl class="bibliography">
+
+<dt id="bib-license">[License]</dt><dd><a href="http://www.apache.org/licenses/LICENSE-2.0"><cite>Apache license version 2.0</cite></a>.  The Apache Software Foundation. URL: <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></dd>
+      </dl></section></section>
+      <p role="navigation" id="back-to-top"><a href="#title"><abbr title="Back to Top">↑</abbr></a></p>
+      <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>
