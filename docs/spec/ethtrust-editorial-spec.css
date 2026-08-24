@@ -1,0 +1,280 @@
+/*
+ * EthTrust spec — EEA editorial family skin
+ * Overlay on the W3C TR 2016 base stylesheet. Loaded AFTER base.css so the
+ * cascade wins; the spec documents themselves are content-identical to the
+ * published versions (only this stylesheet link is added).
+ * Tokens mirror eea-design-system editorial.css (--eea-ed-*).
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kode+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --ed-page:   #EDEAE3;
+  --ed-ground: #F7F5F0;
+  --ed-rule:   #E3DFD7;
+  --ed-line:   #DAD6CD;
+  --ed-ink:    #16181A;
+  --ed-soft:   #5A645E;
+  --ed-mute:   #8A9088;
+  --ed-accent: #1F5C4A;
+  --ed-accent-deep: #123A2E;
+  --ed-warn-ink: #9B413C;
+  --ed-font:   Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ed-mono:   'Kode Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ── Page ground ── */
+html { background: var(--ed-page); }
+body {
+  background: var(--ed-page) !important;
+  color: var(--ed-ink);
+  font-family: var(--ed-font);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1.2rem, 4vw, 3rem) 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--ed-accent); color: var(--ed-page); }
+
+/* ── Head matter ── */
+.head { margin-bottom: 2.5rem; }
+.head .logo img { max-width: 150px; height: auto; margin: 0 0 1.4rem; }
+.head h1, h1.title, h1 {
+  font-family: var(--ed-font);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--ed-ink);
+}
+.head h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); border: 0; margin: 0 0 1.2rem; }
+.head dl {
+  border-top: 2px solid var(--ed-ink);
+  border-bottom: 1px solid var(--ed-line);
+  padding: 0.8rem 0;
+  font-size: 0.85rem;
+}
+.head dt {
+  font-family: var(--ed-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-soft);
+  margin-top: 0.5rem;
+}
+.head dd { margin: 0.1rem 0 0; }
+.head hr { display: none; }
+p.copyright, .copyright small { color: var(--ed-soft); font-size: 0.82rem; }
+
+/* ── Headings ── */
+h2, h3, h4, h5 {
+  font-family: var(--ed-font);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--ed-ink);
+  page-break-after: avoid;
+}
+h2 { font-size: 1.7rem; margin-top: 3rem; border-bottom: 1px solid var(--ed-line); padding-bottom: 0.4rem; }
+h3 { font-size: 1.3rem; margin-top: 2.2rem; }
+h4 { font-size: 1.08rem; margin-top: 1.8rem; }
+.secno {
+  font-family: var(--ed-mono);
+  font-weight: 500;
+  color: var(--ed-accent);
+  margin-right: 0.35em;
+}
+
+/* ── Links ── */
+a, a:visited { color: var(--ed-accent); text-decoration: none; border-bottom: 1px solid var(--ed-line); }
+a:hover { color: var(--ed-accent-deep); border-bottom-color: var(--ed-accent); background: transparent; }
+a.self-link, a.selflink { border-bottom: 0; color: var(--ed-mute); }
+a.internalDFN { color: var(--ed-ink); border-bottom: 1px dotted var(--ed-mute); }
+a.internalDFN:hover { color: var(--ed-accent); border-bottom-color: var(--ed-accent); }
+a.bibref { font-family: var(--ed-mono); font-size: 0.85em; }
+
+/* ── Table of contents ── */
+nav#toc, .toc { font-family: var(--ed-font); }
+nav#toc h2 { border-bottom: 0; }
+.toc a { border-bottom: 0; color: var(--ed-ink); line-height: 1.9; }
+.toc a:hover { color: var(--ed-accent); }
+.toc .secno { color: var(--ed-accent); }
+ul.toc, ol.toc { border-top: 2px solid var(--ed-ink); padding-top: 1rem; }
+ol.toc ol, ul.toc ul { border-top: 0; padding-top: 0; }
+
+/* ── RFC 2119 keywords ── */
+.rfc2119 {
+  font-family: var(--ed-mono);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ed-accent-deep);
+  font-variant: none;
+  text-transform: uppercase;
+}
+
+/* ── Notes / examples / warnings ── */
+.note, div.note, aside.note {
+  background: var(--ed-ground);
+  border: 0;
+  border-left: 3px solid var(--ed-accent);
+  padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0;
+}
+.note-title, .note-title span {
+  font-family: var(--ed-mono) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-accent) !important;
+}
+.example, div.example, aside.example {
+  background: var(--ed-ground);
+  border: 1px solid var(--ed-line);
+  border-left: 3px solid var(--ed-ink);
+  padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0;
+}
+.example-title, .example-title span {
+  font-family: var(--ed-mono) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-soft) !important;
+}
+.warning, div.warning, aside.warning {
+  background: var(--ed-ground);
+  border: 0;
+  border-left: 3px solid var(--ed-warn-ink);
+  padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0;
+}
+.warning-title, .warning-title span {
+  font-family: var(--ed-mono) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-warn-ink) !important;
+}
+
+/* ── Code ── */
+pre, code, samp, kbd {
+  font-family: var(--ed-mono);
+  font-size: 0.86em;
+}
+pre {
+  background: var(--ed-ground);
+  border: 1px solid var(--ed-line);
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+code { background: var(--ed-rule); padding: 0.08em 0.3em; }
+pre code { background: transparent; padding: 0; }
+
+/* highlight.js — light-paper palette */
+.hljs { background: transparent; color: var(--ed-ink); }
+.hljs-keyword, .hljs-built_in { color: var(--ed-accent-deep); font-weight: 600; }
+.hljs-title, .hljs-function .hljs-title { color: var(--ed-ink); font-weight: 600; }
+.hljs-comment { color: var(--ed-mute); font-style: italic; }
+.hljs-number, .hljs-string { color: var(--ed-warn-ink); }
+.hljs-params { color: var(--ed-soft); }
+
+/* ── Definition lists & tables ── */
+dfn { font-style: normal; font-weight: 650; }
+table { border-collapse: collapse; font-size: 0.93rem; }
+th {
+  font-family: var(--ed-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-soft);
+  text-align: left;
+  border-bottom: 2px solid var(--ed-ink);
+  padding: 0.5rem 0.8rem;
+  background: transparent;
+}
+td { border-bottom: 1px dotted var(--ed-mute); padding: 0.55rem 0.8rem; vertical-align: top; }
+
+/* ── Removed / changes markers ── */
+.removed { color: var(--ed-warn-ink); text-decoration: line-through; }
+
+/* ── Slim return bar (injected chrome, not spec content) ── */
+.ethtrust-return {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--ed-page);
+  border-bottom: 1px solid var(--ed-line);
+  margin: -1.5rem calc(-1 * clamp(1.2rem, 4vw, 3rem)) 2rem;
+  padding: 0.6rem clamp(1.2rem, 4vw, 3rem);
+}
+.ethtrust-return a {
+  font-family: var(--ed-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-soft);
+  border-bottom: 0;
+}
+.ethtrust-return a:hover { color: var(--ed-ink); }
+
+@media print {
+  .ethtrust-return { display: none; }
+  body { background: #fff !important; }
+}
+
+/* ── Requirement boxes (spec inline styles use cyan bg + purple borders) ──
+   Level distinction is preserved through border treatment, palette moved
+   onto the editorial family: */
+*[id^=req-1]:not(.removed), .reqEx-1 {
+  background-color: var(--ed-ground);
+  border: 1px solid var(--ed-ink);
+  border-left: 4px solid var(--ed-accent);
+  padding: 0.8rem 1rem;
+}
+*[id^=req-2]:not(.removed), .reqEx-2 {
+  background-color: var(--ed-ground);
+  border: 3px double var(--ed-ink);
+  border-left: 4px solid var(--ed-accent);
+  padding: 0.8rem 1rem;
+}
+*[id^=req-3]:not(.removed) {
+  background-color: var(--ed-ground);
+  border: 2px dashed var(--ed-accent-deep);
+  padding: 0.8rem 1rem;
+}
+*[id^=req-R]:not(.removed) {
+  background-color: var(--ed-ground);
+  border: 2px dashed #765A00; /* editorial work-ink — recommended good practice */
+  padding: 0.8rem 1rem;
+}
+
+/* inline code chips: spec sets orange #c83500 */
+code { color: var(--ed-ink); }
+.hljs-comment, .hljs-quote { color: var(--ed-mute); }
+.hljs-keyword, .hljs-selector-tag, .hljs-subst { color: var(--ed-accent-deep); }
+.hljs-number, .hljs-literal, .hljs-variable { color: var(--ed-warn-ink); }
+.hljs-string, .hljs-doctag { color: var(--ed-warn-ink); }
+.hljs-title, .hljs-section { color: var(--ed-ink); }
+.hljs-type, .hljs-class .hljs-title { color: var(--ed-accent-deep); }
+.hljs-built_in, .hljs-builtin-name { color: var(--ed-accent-deep); }
+
+/* .simple tables: spec paints W3C blue */
+table.simple { border-bottom: 2px solid var(--ed-ink); }
+.simple th, .simple th a { background: transparent; color: var(--ed-soft); }
+.simple th { border-bottom: 2px solid var(--ed-ink); }
+.simple th[scope="row"] { color: var(--ed-ink); }
+.simple td { border-top: 1px dotted var(--ed-mute); }
+.simple tr:nth-child(even) { background: transparent; }
+table, th, td { border-color: var(--ed-line); }
+
+#references :target { background: var(--ed-rule); }
+a.internalDFN { border-bottom-color: var(--ed-mute); }
+div.illegal-example { color: var(--ed-warn-ink); }
+
+/* example family (spec inline: yellow border, cream bg) */
+aside.example, div.example {
+  border-color: var(--ed-ink);
+  background: var(--ed-ground);
+  border-left-width: 3px;
+}
