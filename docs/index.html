@@ -267,6 +267,15 @@ section h2 {
   letter-spacing: -0.015em;
   line-height: 1.1;
 }
+.companies a {
+  color: var(--eea-ed-ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.companies a:hover {
+  color: var(--eea-ed-accent);
+  border-bottom-color: var(--eea-ed-accent);
+}
 
 /* ── Contribute / contact ── */
 .contrib {
@@ -317,9 +326,10 @@ section h2 {
       </span>
     </a>
     <nav class="eea-site-links" aria-label="EthTrust Security Levels WG">
+      <a href="#v4-review">v4 review</a>
+      <a href="#contributors">Contributors</a>
       <a href="#focus">Our focus</a>
       <a href="#resources">Resources</a>
-      <a href="#contributors">Contributors</a>
       <a href="#contribute">Contribute</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -340,8 +350,40 @@ section h2 {
     </div>
   </div>
 
+
+  <div class="measure">
+    <div class="res-feature review-draft" id="v4-review">
+      <span class="res-feature-tag">Now in public review — Version 4 draft</span>
+      <h3>EthTrust v4 proposed technical refresh</h3>
+      <p>AI-generated initial draft for expert validation. Compare v3 → v4 changes, review candidate requirements, and see the proposed GBBC RMF relationship. Not an approved EEA specification — <a href="spec/v3/">version 3</a> remains the certification baseline.</p>
+      <div class="btn-row">
+        <a class="btn" href="spec/v4/">Review the v4 draft</a>
+        <a class="btn ghost" href="https://github.com/EntEthAlliance/EthTrust-public/issues/12">Public review &amp; feedback</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="contributors" class="measure">
+    <p class="kicker" data-n="01">Contributors</p>
+    <h2>The companies behind the standard</h2>
+    <p class="prose">Version&nbsp;3 was written by security practitioners from
+    the firms below, as credited in the specification itself — together with
+    EEA staff, independent experts, and everyone who built the previous
+    versions it extends.</p>
+    <ul class="companies" role="list">
+      <li><a href="https://www.certik.com/">CertiK</a></li>
+      <li><a href="https://www.chainsecurity.com/">ChainSecurity</a></li>
+      <li><a href="https://www.coinspect.com/">Coinspect</a></li>
+      <li><a href="https://diligence.consensys.io/">Consensys Diligence</a></li>
+      <li><a href="https://www.ey.com/">EY</a></li>
+      <li><a href="https://hacken.io/">Hacken</a></li>
+      <li><a href="https://www.olympix.ai/">Olympix</a></li>
+      <li><a href="https://www.openzeppelin.com/">OpenZeppelin</a></li>
+    </ul>
+  </section>
+
   <section id="focus" class="measure">
-    <p class="kicker" data-n="01">Our focus</p>
+    <p class="kicker" data-n="02">Our focus</p>
     <h2>Minimum standards for smart contract security audits</h2>
     <p class="prose">The EEA EthTrust Security Levels Working Group defines
     baseline requirements for Ethereum smart contract security audits. These
@@ -375,7 +417,7 @@ section h2 {
   </section>
 
   <section id="resources" class="measure">
-    <p class="kicker" data-n="02">Resources</p>
+    <p class="kicker" data-n="03">Resources</p>
     <h2>The specification</h2>
 
     <div class="res-feature">
@@ -388,15 +430,6 @@ section h2 {
       </div>
     </div>
 
-    <div class="res-feature review-draft">
-      <span class="res-feature-tag">Public review — Version 4 draft</span>
-      <h3>EthTrust v4 proposed technical refresh</h3>
-      <p>AI-generated initial draft for expert validation. Compare v3 → v4 changes, review candidate requirements, and see the proposed GBBC RMF relationship. Not an approved EEA specification.</p>
-      <div class="btn-row">
-        <a class="btn" href="spec/v4/">Review the v4 draft</a>
-        <a class="btn ghost" href="https://github.com/EntEthAlliance/EthTrust-public/issues/12">Public review &amp; feedback</a>
-      </div>
-    </div>
 
     <ul class="res-prev">
       <li><a href="spec/v2/">Version 2</a> <a href="spec/v2/checklist.html">(checklist)</a><span class="when">Published 13 Dec 2023</span></li>
@@ -404,24 +437,6 @@ section h2 {
     </ul>
   </section>
 
-  <section id="contributors" class="measure">
-    <p class="kicker" data-n="03">Contributors</p>
-    <h2>The companies behind the standard</h2>
-    <p class="prose">Version&nbsp;3 was written by security practitioners from
-    the firms below, as credited in the specification itself — together with
-    EEA staff, independent experts, and everyone who built the previous
-    versions it extends.</p>
-    <ul class="companies" role="list">
-      <li>CertiK</li>
-      <li>ChainSecurity</li>
-      <li>Coinspect</li>
-      <li>Consensys Diligence</li>
-      <li>EY</li>
-      <li>Hacken</li>
-      <li>Olympix</li>
-      <li>OpenZeppelin</li>
-    </ul>
-  </section>
 
   <section id="contribute" class="measure">
     <p class="kicker" data-n="04">How to contribute</p>
