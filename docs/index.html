@@ -197,32 +197,23 @@ section h2 {
   color: var(--eea-ed-ink-soft);
 }
 
-/* ── Contributors ── */
-.contributors {
+/* ── Contributing companies ── */
+.companies {
   list-style: none;
-  margin: 1.6rem 0 1rem;
+  margin: 2rem 0 1rem;
   padding: 0;
-  columns: 3;
-  column-gap: 2.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0 2.4rem;
 }
-.contributors li {
-  break-inside: avoid;
-  padding: 0.55rem 0;
-  border-bottom: 1px dotted var(--eea-ed-ink-mute);
-  font-size: 0.97rem;
-  font-weight: 550;
+.companies li {
+  border-top: 2px solid var(--eea-ed-ink);
+  padding: 1rem 0 1.6rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
 }
-.contributors .org {
-  display: block;
-  font-family: var(--eea-ed-font-mono);
-  font-size: var(--eea-ed-label-sm);
-  letter-spacing: var(--eea-ed-track);
-  text-transform: uppercase;
-  color: var(--eea-ed-ink-soft);
-  margin-top: 2px;
-}
-@media (max-width: 900px) { .contributors { columns: 2; } }
-@media (max-width: 560px) { .contributors { columns: 1; } }
 
 /* ── Contribute / contact ── */
 .contrib {
@@ -352,34 +343,20 @@ section h2 {
 
   <section id="contributors" class="measure">
     <p class="kicker" data-n="03">Contributors</p>
-    <h2>The people behind version 3</h2>
-    <p class="prose">As credited in the specification itself — alongside all
-    those who contributed to the previous versions that version&nbsp;3
-    extends.</p>
-    <ul class="contributors" role="list">
-      <li>Chaals Neville</li>
-      <li>Anish Agrawal <span class="org">Olympix</span></li>
-      <li>Kenan Bešić <span class="org">ChainSecurity</span></li>
-      <li>Daniel Burnett</li>
-      <li>Valerian Callens</li>
-      <li>Luke Ciattaglia <span class="org">Hacken</span></li>
-      <li>Christopher Cordi</li>
-      <li>Ignacio Freire <span class="org">Olympix</span></li>
-      <li>Aminadav Glickshtein <span class="org">EY</span></li>
-      <li>Opal Graham <span class="org">CertiK</span></li>
-      <li>Channi Greenwall <span class="org">Olympix</span></li>
-      <li>James Harsh</li>
-      <li>Sebastian Holler</li>
-      <li>George Kobakhidze <span class="org">Diligence</span></li>
-      <li>Michael Lewellen <span class="org">OpenZeppelin</span></li>
-      <li>Luis Lubeck <span class="org">Hacken</span></li>
-      <li>Dominik Muhs</li>
-      <li>Anton Permenev <span class="org">ChainSecurity</span></li>
-      <li>Juliano Rizzo <span class="org">Coinspect</span></li>
-      <li>Gernot Salzer</li>
-      <li>Clara Schneidewinde</li>
-      <li>Tobias Vogel <span class="org">Diligence</span></li>
-      <li>Morgan Weaver <span class="org">OpenZeppelin</span></li>
+    <h2>The companies behind the standard</h2>
+    <p class="prose">Version&nbsp;3 was written by security practitioners from
+    the firms below, as credited in the specification itself — together with
+    EEA staff, independent experts, and everyone who built the previous
+    versions it extends.</p>
+    <ul class="companies" role="list">
+      <li>CertiK</li>
+      <li>ChainSecurity</li>
+      <li>Coinspect</li>
+      <li>Diligence</li>
+      <li>EY</li>
+      <li>Hacken</li>
+      <li>Olympix</li>
+      <li>OpenZeppelin</li>
     </ul>
   </section>
 
