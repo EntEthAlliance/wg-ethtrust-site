@@ -86,6 +86,17 @@
     .jumpnav a { display:inline-block; margin-bottom:.5rem; }
   }
   @media print { .draft-banner { position:static; margin:0 0 1rem; } }
+
+  /* §2.7 requirement-level diff */
+  .diffpair { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--ed-ink); margin:1.2rem 0 1.8rem; }
+  .diffpane { padding:1rem 1.2rem 1.2rem; font-size:.92rem; line-height:1.55; }
+  .diffpane.v3 { background:var(--ed-rule); border-right:1px solid var(--ed-ink); }
+  .diffpane.v4 { background:var(--ed-ground); }
+  .diffpane .label { display:block; margin-bottom:.6rem; }
+  .diffpane h5 { margin:.6rem 0 .3rem; font-size:.95rem; }
+  .diffpane p { margin:.3rem 0; }
+  .diffpane .normative { white-space:pre-line; }
+  @media (max-width:760px){ .diffpair{grid-template-columns:1fr;} .diffpane.v3{border-right:0;border-bottom:1px solid var(--ed-ink);} }
 </style>
 </head>
 <body>
@@ -158,28 +169,28 @@
 <p><strong>All wording and requirement levels below are provisional.</strong> The purpose of this section is to expose concrete language for review rather than ask reviewers to react to a high-level proposal.</p>
 
 <h3>2.1 Account model and EIP-7702</h3>
-<div class="req">
+<div class="req" id="s-v4-01">
 <div class="meta">Candidate Security Level [S] · New</div>
 <h4>[S-v4-01] Do Not Use Account Code as a Security Boundary</h4>
 <p>Tested Code <strong>MUST NOT</strong> use <code>EXTCODESIZE</code>, <code>EXTCODEHASH</code>, Solidity <code>address.code.length</code>, <code>address.codehash</code>, or equivalent account-code introspection as the sole basis for asserting that an address is non-programmable, cannot execute delegated logic, cannot make multiple calls in one transaction, cannot re-enter Tested Code, or is therefore trusted or eligible for elevated authorization.</p>
 <p>Account-code introspection MAY be used for other documented purposes where its result is not treated as a security boundary.</p>
 </div>
 
-<div class="req q">
+<div class="req q" id="q-v4-02">
 <div class="meta">Candidate Security Level [Q] · Modifies v3 tx.origin review</div>
 <h4>[Q-v4-02] Verify <code>tx.origin</code> Under Delegated Account Execution</h4>
 <p>For Tested Code that uses <code>tx.origin</code>, each use <strong>MUST</strong> be reviewed under EIP-7702 semantics. The review <strong>MUST NOT</strong> assume that <code>tx.origin == msg.sender</code> can only occur in the topmost execution frame or that such equality prevents programmable multi-call execution.</p>
 <p>Where <code>tx.origin</code> participates in authorization, reentrancy protection, flash-loan or atomic-execution restrictions, anti-bot logic, or other security-sensitive behavior, the reviewer <strong>MUST</strong> document and test behavior when the originating account has delegated code. The existing v3 <strong>[S] No tx.origin</strong> requirement remains the preferred baseline.</p>
 </div>
 
-<div class="req m">
+<div class="req m" id="m-v4-03">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-03] Secure EIP-7702 Delegation Logic</h4>
 <p>Tested Code that acts as an EIP-7702 delegate implementation, constructs or verifies delegated-operation authorizations, or relays delegated operations <strong>MUST</strong> ensure that security-sensitive authorizations bind the information necessary to prevent unintended execution, including as applicable replay protection / nonce, intended chain or explicit cross-chain behavior, execution target, calldata or operation payload, transferred value, griefing-sensitive execution bounds, and the authority whose privilege is exercised.</p>
 <p>Any intentional omission <strong>MUST</strong> be documented and shown not to violate the security objectives of the Tested Code.</p>
 </div>
 
-<div class="req m">
+<div class="req m" id="m-v4-04">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-04] Protect Delegated Account Initialization and Storage</h4>
 <p>Where Tested Code executes as EIP-7702 delegated code, privileged initialization <strong>MUST</strong> be authenticated and protected against front-running; storage layout <strong>MUST</strong> prevent unintended collisions or provide an equivalent migration-safety mechanism; delegation changes <strong>MUST</strong> be treated as security-sensitive upgrades; and modules, session keys, relayers or sub-keys <strong>MUST</strong> follow least privilege.</p>
@@ -188,14 +199,14 @@
 <div class="review-question"><strong>Review requested</strong><br>Are these account-model requirements correctly scoped to security consequences of EIP-7702? Are [S]/[M]/[Q] the appropriate levels, and are there valid patterns this wording would accidentally prohibit?</div>
 
 <h3>2.2 Transient storage — EIP-1153</h3>
-<div class="req m">
+<div class="req m" id="m-v4-05">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-05] Verify Transient Storage Lifetime</h4>
 <p>For each transient storage value that affects authorization, reentrancy protection, accounting, settlement, pricing, or another security invariant, Tested Code <strong>MUST</strong> document its intended lifetime; <strong>MUST NOT</strong> rely on it persisting across transactions; <strong>MUST</strong> account for multiple calls within the same transaction; and <strong>MUST</strong> ensure that a non-zero value left after a call cannot cause unintended behavior in a later same-transaction call.</p>
 <p>Where a transient value is intended to be scoped to a call rather than the transaction, Tested Code <strong>MUST</strong> explicitly restore or clear it before the relevant call completes.</p>
 </div>
 
-<div class="req m">
+<div class="req m" id="m-v4-06">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-06] Verify Transient Storage Under <code>DELEGATECALL</code></h4>
 <p>Where Tested Code combines transient storage with <code>DELEGATECALL</code> or <code>CALLCODE</code>, the reviewer <strong>MUST</strong> verify transient-storage ownership and slot usage in the caller's context and <strong>MUST</strong> test for collisions or unsafe state sharing between delegated modules.</p>
@@ -210,7 +221,7 @@
 </div>
 
 <h3>2.4 Fusaka transaction gas cap — EIP-7825</h3>
-<div class="req m">
+<div class="req m" id="m-v4-07">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-07] Bound Security-Critical Operations to the Transaction Gas Cap</h4>
 <p>Where safe operation depends on an administrative, recovery, upgrade, settlement, liquidation, migration, emergency, or other security-critical transaction completing atomically, the reviewer <strong>MUST</strong> establish that it can execute within the transaction gas cap of the intended network under the documented worst-case state.</p>
@@ -218,7 +229,7 @@
 </div>
 
 <h3>2.5 New cryptographic precompiles — EIP-2537 and EIP-7951</h3>
-<div class="req m">
+<div class="req m" id="m-v4-08">
 <div class="meta">Candidate Security Level [M] · Conditional</div>
 <h4>[M-v4-08] Verify Cryptographic Precompile Results</h4>
 <p>Where Tested Code depends on a cryptographic precompile for authentication, authorization, consensus proofs, bridge verification, or asset-control decisions, it <strong>MUST</strong> validate precompile-specific input encoding and bounds, distinguish successful EVM call execution from successful cryptographic verification, validate the exact expected return length/value, apply appropriate replay protection and domain separation, and document curve-specific assumptions on which security depends.</p>
@@ -226,18 +237,98 @@
 </div>
 
 <h3>2.6 Compiler and vulnerability freshness</h3>
-<div class="req">
+<div class="req" id="s-v4-09">
 <div class="meta">Candidate Security Level [S] · Replaces optional freshness check</div>
 <h4>[S-v4-09] Check Current Compiler Security Advisories</h4>
 <p>At certification time, the reviewer <strong>MUST</strong> check the Solidity compiler version(s) used by the Tested Code against current Solidity security-advisory / known-bugs sources and determine that no known applicable compiler vulnerability invalidates the certification requirements.</p>
 <p>The certification record <strong>MUST</strong> identify compiler version(s), relevant compilation configuration, advisory sources checked, and the date of the check.</p>
 </div>
 
-<div class="req gp">
+<div class="req gp" id="gp-v4-10">
 <div class="meta">Candidate Recommended Good Practice [GP] · New</div>
 <h4>[GP-v4-10] Reassess After Security-Relevant Network Upgrades</h4>
 <p>A previously certified contract SHOULD be reassessed when a network upgrade changes an opcode, precompile, account model, gas bound, or execution semantic on which its security assumptions depend. A protocol upgrade with no relevant effect on the Tested Code does not by itself require recertification.</p>
 </div>
+
+<h3 id="req-diff">2.7 Requirement-level comparison: v3 today &rarr; v4 proposed</h3>
+<p class="small">For the candidates that modify or replace existing requirements, this shows the
+<strong>exact current v3 normative text</strong> (pulled from the
+<a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/">approved v3 specification</a>, each linked to its anchor)
+beside the proposed v4 language, so reviewers can judge the delta precisely. Candidates
+with no v3 counterpart follow in the table below.</p>
+
+<div class="diffpair">
+  <div class="diffpane v3">
+    <span class="label">Version 3 — current approved text</span>
+    <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-1-no-tx.origin">[S] No tx.origin</a></h5>
+    <p class="normative">Tested code MUST NOT contain a tx.origin instruction
+unless it meets the Overriding Requirement [Q] Verify tx.origin Usage.</p>
+    <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-3-verify-tx.origin">[Q] Verify tx.origin Usage</a></h5>
+    <p class="normative">For Tested Code that uses tx.origin, each instance
+MUST be consistent with the stated security and functionality objectives of the Tested Code, and
+MUST NOT allow assertions about contract functionality made for [Q] Document Contract Logic or [Q] Document System Architecture to be violated by another contract, even where that contract is called by a user authorized to interact directly with the Tested Code.
+This is an Overriding Requirement for [S] No tx.origin.</p>
+  </div>
+  <div class="diffpane v4">
+    <span class="label"><span class="pill modified">Modified</span> Version 4 — proposed (<a href="#q-v4-02">[Q-v4-02]</a>)</span>
+    <h5>[Q-v4-02] Verify tx.origin Under Delegated Account Execution</h5>
+    <p class="normative">For Tested Code that uses tx.origin, each use MUST be reviewed under EIP-7702 semantics. The review MUST NOT assume that tx.origin == msg.sender can only occur in the topmost execution frame or that such equality prevents programmable multi-call execution.
+Where tx.origin participates in authorization, reentrancy protection, flash-loan or atomic-execution restrictions, anti-bot logic, or other security-sensitive behavior, the reviewer MUST document and test behavior when the originating account has delegated code. The existing v3 [S] No tx.origin requirement remains the preferred baseline.</p>
+  </div>
+</div>
+
+<div class="diffpair">
+  <div class="diffpane v3">
+    <span class="label">Version 3 — current approved text</span>
+    <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-1-self-destruct">[S] No selfdestruct()</a></h5>
+    <p class="normative">Tested code MUST NOT contain the selfdestruct() instruction or its now-deprecated alias suicide()
+unless it meets the Set of Overriding Requirements [M] Protect Self-destruction, and [M] Document Special Code Use.</p>
+    <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-2-self-destruct">[M] Protect Self-destruction</a></h5>
+    <p class="normative">Tested code that contains the selfdestruct() or suicide() instructions MUST
+ensure that only authorised parties can call the method, and MUST protect those calls in a way that is fully compatible with the claims of the contract author,
+unless it meets the Overriding Requirement [Q] Enforce Least Privilege.
+This is an Overriding Requirement for [S] No selfdestruct().</p>
+    <p class="small">v3's surrounding explanation still describes pre-Dencun deletion semantics.</p>
+  </div>
+  <div class="diffpane v4">
+    <span class="label"><span class="pill modified">Modified</span> Version 4 — proposed (&sect;2.3 update)</span>
+    <h5>Update: [S] No selfdestruct() / [M] Protect Self-destruction</h5>
+    <p class="normative">The existing v3 prohibition remains appropriate. The explanation should state that after EIP-6780, SELFDESTRUCT normally transfers the account balance and halts the frame without deleting code or storage, except when invoked in the same transaction in which the contract was created.
+Any reviewed exception MUST NOT rely on later deletion of deployed code/storage, later CREATE2 redeployment of different code at the same address, or other pre-Dencun lifecycle assumptions.</p>
+  </div>
+</div>
+
+<div class="diffpair">
+  <div class="diffpane v3">
+    <span class="label">Version 3 — current approved text</span>
+    <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-R-check-new-bugs">[GP] Check For and Address New Security Bugs</a></h5>
+    <p class="normative">Check [solidity-bugs-json] and other sources for bugs announced after 1 November 2023 and address them.</p>
+    <p class="small">In v3 this is a Recommended Good Practice — optional, with a fixed cutoff date; explicit compiler-bug requirements cover issues through SOL-2023-3.</p>
+  </div>
+  <div class="diffpane v4">
+    <span class="label"><span class="pill modified">Replaces — level raised [GP] &rarr; [S]</span> Version 4 — proposed (<a href="#s-v4-09">[S-v4-09]</a>)</span>
+    <h5>[S-v4-09] Check Current Compiler Security Advisories</h5>
+    <p class="normative">At certification time, the reviewer MUST check the Solidity compiler version(s) used by the Tested Code against current Solidity security-advisory / known-bugs sources and determine that no known applicable compiler vulnerability invalidates the certification requirements.
+The certification record MUST identify compiler version(s), relevant compilation configuration, advisory sources checked, and the date of the check.</p>
+  </div>
+</div>
+
+<h4>New candidates with no v3 counterpart</h4>
+<table class="comparison">
+  <tr><th>Candidate</th><th>v3 today</th><th>Nearest existing v3 requirements (context only — not modified by this draft)</th></tr>
+  <tr><td><a href="#s-v4-01">[S-v4-01]</a> Account code as security boundary</td><td>No requirement; review reflects the pre-7702 account model.</td><td>&mdash;</td></tr>
+  <tr><td><a href="#m-v4-03">[M-v4-03]</a> 7702 delegation logic</td><td>No requirement.</td><td>&mdash;</td></tr>
+  <tr><td><a href="#m-v4-04">[M-v4-04]</a> Delegated account init &amp; storage</td><td>No requirement.</td><td>&mdash;</td></tr>
+  <tr><td><a href="#m-v4-05">[M-v4-05]</a> Transient storage lifetime</td><td>No TLOAD/TSTORE requirements.</td><td>&mdash;</td></tr>
+  <tr><td><a href="#m-v4-06">[M-v4-06]</a> Transient storage under DELEGATECALL</td><td>No TLOAD/TSTORE requirements.</td><td>&mdash;</td></tr>
+  <tr><td><a href="#m-v4-07">[M-v4-07]</a> Transaction gas cap bound</td><td>General gas/DoS analysis only; no per-transaction execution bound.</td><td><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-3-enough-gas">[Q] Manage Gas Use Increases</a> &middot; <a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-3-protect-gas">[Q] Protect Gas Usage</a></td></tr>
+  <tr><td><a href="#m-v4-08">[M-v4-08]</a> Cryptographic precompile results</td><td>No precompile-specific requirements.</td><td><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-2-signature-verification">[M] Proper Signature Verification</a></td></tr>
+  <tr><td><a href="#gp-v4-10">[GP-v4-10]</a> Reassess after network upgrades</td><td>No reassessment trigger exists.</td><td>&mdash;</td></tr>
+</table>
+<p class="small">Disagree with a pairing or classification? That is exactly the
+"v3 &rarr; v4 comparison" feedback type in the
+<a href="https://github.com/EntEthAlliance/EthTrust-public/issues/new?template=v4-draft-review.yml">review form</a>.</p>
+
 </section>
 
 <section id="eips">
