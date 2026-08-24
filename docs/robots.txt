@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://entethalliance.github.io/wg-ethtrust-site/sitemap.xml
