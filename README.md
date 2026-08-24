@@ -1,30 +1,47 @@
 # EthTrust Security Levels WG — group page
 
-Source for the working-group page published at
-**https://entethalliance.org/groups/EthTrust/** (WordPress/WP Engine host).
+**This repo is the live site.** GitHub Pages serves `docs/` at
+<https://entethalliance.github.io/wg-ethtrust-site/>, and since 2026-08-24 the
+historical entethalliance.org URLs **301-redirect here** (rules in the
+WP Engine portal, applied by Redwan):
 
-- `docs/` — the static site, built on the
+| Old URL | Redirects to |
+|---|---|
+| `entethalliance.org/groups/EthTrust/` | the site root |
+| `…/specs/ethtrust-sl/` (latest release) | `spec/v3/` |
+| `…/specs/ethtrust-sl/vN/` (v1–v3) | `spec/vN/` |
+| `…/specs/ethtrust-sl/vN/checklist.html` | `spec/vN/checklist.html` |
+
+## Layout
+
+- `docs/index.html` — the WG page, built on the
   [EEA design system](https://github.com/EntEthAlliance/eea-design-system)
   **editorial family** (`editorial.css` loaded from the design system's Pages
   URL; canonical `.eea-site-bar` / `.eea-colophon` markup; all page-local CSS
   on `--eea-ed-*` tokens).
-- GitHub Pages serves `docs/` as the **staging preview**:
-  https://entethalliance.github.io/wg-ethtrust-site/
-- The live copy on WordPress is deployed by uploading the contents of `docs/`
-  to `/groups/EthTrust/` on the WP Engine host — see *Deploying* below.
+- `docs/spec/v1..v3/` — content-identical copies of every published spec
+  version (+ checklists where one was published), restyled via the
+  `docs/spec/ethtrust-editorial-spec.css` overlay. Self-contained: relative
+  logo assets are vendored and Cloudflare-obfuscated emails are decoded to
+  plain `mailto:` links. All pages carry the shared EEA Pages Google tag and
+  self-canonicals.
+- `docs/spec/v4/` — **review draft** (AI-generated, not an approved EEA
+  specification; clearly labelled on the page).
+- `docs/og-card.png`, `robots.txt`, `sitemap.xml` — SEO layer.
 
-History: the page's previous home was `wg-eta-registry/docs/` (now archived);
-its GH Pages `index.html` has redirected to the WordPress copy since Feb 2025,
-and the WordPress copy itself was never under version control until this repo.
+## Deploying
 
-## Deploying to entethalliance.org
+Merge a PR to `main` — GitHub Pages redeploys automatically. There is no
+WordPress-side step anymore; the redirect rules make this repo authoritative.
+Rollback of the redirects themselves = deleting the rules in the WP Engine
+portal (the old files still exist untouched on the WP host).
 
-1. Get the change merged here and check the Pages preview.
-2. Via WP Engine SFTP/file manager (chaals or IT hold access), back up the
-   current `/groups/EthTrust/` directory, then replace its contents with
-   `docs/` (keep the path `index.html` at `/groups/EthTrust/index.html`).
-3. Purge WP Engine + Cloudflare cache for the path and smoke-check the live
-   URL against the Pages preview.
+## History
 
-The page is self-contained (one HTML file + logo; CSS comes from the design
-system's stable URL), so a deploy is a two-file copy.
+The page's previous home was `wg-eta-registry/docs/` (now archived); its GH
+Pages `index.html` redirected to the WordPress copy from Feb 2025. The
+WordPress copy (a 2022 static Bootstrap template uploaded to the server) was
+never under version control until this repo. Modernized 2026-08-24 per the
+[WG Modernization Playbook](https://github.com/EntEthAlliance/eea-design-system/blob/main/WG_MODERNIZATION_PLAYBOOK.md);
+per-WG record in [issue #4](https://github.com/EntEthAlliance/wg-ethtrust-site/issues/4).
+Public comment on the spec: [EthTrust-public](https://github.com/EntEthAlliance/EthTrust-public).
