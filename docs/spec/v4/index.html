@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EEA EthTrust Security Levels v4 — Review Draft</title>
+<meta name="description" content="AI-generated working draft of EEA EthTrust Security Levels v4 for technical validation and public review. Not an approved EEA specification.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#EDEAE3">
+<link rel="icon" type="image/webp" href="../../eea-logo.webp">
+<link rel="stylesheet" href="../ethtrust-editorial-spec.css">
+
+<!-- EEA-PAGES Analytics (GT-PL9524M) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PL9524M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GT-PL9524M');
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { max-width: 72rem; }
+  .draft-banner {
+    position: sticky; top: 0; z-index: 20;
+    margin: -1.5rem calc(-1 * clamp(1.2rem, 4vw, 3rem)) 2rem;
+    padding: .82rem clamp(1.2rem, 4vw, 3rem);
+    background: #9B413C; color: #fff;
+    font-family: var(--ed-mono); font-size: .76rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    border-bottom: 2px solid #16181A;
+  }
+  .draft-banner strong { color: #fff; }
+  .review-lede {
+    background: var(--ed-ground); border: 2px solid var(--ed-ink);
+    padding: 1.4rem 1.5rem; margin: 1.5rem 0 2rem;
+  }
+  .review-lede p:last-child { margin-bottom: 0; }
+  .status-grid, .change-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+    gap: 1px; background: var(--ed-ink); border: 1px solid var(--ed-ink);
+    margin: 1.5rem 0 2rem;
+  }
+  .status-card, .change-card { background: var(--ed-ground); padding: 1.2rem 1.3rem; }
+  .status-card .label, .change-card .label, .pill {
+    font-family: var(--ed-mono); font-size: .68rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ed-soft);
+  }
+  .status-card strong { display:block; margin-top:.25rem; font-size:1.05rem; }
+  .change-card h3 { margin:.35rem 0 .45rem; font-size:1.08rem; }
+  .change-card p { margin:0; color:var(--ed-soft); font-size:.92rem; }
+  .pill { display:inline-block; padding:.18rem .45rem; border:1px solid var(--ed-line); margin-right:.35rem; }
+  .pill.new { color:var(--ed-accent-deep); border-color:var(--ed-accent); }
+  .pill.modified { color:#765A00; border-color:#765A00; }
+  .pill.reviewed { color:var(--ed-soft); }
+  .jumpnav { border-top:2px solid var(--ed-ink); border-bottom:1px solid var(--ed-line); padding:.8rem 0; margin:1rem 0 2.5rem; }
+  .jumpnav a { font-family:var(--ed-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; margin-right:1.1rem; border:0; }
+  .comparison { width:100%; font-size:.9rem; }
+  .comparison th:nth-child(1) { width:16%; }
+  .comparison th:nth-child(2), .comparison th:nth-child(3) { width:32%; }
+  .comparison td { line-height:1.5; }
+  .req {
+    background:var(--ed-ground); border:1px solid var(--ed-ink); border-left:4px solid var(--ed-accent);
+    padding:1rem 1.15rem; margin:1rem 0 1.6rem;
+  }
+  .req.m { border:3px double var(--ed-ink); border-left:4px solid var(--ed-accent); }
+  .req.q { border:2px dashed var(--ed-accent-deep); }
+  .req.gp { border:2px dashed #765A00; }
+  .req h4 { margin:.05rem 0 .7rem; }
+  .req .meta { font-family:var(--ed-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ed-soft); margin-bottom:.7rem; }
+  .review-question { border-left:3px solid var(--ed-warn-ink); padding:.6rem .9rem; margin:1rem 0; background:var(--ed-ground); }
+  .review-question strong { font-family:var(--ed-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ed-warn-ink); }
+  .rmf-roster { columns: 3 220px; column-gap:2rem; padding-left:1.2rem; }
+  .rmf-roster li { break-inside:avoid; margin:.25rem 0; }
+  .source-list { font-size:.9rem; color:var(--ed-soft); }
+  .cta-row { display:flex; flex-wrap:wrap; gap:.7rem; margin:1.2rem 0 2rem; }
+  .cta {
+    display:inline-block; font-family:var(--ed-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    padding:.7rem 1rem; border:1px solid var(--ed-ink); background:var(--ed-ink); color:var(--ed-page) !important;
+  }
+  .cta.secondary { background:transparent; color:var(--ed-ink) !important; }
+  .small { font-size:.85rem; color:var(--ed-soft); }
+  @media(max-width:720px){
+    .comparison { display:block; overflow-x:auto; }
+    .jumpnav a { display:inline-block; margin-bottom:.5rem; }
+  }
+  @media print { .draft-banner { position:static; margin:0 0 1rem; } }
+</style>
+</head>
+<body>
+
+<div class="draft-banner"><strong>DRAFT · AI-GENERATED · FOR VALIDATION & REVIEW ONLY</strong> — NOT AN APPROVED EEA SPECIFICATION OR CERTIFICATION BASELINE</div>
+
+<div class="head">
+  <a class="logo" href="../../"><img alt="Enterprise Ethereum Alliance" src="../../eea-logo.webp" width="150"></a>
+  <h1>EEA EthTrust Security Levels Specification Version 4</h1>
+  <h2>Public Review Draft · 24 August 2026</h2>
+  <dl>
+    <dt>Status</dt><dd>Initial AI-generated working draft for expert validation and public review</dd>
+    <dt>Current approved specification</dt><dd><a href="../v3/">EthTrust Security Levels v3 — March 2025</a></dd>
+    <dt>Tracking</dt><dd><a href="https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6">Issue #6 — v4 technical refresh</a></dd>
+    <dt>Technical draft</dt><dd><a href="https://github.com/EntEthAlliance/wg-ethtrust-site/pull/7">Draft PR #7</a></dd>
+  </dl>
+</div>
+
+<div class="review-lede">
+  <p><strong>This document is intentionally public before approval.</strong> It was generated with AI assistance (OpenAI ChatGPT) from the published EthTrust v3 specification, activated Ethereum Improvement Proposals and public GBBC Capital Markets Risk Mitigation Framework materials.</p>
+  <p>It has <strong>not</strong> been technically reviewed, approved or adopted by the EEA EthTrust Security Levels Working Group or the Enterprise Ethereum Alliance. It MUST NOT be represented as an EEA standard or approved certification baseline. References to GBBC and RMF participants describe the external framework and do not imply that GBBC or any participant has reviewed or endorsed this draft.</p>
+  <p>The purpose of publishing this page is to make review easier: reviewers can see the proposed changes from v3, the candidate normative language, the Ethereum upgrade rationale and the areas where expert validation is specifically requested.</p>
+</div>
+
+<div class="status-grid">
+  <div class="status-card"><span class="label">Approved baseline</span><strong>Version 3</strong><span class="small">Remains the current EEA specification.</span></div>
+  <div class="status-card"><span class="label">Review draft</span><strong>Version 4</strong><span class="small">Proposed delta through Dencun, Pectra and Fusaka.</span></div>
+  <div class="status-card"><span class="label">Review target</span><strong>Security + protocol experts</strong><span class="small">Validate correctness, levels, wording and testability.</span></div>
+  <div class="status-card"><span class="label">External alignment</span><strong>GBBC RMF</strong><span class="small">Potential technical control reference, subject to separate review.</span></div>
+</div>
+
+<nav class="jumpnav" aria-label="On this page">
+  <a href="#changes">What changed</a>
+  <a href="#requirements">Draft requirements</a>
+  <a href="#eips">EIP review</a>
+  <a href="#rmf">GBBC RMF</a>
+  <a href="#review">How to review</a>
+</nav>
+
+<section id="changes">
+<h2>1. What changes from v3 to v4?</h2>
+<p>Version 3 remains the baseline. Version 4 is currently drafted as a <strong>delta</strong>: unchanged v3 requirements are not rewritten here. The proposed changes are concentrated where Ethereum execution semantics or the security review environment changed after the v3 technical baseline.</p>
+
+<div class="change-grid">
+  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-7702</div><h3>Delegated EOAs</h3><p>Stops treating “EOA has no code” as a security boundary and updates <code>tx.origin</code>, authorization, initialization and storage assumptions.</p></div>
+  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-1153</div><h3>Transient storage</h3><p>Adds requirements around transaction-scoped state lifetime, reentrancy and <code>DELEGATECALL</code> ownership.</p></div>
+  <div class="change-card"><span class="pill modified">Modified</span><div class="label">EIP-6780</div><h3>SELFDESTRUCT</h3><p>Retains v3's prohibition but corrects obsolete assumptions that code and storage are normally deleted.</p></div>
+  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-7825</div><h3>Transaction gas cap</h3><p>Adds a liveness check for security-critical atomic operations under Fusaka's per-transaction execution bound.</p></div>
+  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-2537 / 7951</div><h3>Crypto precompiles</h3><p>Adds conditional validation guidance for BLS12-381 and P-256 verification used in security-critical logic.</p></div>
+  <div class="change-card"><span class="pill modified">Modified</span><div class="label">Compiler security</div><h3>Evergreen advisories</h3><p>Replaces a late-2023 static cutoff with a requirement to check current compiler security advisories at certification time.</p></div>
+</div>
+
+<table class="comparison">
+<thead><tr><th>Area</th><th>Version 3</th><th>Proposed Version 4</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td>Account model</td><td>EOA / contract distinction reflects the pre-7702 account model.</td><td>Review assumes EOAs can execute delegated code; code presence is not a general authorization boundary.</td><td><span class="pill new">New</span></td></tr>
+<tr><td><code>tx.origin</code></td><td>Strongly discouraged; qualified use can be reviewed.</td><td>Qualified review must test delegated-account execution and cannot rely on historical top-level-call invariants.</td><td><span class="pill modified">Modified</span></td></tr>
+<tr><td>Transient state</td><td>No <code>TLOAD</code>/<code>TSTORE</code> requirements.</td><td>Explicit lifetime, same-transaction reuse, reentrancy and delegatecall checks.</td><td><span class="pill new">New</span></td></tr>
+<tr><td><code>SELFDESTRUCT</code></td><td>Prohibited by default, but explanatory text reflects older deletion semantics.</td><td>Same prohibition; allowed-use review reflects EIP-6780 semantics.</td><td><span class="pill modified">Modified</span></td></tr>
+<tr><td>Execution bounds</td><td>General gas / DoS analysis.</td><td>Security-critical atomic flows must fit the EIP-7825 transaction gas cap or have a safe bounded alternative.</td><td><span class="pill new">New</span></td></tr>
+<tr><td>Cryptographic precompiles</td><td>Existing crypto/signature requirements.</td><td>Conditional requirements for correct new-precompile input, output and verification semantics.</td><td><span class="pill new">New</span></td></tr>
+<tr><td>Compiler bugs</td><td>Explicit bugs through <code>SOL-2023-3</code>; good practice asks reviewers to check newer issues.</td><td>Current security-advisory check becomes part of the certification requirement.</td><td><span class="pill modified">Modified</span></td></tr>
+<tr><td>Institutional risk mapping</td><td>No GBBC RMF mapping.</td><td>Non-normative crosswalk proposed so EthTrust can serve as a smart-contract security control reference inside broader RMF risk categories.</td><td><span class="pill new">New</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="requirements">
+<h2>2. Candidate Version 4 requirements</h2>
+<p><strong>All wording and requirement levels below are provisional.</strong> The purpose of this section is to expose concrete language for review rather than ask reviewers to react to a high-level proposal.</p>
+
+<h3>2.1 Account model and EIP-7702</h3>
+<div class="req">
+<div class="meta">Candidate Security Level [S] · New</div>
+<h4>[S-v4-01] Do Not Use Account Code as a Security Boundary</h4>
+<p>Tested Code <strong>MUST NOT</strong> use <code>EXTCODESIZE</code>, <code>EXTCODEHASH</code>, Solidity <code>address.code.length</code>, <code>address.codehash</code>, or equivalent account-code introspection as the sole basis for asserting that an address is non-programmable, cannot execute delegated logic, cannot make multiple calls in one transaction, cannot re-enter Tested Code, or is therefore trusted or eligible for elevated authorization.</p>
+<p>Account-code introspection MAY be used for other documented purposes where its result is not treated as a security boundary.</p>
+</div>
+
+<div class="req q">
+<div class="meta">Candidate Security Level [Q] · Modifies v3 tx.origin review</div>
+<h4>[Q-v4-02] Verify <code>tx.origin</code> Under Delegated Account Execution</h4>
+<p>For Tested Code that uses <code>tx.origin</code>, each use <strong>MUST</strong> be reviewed under EIP-7702 semantics. The review <strong>MUST NOT</strong> assume that <code>tx.origin == msg.sender</code> can only occur in the topmost execution frame or that such equality prevents programmable multi-call execution.</p>
+<p>Where <code>tx.origin</code> participates in authorization, reentrancy protection, flash-loan or atomic-execution restrictions, anti-bot logic, or other security-sensitive behavior, the reviewer <strong>MUST</strong> document and test behavior when the originating account has delegated code. The existing v3 <strong>[S] No tx.origin</strong> requirement remains the preferred baseline.</p>
+</div>
+
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · New</div>
+<h4>[M-v4-03] Secure EIP-7702 Delegation Logic</h4>
+<p>Tested Code that acts as an EIP-7702 delegate implementation, constructs or verifies delegated-operation authorizations, or relays delegated operations <strong>MUST</strong> ensure that security-sensitive authorizations bind the information necessary to prevent unintended execution, including as applicable replay protection / nonce, intended chain or explicit cross-chain behavior, execution target, calldata or operation payload, transferred value, griefing-sensitive execution bounds, and the authority whose privilege is exercised.</p>
+<p>Any intentional omission <strong>MUST</strong> be documented and shown not to violate the security objectives of the Tested Code.</p>
+</div>
+
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · New</div>
+<h4>[M-v4-04] Protect Delegated Account Initialization and Storage</h4>
+<p>Where Tested Code executes as EIP-7702 delegated code, privileged initialization <strong>MUST</strong> be authenticated and protected against front-running; storage layout <strong>MUST</strong> prevent unintended collisions or provide an equivalent migration-safety mechanism; delegation changes <strong>MUST</strong> be treated as security-sensitive upgrades; and modules, session keys, relayers or sub-keys <strong>MUST</strong> follow least privilege.</p>
+</div>
+
+<div class="review-question"><strong>Review requested</strong><br>Are these account-model requirements correctly scoped to security consequences of EIP-7702? Are [S]/[M]/[Q] the appropriate levels, and are there valid patterns this wording would accidentally prohibit?</div>
+
+<h3>2.2 Transient storage — EIP-1153</h3>
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · New</div>
+<h4>[M-v4-05] Verify Transient Storage Lifetime</h4>
+<p>For each transient storage value that affects authorization, reentrancy protection, accounting, settlement, pricing, or another security invariant, Tested Code <strong>MUST</strong> document its intended lifetime; <strong>MUST NOT</strong> rely on it persisting across transactions; <strong>MUST</strong> account for multiple calls within the same transaction; and <strong>MUST</strong> ensure that a non-zero value left after a call cannot cause unintended behavior in a later same-transaction call.</p>
+<p>Where a transient value is intended to be scoped to a call rather than the transaction, Tested Code <strong>MUST</strong> explicitly restore or clear it before the relevant call completes.</p>
+</div>
+
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · New</div>
+<h4>[M-v4-06] Verify Transient Storage Under <code>DELEGATECALL</code></h4>
+<p>Where Tested Code combines transient storage with <code>DELEGATECALL</code> or <code>CALLCODE</code>, the reviewer <strong>MUST</strong> verify transient-storage ownership and slot usage in the caller's context and <strong>MUST</strong> test for collisions or unsafe state sharing between delegated modules.</p>
+</div>
+
+<h3>2.3 <code>SELFDESTRUCT</code> — EIP-6780</h3>
+<div class="req m">
+<div class="meta">Modify existing v3 requirement and explanatory text</div>
+<h4>Update: [S] No <code>selfdestruct()</code> / [M] Protect Self-destruction</h4>
+<p>The existing v3 prohibition remains appropriate. The explanation should state that after EIP-6780, <code>SELFDESTRUCT</code> normally transfers the account balance and halts the frame <strong>without deleting code or storage</strong>, except when invoked in the same transaction in which the contract was created.</p>
+<p>Any reviewed exception <strong>MUST NOT</strong> rely on later deletion of deployed code/storage, later <code>CREATE2</code> redeployment of different code at the same address, or other pre-Dencun lifecycle assumptions.</p>
+</div>
+
+<h3>2.4 Fusaka transaction gas cap — EIP-7825</h3>
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · New</div>
+<h4>[M-v4-07] Bound Security-Critical Operations to the Transaction Gas Cap</h4>
+<p>Where safe operation depends on an administrative, recovery, upgrade, settlement, liquidation, migration, emergency, or other security-critical transaction completing atomically, the reviewer <strong>MUST</strong> establish that it can execute within the transaction gas cap of the intended network under the documented worst-case state.</p>
+<p>If it may exceed that bound, Tested Code <strong>MUST</strong> provide a safe bounded/chunked alternative or the limitation <strong>MUST</strong> be documented and shown not to create an unacceptable denial-of-service or asset-locking condition.</p>
+</div>
+
+<h3>2.5 New cryptographic precompiles — EIP-2537 and EIP-7951</h3>
+<div class="req m">
+<div class="meta">Candidate Security Level [M] · Conditional</div>
+<h4>[M-v4-08] Verify Cryptographic Precompile Results</h4>
+<p>Where Tested Code depends on a cryptographic precompile for authentication, authorization, consensus proofs, bridge verification, or asset-control decisions, it <strong>MUST</strong> validate precompile-specific input encoding and bounds, distinguish successful EVM call execution from successful cryptographic verification, validate the exact expected return length/value, apply appropriate replay protection and domain separation, and document curve-specific assumptions on which security depends.</p>
+<p>For EIP-7951 specifically, callers <strong>MUST NOT</strong> treat a successful <code>STATICCALL</code> alone as proof of a valid P-256 signature.</p>
+</div>
+
+<h3>2.6 Compiler and vulnerability freshness</h3>
+<div class="req">
+<div class="meta">Candidate Security Level [S] · Replaces optional freshness check</div>
+<h4>[S-v4-09] Check Current Compiler Security Advisories</h4>
+<p>At certification time, the reviewer <strong>MUST</strong> check the Solidity compiler version(s) used by the Tested Code against current Solidity security-advisory / known-bugs sources and determine that no known applicable compiler vulnerability invalidates the certification requirements.</p>
+<p>The certification record <strong>MUST</strong> identify compiler version(s), relevant compilation configuration, advisory sources checked, and the date of the check.</p>
+</div>
+
+<div class="req gp">
+<div class="meta">Candidate Recommended Good Practice [GP] · New</div>
+<h4>[GP-v4-10] Reassess After Security-Relevant Network Upgrades</h4>
+<p>A previously certified contract SHOULD be reassessed when a network upgrade changes an opcode, precompile, account model, gas bound, or execution semantic on which its security assumptions depend. A protocol upgrade with no relevant effect on the Tested Code does not by itself require recertification.</p>
+</div>
+</section>
+
+<section id="eips">
+<h2>3. Ethereum upgrade review matrix</h2>
+<p>This is a first-pass classification for expert review. The intent is to show that v4 has considered the execution environment systematically, while avoiding unnecessary requirements for EIPs with no direct smart-contract security consequence.</p>
+
+<table class="comparison">
+<thead><tr><th>EIP</th><th>Upgrade</th><th>Initial classification</th><th>EthTrust implication</th></tr></thead>
+<tbody>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-1153">1153</a></td><td>Dencun</td><td><span class="pill new">Normative</span></td><td>Transient state lifetime, reentrancy and delegated execution.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-4788">4788</a></td><td>Dencun</td><td><span class="pill reviewed">Guidance</span></td><td>Consensus-root consumers should document proof/finality assumptions.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-4844">4844</a></td><td>Dencun</td><td><span class="pill reviewed">Guidance</span></td><td>No general new smart-contract vulnerability identified.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-5656">5656</a></td><td>Dencun</td><td><span class="pill reviewed">Guidance</span></td><td>Tooling/static analyzers should recognize <code>MCOPY</code>.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-6780">6780</a></td><td>Dencun</td><td><span class="pill modified">Normative update</span></td><td>Correct obsolete <code>SELFDESTRUCT</code> lifecycle assumptions.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7516">7516</a></td><td>Dencun</td><td><span class="pill reviewed">Guidance</span></td><td>Blob-base-fee users should include economic-input assumptions in review.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-2537">2537</a></td><td>Pectra</td><td><span class="pill new">Conditional normative</span></td><td>Security-critical BLS12-381 callers need exact verification semantics.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-2935">2935</a></td><td>Pectra</td><td><span class="pill reviewed">Guidance</span></td><td>Historical block-hash consumers should document time/reorg assumptions.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7702">7702</a></td><td>Pectra</td><td><span class="pill new">Normative</span></td><td>Changes account-model, authorization and composability assumptions.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7825">7825</a></td><td>Fusaka</td><td><span class="pill new">Normative</span></td><td>Hard per-transaction execution bound can affect recovery/liveness guarantees.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7883">7883</a></td><td>Fusaka</td><td><span class="pill reviewed">Guidance</span></td><td>MODEXP repricing can affect crypto-heavy gas assumptions.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7939">7939</a></td><td>Fusaka</td><td><span class="pill reviewed">Tooling</span></td><td>Static-analysis/opcode inventories should recognize <code>CLZ</code>.</td></tr>
+<tr><td><a href="https://eips.ethereum.org/EIPS/eip-7951">7951</a></td><td>Fusaka</td><td><span class="pill new">Conditional normative</span></td><td>P-256/passkey/HSM use requires exact result validation.</td></tr>
+</tbody>
+</table>
+<p class="small">The final v4 work should expand this into an exhaustive post-v3 mainnet EIP matrix, including entries explicitly classified “reviewed — no EthTrust impact.” Draft/future-fork proposals should not become normative merely because they are under discussion.</p>
+</section>
+
+<section id="rmf">
+<h2>4. Relationship to the GBBC Capital Markets Risk Mitigation Framework</h2>
+<p>The proposed relationship is deliberately narrow: <strong>GBBC RMF provides a broader institutional non-financial risk framework; EthTrust provides detailed Ethereum smart-contract security controls.</strong> Where the RMF identifies application-layer or smart-contract security risks, an approved EthTrust version could serve as a technical implementation/reference standard rather than duplicating the RMF.</p>
+
+<div class="review-lede">
+<p><strong>Why this is strategically relevant:</strong> GBBC describes the RMF as an industry-led standard for blockchain infrastructure used by regulated financial institutions, developed with more than 30 contributing institutions. Phase 1 addresses public Layer-1 infrastructure. Phase 2 extends to Layer-2 infrastructure and application risks for digital payments and tokenized securities.</p>
+<p><strong>No endorsement is implied.</strong> The organizations below are participants in the GBBC RMF initiative according to GBBC's public RMF site. Their inclusion here does not mean they have reviewed, approved or endorsed EthTrust v4.</p>
+</div>
+
+<h3>RMF Core Contributors</h3>
+<ul class="rmf-roster">
+<li>Ava Labs</li><li>Canton Foundation</li><li>Cardano Foundation</li><li>Chainlink Labs</li><li>DTCC</li><li>Digital Asset</li><li>Euroclear Group</li><li>GBBC</li><li>Hedera</li><li>Kinexys by J.P. Morgan</li><li>Oliver Wyman</li><li>Ripple</li>
+</ul>
+
+<h3>RMF Observers</h3>
+<ul class="rmf-roster">
+<li>Asian Development Bank</li><li>BTG Pactual</li><li>Clearstream</li><li>Deutsche Boerse</li><li>DTIF</li><li>Enterprise Ethereum Alliance</li><li>European Central Bank</li><li>GLEIF</li><li>GK8 by Galaxy</li><li>IDB Lab</li><li>ISSA</li><li>MIT DCI</li><li>Moody's Ratings</li><li>State Street</li><li>Swift</li><li>Temasek</li><li>VerifyVASP</li><li>UNJSPF</li><li>The World Bank</li><li>Wyoming Stable Token Commission</li>
+</ul>
+
+<h3>First Risk Assessment Partner cohort</h3>
+<ul class="rmf-roster"><li>Blockmosaic</li><li>Dfns</li><li>Droit Fintech</li><li>Kaiko</li><li>Metrika</li></ul>
+
+<h3>Proposed EthTrust ↔ RMF work</h3>
+<ul>
+<li>Map exact RMF Phase 2 application/security risk and control identifiers to existing and proposed EthTrust requirements.</li>
+<li>Identify where EthTrust already provides a concrete technical control that the RMF can reference.</li>
+<li>Identify genuine gaps exposed by the mapping rather than broadening EthTrust into general institutional risk management.</li>
+<li>Have both the EthTrust Working Group and GBBC/RMF maintainers validate the crosswalk before any formal external reference.</li>
+</ul>
+</section>
+
+<section id="review">
+<h2>5. What reviewers should validate</h2>
+<p>This draft is most useful if reviewers focus on correctness and testability rather than editorial polish.</p>
+<ol>
+<li><strong>Technical correctness:</strong> Does the EIP analysis accurately reflect current Ethereum mainnet semantics?</li>
+<li><strong>Requirement level:</strong> Should each candidate be [S], [M], [Q], [GP], guidance-only, or omitted?</li>
+<li><strong>Scope:</strong> Does any proposed rule accidentally prohibit legitimate secure designs?</li>
+<li><strong>Testability:</strong> Can an auditor or tool determine conformance consistently?</li>
+<li><strong>Completeness:</strong> Which post-v3 mainnet EIPs or compiler/security advisories are missing?</li>
+<li><strong>RMF mapping:</strong> Which exact Phase 2 risks/controls should reference EthTrust, if any?</li>
+</ol>
+
+<div class="cta-row">
+<a class="cta" href="https://github.com/EntEthAlliance/EthTrust-public/issues/new">Submit public review</a>
+<a class="cta secondary" href="https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6">Technical refresh issue</a>
+<a class="cta secondary" href="../v3/">Read approved v3</a>
+<a class="cta secondary" href="https://github.com/EntEthAlliance/wg-ethtrust-site/pull/7">View source draft / PR</a>
+</div>
+
+<p class="small">Before a final v4 release, approved changes should be merged into a complete self-contained specification and checklist, reviewed through the EEA Working Group process, and clearly separated from this AI-generated initial draft history.</p>
+</section>
+
+<section id="sources">
+<h2>Sources used for this initial draft</h2>
+<ul class="source-list">
+<li><a href="../v3/">EEA EthTrust Security Levels Specification v3</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1153">EIP-1153: Transient storage opcodes</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-6780">EIP-6780: SELFDESTRUCT only in same transaction</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-7702">EIP-7702: Set Code for EOAs</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-7825">EIP-7825: Transaction gas limit cap</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-2537">EIP-2537: BLS12-381 precompiles</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-7951">EIP-7951: secp256r1 / P-256 precompile</a></li>
+<li><a href="https://rmf.gbbc.io/">GBBC Capital Markets Risk Mitigation Framework</a></li>
+<li><a href="https://www.gbbc.io/media/rmf-phase2">GBBC RMF Phase 2</a></li>
+</ul>
+</section>
+
+<p class="copyright">Copyright © 2020–2026 Enterprise Ethereum Alliance. Review draft only.</p>
+</body>
+</html>
