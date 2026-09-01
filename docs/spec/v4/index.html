@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EEA EthTrust Security Levels v4 — Review Draft</title>
+<title>EEA EthTrust Security Levels v4: Review Draft</title>
 <meta name="description" content="AI-generated working draft of EEA EthTrust Security Levels v4 for technical validation and public review. Not an approved EEA specification.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#EDEAE3">
@@ -101,7 +101,7 @@
 </head>
 <body>
 
-<div class="draft-banner"><strong>DRAFT · AI-GENERATED · FOR VALIDATION & REVIEW ONLY</strong> — NOT AN APPROVED EEA SPECIFICATION OR CERTIFICATION BASELINE</div>
+<div class="draft-banner"><strong>DRAFT · AI-GENERATED · FOR VALIDATION & REVIEW ONLY</strong>: NOT AN APPROVED EEA SPECIFICATION OR CERTIFICATION BASELINE</div>
 
 <div class="head">
   <a class="logo" href="../../"><img alt="Enterprise Ethereum Alliance" src="../../eea-logo.webp" width="150"></a>
@@ -109,8 +109,8 @@
   <h2>Public Review Draft · 24 August 2026</h2>
   <dl>
     <dt>Status</dt><dd>Initial AI-generated working draft for expert validation and public review</dd>
-    <dt>Current approved specification</dt><dd><a href="../v3/">EthTrust Security Levels v3 — March 2025</a></dd>
-    <dt>Tracking</dt><dd><a href="https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6">Issue #6 — v4 technical refresh</a></dd>
+    <dt>Current approved specification</dt><dd><a href="../v3/">EthTrust Security Levels v3: March 2025</a></dd>
+    <dt>Tracking</dt><dd><a href="https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6">Issue #6: v4 technical refresh</a></dd>
     <dt>Technical draft</dt><dd><a href="https://github.com/EntEthAlliance/wg-ethtrust-site/pull/7">Draft PR #7</a></dd>
   </dl>
 </div>
@@ -141,7 +141,7 @@
 <p>Version 3 remains the baseline. Version 4 is currently drafted as a <strong>delta</strong>: unchanged v3 requirements are not rewritten here. The proposed changes are concentrated where Ethereum execution semantics or the security review environment changed after the v3 technical baseline.</p>
 
 <div class="change-grid">
-  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-7702</div><h3>Delegated EOAs</h3><p>Stops treating “EOA has no code” as a security boundary and updates <code>tx.origin</code>, authorization, initialization and storage assumptions.</p></div>
+  <div class="change-card"><span class="pill new">New</span><div class="label">EIP-7702</div><h3>Delegated EOAs</h3><p>Stops treating "EOA has no code" as a security boundary and updates <code>tx.origin</code>, authorization, initialization and storage assumptions.</p></div>
   <div class="change-card"><span class="pill new">New</span><div class="label">EIP-1153</div><h3>Transient storage</h3><p>Adds requirements around transaction-scoped state lifetime, reentrancy and <code>DELEGATECALL</code> ownership.</p></div>
   <div class="change-card"><span class="pill modified">Modified</span><div class="label">EIP-6780</div><h3>SELFDESTRUCT</h3><p>Retains v3's prohibition but corrects obsolete assumptions that code and storage are normally deleted.</p></div>
   <div class="change-card"><span class="pill new">New</span><div class="label">EIP-7825</div><h3>Transaction gas cap</h3><p>Adds a liveness check for security-critical atomic operations under Fusaka's per-transaction execution bound.</p></div>
@@ -198,7 +198,7 @@
 
 <div class="review-question"><strong>Review requested</strong><br>Are these account-model requirements correctly scoped to security consequences of EIP-7702? Are [S]/[M]/[Q] the appropriate levels, and are there valid patterns this wording would accidentally prohibit?</div>
 
-<h3>2.2 Transient storage — EIP-1153</h3>
+<h3>2.2 Transient storage: EIP-1153</h3>
 <div class="req m" id="m-v4-05">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-05] Verify Transient Storage Lifetime</h4>
@@ -212,7 +212,7 @@
 <p>Where Tested Code combines transient storage with <code>DELEGATECALL</code> or <code>CALLCODE</code>, the reviewer <strong>MUST</strong> verify transient-storage ownership and slot usage in the caller's context and <strong>MUST</strong> test for collisions or unsafe state sharing between delegated modules.</p>
 </div>
 
-<h3>2.3 <code>SELFDESTRUCT</code> — EIP-6780</h3>
+<h3>2.3 <code>SELFDESTRUCT</code>: EIP-6780</h3>
 <div class="req m">
 <div class="meta">Modify existing v3 requirement and explanatory text</div>
 <h4>Update: [S] No <code>selfdestruct()</code> / [M] Protect Self-destruction</h4>
@@ -220,7 +220,7 @@
 <p>Any reviewed exception <strong>MUST NOT</strong> rely on later deletion of deployed code/storage, later <code>CREATE2</code> redeployment of different code at the same address, or other pre-Dencun lifecycle assumptions.</p>
 </div>
 
-<h3>2.4 Fusaka transaction gas cap — EIP-7825</h3>
+<h3>2.4 Fusaka transaction gas cap: EIP-7825</h3>
 <div class="req m" id="m-v4-07">
 <div class="meta">Candidate Security Level [M] · New</div>
 <h4>[M-v4-07] Bound Security-Critical Operations to the Transaction Gas Cap</h4>
@@ -228,7 +228,7 @@
 <p>If it may exceed that bound, Tested Code <strong>MUST</strong> provide a safe bounded/chunked alternative or the limitation <strong>MUST</strong> be documented and shown not to create an unacceptable denial-of-service or asset-locking condition.</p>
 </div>
 
-<h3>2.5 New cryptographic precompiles — EIP-2537 and EIP-7951</h3>
+<h3>2.5 New cryptographic precompiles: EIP-2537 and EIP-7951</h3>
 <div class="req m" id="m-v4-08">
 <div class="meta">Candidate Security Level [M] · Conditional</div>
 <h4>[M-v4-08] Verify Cryptographic Precompile Results</h4>
@@ -259,7 +259,7 @@ with no v3 counterpart follow in the table below.</p>
 
 <div class="diffpair">
   <div class="diffpane v3">
-    <span class="label">Version 3 — current approved text</span>
+    <span class="label">Version 3: current approved text</span>
     <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-1-no-tx.origin">[S] No tx.origin</a></h5>
     <p class="normative">Tested code MUST NOT contain a tx.origin instruction
 unless it meets the Overriding Requirement [Q] Verify tx.origin Usage.</p>
@@ -270,7 +270,7 @@ MUST NOT allow assertions about contract functionality made for [Q] Document Con
 This is an Overriding Requirement for [S] No tx.origin.</p>
   </div>
   <div class="diffpane v4">
-    <span class="label"><span class="pill modified">Modified</span> Version 4 — proposed (<a href="#q-v4-02">[Q-v4-02]</a>)</span>
+    <span class="label"><span class="pill modified">Modified</span> Version 4: proposed (<a href="#q-v4-02">[Q-v4-02]</a>)</span>
     <h5>[Q-v4-02] Verify tx.origin Under Delegated Account Execution</h5>
     <p class="normative">For Tested Code that uses tx.origin, each use MUST be reviewed under EIP-7702 semantics. The review MUST NOT assume that tx.origin == msg.sender can only occur in the topmost execution frame or that such equality prevents programmable multi-call execution.
 Where tx.origin participates in authorization, reentrancy protection, flash-loan or atomic-execution restrictions, anti-bot logic, or other security-sensitive behavior, the reviewer MUST document and test behavior when the originating account has delegated code. The existing v3 [S] No tx.origin requirement remains the preferred baseline.</p>
@@ -279,7 +279,7 @@ Where tx.origin participates in authorization, reentrancy protection, flash-loan
 
 <div class="diffpair">
   <div class="diffpane v3">
-    <span class="label">Version 3 — current approved text</span>
+    <span class="label">Version 3: current approved text</span>
     <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-1-self-destruct">[S] No selfdestruct()</a></h5>
     <p class="normative">Tested code MUST NOT contain the selfdestruct() instruction or its now-deprecated alias suicide()
 unless it meets the Set of Overriding Requirements [M] Protect Self-destruction, and [M] Document Special Code Use.</p>
@@ -291,7 +291,7 @@ This is an Overriding Requirement for [S] No selfdestruct().</p>
     <p class="small">v3's surrounding explanation still describes pre-Dencun deletion semantics.</p>
   </div>
   <div class="diffpane v4">
-    <span class="label"><span class="pill modified">Modified</span> Version 4 — proposed (&sect;2.3 update)</span>
+    <span class="label"><span class="pill modified">Modified</span> Version 4: proposed (&sect;2.3 update)</span>
     <h5>Update: [S] No selfdestruct() / [M] Protect Self-destruction</h5>
     <p class="normative">The existing v3 prohibition remains appropriate. The explanation should state that after EIP-6780, SELFDESTRUCT normally transfers the account balance and halts the frame without deleting code or storage, except when invoked in the same transaction in which the contract was created.
 Any reviewed exception MUST NOT rely on later deletion of deployed code/storage, later CREATE2 redeployment of different code at the same address, or other pre-Dencun lifecycle assumptions.</p>
@@ -300,13 +300,13 @@ Any reviewed exception MUST NOT rely on later deletion of deployed code/storage,
 
 <div class="diffpair">
   <div class="diffpane v3">
-    <span class="label">Version 3 — current approved text</span>
+    <span class="label">Version 3: current approved text</span>
     <h5><a href="https://entethalliance.github.io/wg-ethtrust-site/spec/v3/#req-R-check-new-bugs">[GP] Check For and Address New Security Bugs</a></h5>
     <p class="normative">Check [solidity-bugs-json] and other sources for bugs announced after 1 November 2023 and address them.</p>
-    <p class="small">In v3 this is a Recommended Good Practice — optional, with a fixed cutoff date; explicit compiler-bug requirements cover issues through SOL-2023-3.</p>
+    <p class="small">In v3 this is a Recommended Good Practice: optional, with a fixed cutoff date; explicit compiler-bug requirements cover issues through SOL-2023-3.</p>
   </div>
   <div class="diffpane v4">
-    <span class="label"><span class="pill modified">Replaces — level raised [GP] &rarr; [S]</span> Version 4 — proposed (<a href="#s-v4-09">[S-v4-09]</a>)</span>
+    <span class="label"><span class="pill modified">Replaces: level raised [GP] &rarr; [S]</span> Version 4: proposed (<a href="#s-v4-09">[S-v4-09]</a>)</span>
     <h5>[S-v4-09] Check Current Compiler Security Advisories</h5>
     <p class="normative">At certification time, the reviewer MUST check the Solidity compiler version(s) used by the Tested Code against current Solidity security-advisory / known-bugs sources and determine that no known applicable compiler vulnerability invalidates the certification requirements.
 The certification record MUST identify compiler version(s), relevant compilation configuration, advisory sources checked, and the date of the check.</p>
@@ -315,7 +315,7 @@ The certification record MUST identify compiler version(s), relevant compilation
 
 <h4>New candidates with no v3 counterpart</h4>
 <table class="comparison">
-  <tr><th>Candidate</th><th>v3 today</th><th>Nearest existing v3 requirements (context only — not modified by this draft)</th></tr>
+  <tr><th>Candidate</th><th>v3 today</th><th>Nearest existing v3 requirements (context only: not modified by this draft)</th></tr>
   <tr><td><a href="#s-v4-01">[S-v4-01]</a> Account code as security boundary</td><td>No requirement; review reflects the pre-7702 account model.</td><td>&mdash;</td></tr>
   <tr><td><a href="#m-v4-03">[M-v4-03]</a> 7702 delegation logic</td><td>No requirement.</td><td>&mdash;</td></tr>
   <tr><td><a href="#m-v4-04">[M-v4-04]</a> Delegated account init &amp; storage</td><td>No requirement.</td><td>&mdash;</td></tr>
@@ -353,7 +353,7 @@ The certification record MUST identify compiler version(s), relevant compilation
 <tr><td><a href="https://eips.ethereum.org/EIPS/eip-7951">7951</a></td><td>Fusaka</td><td><span class="pill new">Conditional normative</span></td><td>P-256/passkey/HSM use requires exact result validation.</td></tr>
 </tbody>
 </table>
-<p class="small">The final v4 work should expand this into an exhaustive post-v3 mainnet EIP matrix, including entries explicitly classified “reviewed — no EthTrust impact.” Draft/future-fork proposals should not become normative merely because they are under discussion.</p>
+<p class="small">The final v4 work should expand this into an exhaustive post-v3 mainnet EIP matrix, including entries explicitly classified "reviewed: no EthTrust impact." Draft/future-fork proposals should not become normative merely because they are under discussion.</p>
 </section>
 
 <section id="rmf">
@@ -424,6 +424,6 @@ The certification record MUST identify compiler version(s), relevant compilation
 </ul>
 </section>
 
-<p class="copyright">Copyright © 2020–2026 Enterprise Ethereum Alliance. Review draft only.</p>
+<p class="copyright">Copyright © 2020-2026 Enterprise Ethereum Alliance. Review draft only.</p>
 </body>
 </html>

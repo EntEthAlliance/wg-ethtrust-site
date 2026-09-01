@@ -1221,7 +1221,7 @@ and protocols that are composed of a <a href="#dfn-set-of-contracts" class="inte
     </div>
 <p>In the Rari hack a large flashloaned
 deposit was made in order to borrow ETH from the cETH contract. During the borrow call, <code>exitMarket()</code> was called within the Comptroller,
-which reads the state of the cETH contract, performing read-only re-entrancy of cETH. Since the cETH contract’s state had not yet recorded the
+which reads the state of the cETH contract, performing read-only re-entrancy of cETH. Since the cETH contract's state had not yet recorded the
 borrow, the attacker was able to redeem their initial deposit while keeping their borrowed funds. For more information on the hack, see [<cite><a class="bibref" href="#bib-certik-rari" title="Fei Protocol Incident Analysis" data-link-type="biblio">certik-rari</a></cite>].</p>
 </aside>
 </section>
