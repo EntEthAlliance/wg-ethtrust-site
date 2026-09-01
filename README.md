@@ -1,4 +1,4 @@
-# EthTrust Security Levels WG — group page
+# EthTrust Security Levels WG: group page
 
 **This repo is the live site.** GitHub Pages serves `docs/` at
 <https://entethalliance.github.io/wg-ethtrust-site/>, and since 2026-08-24 the
@@ -9,29 +9,29 @@ WP Engine portal, applied by Redwan):
 |---|---|
 | `entethalliance.org/groups/EthTrust/` | the site root |
 | `…/specs/ethtrust-sl/` (latest release) | `spec/v3/` |
-| `…/specs/ethtrust-sl/vN/` (v1–v3) | `spec/vN/` |
+| `…/specs/ethtrust-sl/vN/` (v1: v3) | `spec/vN/` |
 | `…/specs/ethtrust-sl/vN/checklist.html` | `spec/vN/checklist.html` |
 
 ## Layout
 
-- `docs/index.html` — the WG page, built on the
+- `docs/index.html`: the WG page, built on the
   [EEA design system](https://github.com/EntEthAlliance/eea-design-system)
   **editorial family** (`editorial.css` loaded from the design system's Pages
   URL; canonical `.eea-site-bar` / `.eea-colophon` markup; all page-local CSS
   on `--eea-ed-*` tokens).
-- `docs/spec/v1..v3/` — content-identical copies of every published spec
+- `docs/spec/v1..v3/`: content-identical copies of every published spec
   version (+ checklists where one was published), restyled via the
   `docs/spec/ethtrust-editorial-spec.css` overlay. Self-contained: relative
   logo assets are vendored and Cloudflare-obfuscated emails are decoded to
   plain `mailto:` links. All pages carry the shared EEA Pages Google tag and
   self-canonicals.
-- `docs/spec/v4/` — **review draft** (AI-generated, not an approved EEA
+- `docs/spec/v4/`: **review draft** (AI-generated, not an approved EEA
   specification; clearly labelled on the page).
-- `docs/og-card.png`, `robots.txt`, `sitemap.xml` — SEO layer.
+- `docs/og-card.png`, `robots.txt`, `sitemap.xml`: SEO layer.
 
 ## Deploying
 
-Merge a PR to `main` — GitHub Pages redeploys automatically. There is no
+Merge a PR to `main`: GitHub Pages redeploys automatically. There is no
 WordPress-side step anymore; the redirect rules make this repo authoritative.
 Rollback of the redirects themselves = deleting the rules in the WP Engine
 portal (the old files still exist untouched on the WP host).
