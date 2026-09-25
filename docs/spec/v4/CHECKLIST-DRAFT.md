@@ -1,6 +1,6 @@
-# EthTrust v4 — Candidate Requirements Checklist
+# EthTrust v4, Candidate Requirements Checklist
 
-## AI-generated Working Draft — HUMAN REVIEW REQUIRED
+## AI-generated Working Draft, HUMAN REVIEW REQUIRED
 
 This checklist accompanies `WORKING-DRAFT.md`. It is an AI-generated first pass and is **not an approved EEA EthTrust checklist or certification baseline**. Requirement IDs and levels are provisional until reviewed and adopted by the EEA EthTrust Security Levels Working Group.
 

@@ -1,4 +1,4 @@
-# EthTrust Security Levels v4 — Review Workspace
+# EthTrust Security Levels v4, Review Workspace
 
 This directory contains an **AI-generated initial working draft** for EthTrust v4. It is not an approved EEA specification and must not be used as a certification baseline until reviewed and adopted through the EthTrust Working Group process.
 

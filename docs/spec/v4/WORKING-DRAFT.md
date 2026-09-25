@@ -1,6 +1,6 @@
 # EEA EthTrust Security Levels Specification Version 4
 
-## AI-generated Working Draft — NOT AN APPROVED EEA SPECIFICATION
+## AI-generated Working Draft, NOT AN APPROVED EEA SPECIFICATION
 
 **Draft date:** 24 August 2026 (revised 25 September 2026)  
 **Status:** Initial technical working draft for human and public review  
@@ -27,10 +27,10 @@ Version 3 was published in March 2025, but states that its compiler-security rev
 
 The most significant smart-contract security changes for EthTrust are:
 
-1. **EIP-7702 — Set Code for EOAs**, which changes long-standing assumptions about externally owned accounts and delegated execution.
-2. **EIP-1153 — transient storage**, which introduces transaction-scoped state with security implications for reentrancy, state lifetime, and `DELEGATECALL`.
-3. **EIP-6780 — changed `SELFDESTRUCT` semantics**, which invalidates explanations and patterns based on deletion of code and storage after deployment.
-4. **EIP-7825 — per-transaction gas cap**, which creates a hard execution bound relevant to liveness, administrative functions, recovery operations, settlement batches, and denial-of-service analysis.
+1. **EIP-7702, Set Code for EOAs**, which changes long-standing assumptions about externally owned accounts and delegated execution.
+2. **EIP-1153, transient storage**, which introduces transaction-scoped state with security implications for reentrancy, state lifetime, and `DELEGATECALL`.
+3. **EIP-6780, changed `SELFDESTRUCT` semantics**, which invalidates explanations and patterns based on deletion of code and storage after deployment.
+4. **EIP-7825, per-transaction gas cap**, which creates a hard execution bound relevant to liveness, administrative functions, recovery operations, settlement batches, and denial-of-service analysis.
 5. **New cryptographic precompiles**, particularly EIP-2537 (BLS12-381) and EIP-7951 (secp256r1/P-256), which require correct result handling and signature-domain assumptions.
 6. **Compiler/security advisories after the v3 cutoff**, which should be incorporated through an evergreen review requirement rather than waiting for the next static specification release.
 
@@ -129,7 +129,7 @@ ERC-7201-style namespaced storage is one possible mitigation but is not mandated
 
 ---
 
-## 2.2 Transient storage — EIP-1153
+## 2.2 Transient storage, EIP-1153
 
 EIP-1153 adds `TLOAD` and `TSTORE`. Transient state is discarded at the end of the transaction, shared across frames belonging to the owning contract, follows persistent-storage ownership rules under `DELEGATECALL`, and is reverted with frame reverts.
 
@@ -164,7 +164,7 @@ This requirement is related to v3 `[S] No delegatecall()`, `[M] Protect External
 
 ---
 
-## 2.3 `SELFDESTRUCT` — EIP-6780
+## 2.3 `SELFDESTRUCT`, EIP-6780
 
 Version 3 correctly discourages `selfdestruct()`, but parts of its explanatory text still describe the pre-Dencun behavior in which a deployed contract is destroyed and its code/storage removed.
 
@@ -188,7 +188,7 @@ Reference: https://eips.ethereum.org/EIPS/eip-6780
 
 ---
 
-## 2.4 Gas bounds and Fusaka — EIP-7825
+## 2.4 Gas bounds and Fusaka, EIP-7825
 
 Fusaka caps a single Ethereum transaction at `16,777,216` (`2^24`) gas.
 
@@ -204,7 +204,7 @@ Reference: https://eips.ethereum.org/EIPS/eip-7825
 
 ---
 
-## 2.5 Cryptographic precompiles — EIP-2537 and EIP-7951
+## 2.5 Cryptographic precompiles, EIP-2537 and EIP-7951
 
 Pectra added BLS12-381 precompiles and Fusaka added the secp256r1/P-256 verification precompile.
 
@@ -267,11 +267,11 @@ This matrix is a **first-pass AI classification for human review**, not a final 
 
 Classification:
 
-- **Normative** — candidate change to an EthTrust requirement.
-- **Guidance** — explanatory/testing/reference update likely useful; no general new requirement proposed.
-- **No direct EthTrust change** — reviewed but primarily consensus/networking/scaling/client behavior outside smart-contract certification.
+- **Normative**, candidate change to an EthTrust requirement.
+- **Guidance**, explanatory/testing/reference update likely useful; no general new requirement proposed.
+- **No direct EthTrust change**, reviewed but primarily consensus/networking/scaling/client behavior outside smart-contract certification.
 
-## 3.1 Dencun — activated 13 March 2024
+## 3.1 Dencun, activated 13 March 2024
 
 Meta EIP: https://eips.ethereum.org/EIPS/eip-7569
 
@@ -287,7 +287,7 @@ Meta EIP: https://eips.ethereum.org/EIPS/eip-7569
 | 7514 | Max epoch churn limit | No direct EthTrust change | Consensus-layer validator churn. |
 | 7516 | `BLOBBASEFEE` opcode | Guidance | Contracts using blob base fee as an economic input should include it in documented economic/manipulation testing. |
 
-## 3.2 Pectra — activated 7 May 2025
+## 3.2 Pectra, activated 7 May 2025
 
 Meta EIP: https://eips.ethereum.org/EIPS/eip-7600
 
@@ -305,7 +305,7 @@ Meta EIP: https://eips.ethereum.org/EIPS/eip-7600
 | 7702 | Set Code for EOAs | **Normative** | Changes account-model, delegation, `tx.origin`, initialization, storage and authorization assumptions. |
 | 7840 | Blob schedule in EL config | No direct EthTrust change | Client configuration. |
 
-## 3.3 Fusaka — activated 3 December 2025
+## 3.3 Fusaka, activated 3 December 2025
 
 Meta EIP: https://eips.ethereum.org/EIPS/eip-7607
 
@@ -333,15 +333,15 @@ BPO1 and BPO2 adjust blob parameters and are reviewed as no direct generic EthTr
 
 The integrated v4 review SHOULD inspect at least the following v3 material:
 
-1. **`[S] No tx.origin` and `[Q] Verify tx.origin Usage`** — update explanations and Q-level verification for EIP-7702.
-2. **`[S] No selfdestruct()` and `[M] Protect Self-destruction`** — preserve the conservative prohibition but replace obsolete descriptions of code/storage deletion and `CREATE2` metamorphic behavior.
-3. **`[S] No delegatecall()`, `[M] Protect External Calls`, `[Q] Verify External Calls`** — cross-reference EIP-7702 delegated execution and EIP-1153 transient storage ownership.
-4. **Reentrancy / Check-Effects-Interactions material** — add transient storage as a possible reentrancy-lock mechanism while requiring correct same-transaction lifetime handling.
-5. **Signature mechanisms** — extend examples/reference material for BLS12-381 and P-256 precompiles and modern account/delegation signatures.
-6. **Gas and gas prices** — add the Fusaka per-transaction cap and liveness implications.
-7. **Compiler bugs** — replace the late-2023 optional freshness check with a normative current-advisory check.
-8. **Network upgrades / post-deployment monitoring** — add a clear trigger for reassessing certificates when a fork changes a security-relevant semantic used by the Tested Code.
-9. **Testing/static-analysis tooling** — require the review toolchain to understand opcodes and precompiles active on the target fork rather than silently treating unknown instructions as benign.
+1. **`[S] No tx.origin` and `[Q] Verify tx.origin Usage`**, update explanations and Q-level verification for EIP-7702.
+2. **`[S] No selfdestruct()` and `[M] Protect Self-destruction`**, preserve the conservative prohibition but replace obsolete descriptions of code/storage deletion and `CREATE2` metamorphic behavior.
+3. **`[S] No delegatecall()`, `[M] Protect External Calls`, `[Q] Verify External Calls`**, cross-reference EIP-7702 delegated execution and EIP-1153 transient storage ownership.
+4. **Reentrancy / Check-Effects-Interactions material**, add transient storage as a possible reentrancy-lock mechanism while requiring correct same-transaction lifetime handling.
+5. **Signature mechanisms**, extend examples/reference material for BLS12-381 and P-256 precompiles and modern account/delegation signatures.
+6. **Gas and gas prices**, add the Fusaka per-transaction cap and liveness implications.
+7. **Compiler bugs**, replace the late-2023 optional freshness check with a normative current-advisory check.
+8. **Network upgrades / post-deployment monitoring**, add a clear trigger for reassessing certificates when a fork changes a security-relevant semantic used by the Tested Code.
+9. **Testing/static-analysis tooling**, require the review toolchain to understand opcodes and precompiles active on the target fork rather than silently treating unknown instructions as benign.
 
 ## 4.1 EthTrust-public issue #7
 
@@ -432,7 +432,7 @@ The current public RMF site lists the following participants. This roster is inc
 - Kaiko
 - Metrika
 
-**Roster source:** https://rmf.gbbc.io/ — checked 24 August 2026. Participant categories may change and SHOULD be refreshed before publication.
+**Roster source:** https://rmf.gbbc.io/, checked 24 August 2026. Participant categories may change and SHOULD be refreshed before publication.
 
 ## 5.2 Proposed RMF ↔ EthTrust crosswalk
 
