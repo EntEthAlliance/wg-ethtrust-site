@@ -25,8 +25,15 @@ WP Engine portal, applied by Redwan):
   logo assets are vendored and Cloudflare-obfuscated emails are decoded to
   plain `mailto:` links. All pages carry the shared EEA Pages Google tag and
   self-canonicals.
-- `docs/spec/v4/` — **review draft** (AI-generated, not an approved EEA
-  specification; clearly labelled on the page).
+- `docs/spec/v4/`: **EEA-hosted exploratory technical review**, using v3 as
+  the baseline and considering execution changes through Fusaka. The EthTrust
+  Working Group is currently inactive. This AI-assisted review does not
+  reactivate the Working Group, create an EEA specification, establish a
+  certification baseline, or represent EEA approval. Its [workspace index](docs/spec/v4/README.md),
+  [working draft](docs/spec/v4/WORKING-DRAFT.md),
+  [candidate checklist](docs/spec/v4/CHECKLIST-DRAFT.md) and
+  [HTML review page](docs/spec/v4/index.html) are kept consistent. The GBBC RMF
+  section is non-normative and implies no endorsement.
 - `docs/og-card.png`, `robots.txt`, `sitemap.xml` — SEO layer.
 
 ## Deploying
