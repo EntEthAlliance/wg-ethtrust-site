@@ -151,6 +151,9 @@ section h2 {
 .prose a { color: var(--eea-ed-accent); text-decoration: none; border-bottom: 1px solid var(--eea-ed-line); }
 .prose a:hover { color: var(--eea-ed-accent-deep); border-bottom-color: var(--eea-ed-accent); }
 
+/* Keep every homepage paragraph inside its full content block. */
+.measure p { max-width: none; overflow-wrap: anywhere; }
+
 /* ── Level plates ── */
 .levels {
   display: grid;
@@ -340,9 +343,7 @@ section h2 {
   <div class="measure masthead">
     <p class="masthead-kicker">EEA Working Group</p>
     <h1>EthTrust Security Levels</h1>
-    <p class="masthead-stand">Baseline requirements for Ethereum smart contract
-    security audits, a certification framework that lets projects and audit
-    firms signal, in one mark, how deep an audit went.</p>
+    <p class="masthead-stand">The EthTrust Security Levels set baseline requirements for Ethereum smart contract security audits. Their three levels help projects and audit firms describe whether an audit covers automated checks, manual review, and contract logic and documentation.</p>
     <div class="masthead-meta">
       <span>Specification <strong>Version&nbsp;3</strong> · March&nbsp;2025</span>
       <span>Three certification levels · <strong>[S]&nbsp;[M]&nbsp;[Q]</strong></span>
@@ -355,7 +356,7 @@ section h2 {
     <div class="res-feature review-draft" id="v4-review">
       <span class="res-feature-tag">Now in public review, Version 4 draft</span>
       <h3>EthTrust v4 proposed technical refresh</h3>
-      <p>AI-generated initial draft for expert validation. Compare v3 → v4 changes, review candidate requirements, and see the proposed GBBC RMF relationship. Not an approved EEA specification, <a href="spec/v3/">version 3</a> remains the certification baseline.</p>
+      <p>AI-generated initial draft for expert validation. Compare version 3 and version 4 changes, and review the candidate requirements. See the non-normative discussion of the <a href="https://rmf.gbbc.io/">GBBC Capital Markets Risk Mitigation Framework (RMF)</a>. The draft is not an approved EEA specification, and <a href="spec/v3/">version 3</a> remains the certification baseline.</p>
       <div class="btn-row">
         <a class="btn" href="spec/v4/">Review the v4 draft</a>
         <a class="btn ghost" href="https://github.com/EntEthAlliance/EthTrust-public/issues/12">Public review &amp; feedback</a>
@@ -366,10 +367,7 @@ section h2 {
   <section id="contributors" class="measure">
     <p class="kicker" data-n="01">Contributors</p>
     <h2>The companies behind the standard</h2>
-    <p class="prose">Version&nbsp;3 was written by security practitioners from
-    the firms below, as credited in the specification itself, together with
-    EEA staff, independent experts, and everyone who built the previous
-    versions it extends.</p>
+    <p class="prose">The Version 3 specification credits security practitioners from the firms below, along with EEA staff and independent experts. It also builds on the work behind earlier versions.</p>
     <ul class="companies" role="list">
       <li><a href="https://www.certik.com/">CertiK</a></li>
       <li><a href="https://www.chainsecurity.com/">ChainSecurity</a></li>
@@ -385,10 +383,7 @@ section h2 {
   <section id="focus" class="measure">
     <p class="kicker" data-n="02">Our focus</p>
     <h2>Minimum standards for smart contract security audits</h2>
-    <p class="prose">The EEA EthTrust Security Levels Working Group defines
-    baseline requirements for Ethereum smart contract security audits. These
-    serve as a certification framework for projects and audit firms to signal
-    audit depth and quality.</p>
+    <p class="prose">The EEA EthTrust Security Levels Working Group defines baseline requirements for Ethereum smart contract security audits. The three certification levels help projects and audit firms describe the depth of their review.</p>
 
     <div class="levels" role="list">
       <div class="level" role="listitem" data-depth="1">
@@ -409,8 +404,7 @@ section h2 {
         <div class="level-depth" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="level-mark" aria-hidden="true">[Q]</div>
         <h3>Full logic &amp; documentation review</h3>
-        <p>The deepest level, audited business logic and documentation,
-        end to end, against the declared intent of the contract.</p>
+        <p>The deepest level, with business logic and documentation reviewed end to end against the contract's declared intent.</p>
       </div>
     </div>
     <p class="levels-note">Audit depth increases left to right</p>
