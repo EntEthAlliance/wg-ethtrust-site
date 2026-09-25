@@ -2,10 +2,12 @@
 
 ## AI-generated Working Draft — NOT AN APPROVED EEA SPECIFICATION
 
-**Draft date:** 24 August 2026  
+**Draft date:** 24 August 2026 (revised 25 September 2026)  
 **Status:** Initial technical working draft for human and public review  
 **Baseline:** EEA EthTrust Security Levels Specification v3 (March 2025)  
 **Tracking issue:** https://github.com/EntEthAlliance/wg-ethtrust-site/issues/6
+
+**25 September 2026 revision:** incorporates the first substantive public review received, Ignacio Freire (Olympix), `EntEthAlliance/EthTrust-public#15` through `#20`. Affects `[S-v4-01]`/new `[M-v4-01a]`, `[Q-v4-02]`, new `[GP-v4-11]`, `[M-v4-05]`, `[M-v4-06]`, `[M-v4-08]`, and `[S-v4-09]` (renamed `[M-v4-09]`). Each change is marked inline with a rationale note; this is still an unreviewed AI-assisted draft, not a Working Group determination.
 
 > **IMPORTANT REVIEW NOTICE**
 >
@@ -60,21 +62,31 @@ Consensus-layer, networking, scaling, or client changes with no direct smart-con
 
 EIP-7702 allows an EOA to set a delegation indicator causing calls to execute code from another address in the EOA's context. It breaks or weakens assumptions that historically treated EOAs as non-programmable accounts.
 
-### [S-v4-01] Do Not Use Account Code as a Security Boundary
+### [S-v4-01] No Account-Code Introspection
 
-Tested Code **MUST NOT** use `EXTCODESIZE`, `EXTCODEHASH`, Solidity `address.code.length`, `address.codehash`, or equivalent account-code introspection as the sole basis for asserting that an address:
+Tested Code **MUST NOT** contain `EXTCODESIZE`, `EXTCODEHASH`, or the Solidity expressions `address.code.length` or `address.codehash`, unless it meets the Overriding Requirement **[M-v4-01a] Verify Account-Code Introspection**.
 
-- is non-programmable,
-- cannot execute delegated logic,
-- cannot make multiple calls in one transaction,
-- cannot re-enter Tested Code, or
-- is therefore trusted or eligible for elevated authorization.
+### [M-v4-01a] Verify Account-Code Introspection
 
-Account-code introspection MAY be used for other documented purposes where its result is not treated as a security boundary.
+Tested Code **MUST NOT** treat the result of account-code introspection as a durable property of an address. A result observed in one transaction **MUST NOT** be persisted, cached, or relied on in a later transaction as evidence that an address is non-programmable, is programmable, or is eligible for elevated authorization, because an EIP-7702 delegation may be installed or revoked permissionlessly between transactions.
 
-**Rationale:** EIP-7702 introduces delegated code for EOAs and makes EOA/contract distinctions unsuitable as a general authorization or anti-composability primitive.
+Within a single transaction an account's delegation status does not change, and account-code introspection MAY be relied on for the duration of that transaction.
+
+Account-code introspection MAY also be used for other documented purposes where its result is not treated as a security boundary.
+
+This is an Overriding Requirement for **[S-v4-01] No Account-Code Introspection**.
+
+**Rationale:** a delegated EOA's code is visible to introspection, not hidden from it. EIP-7702 writes the delegation indicator `0xef0100 || address` into the account as code, so `EXTCODESIZE` on a delegated account returns 23 and `address.code.length == 0` is false. What EIP-7702 breaks is durability, not visibility: delegation can be installed or revoked permissionlessly between transactions, so caching or persisting an introspection result from an earlier transaction is unsound. Delegation cannot change mid-transaction, so introspection MAY still be relied on for the duration of a single transaction. An earlier draft of this requirement put a trust judgment (sole basis for asserting non-programmability/trust) inside an `[S]`-level predicate; that judgment is not evaluable by an unguided static tool, so it moved to the `[M-v4-01a]` Overriding Requirement.
 
 Reference: https://eips.ethereum.org/EIPS/eip-7702
+
+### [GP-v4-11] Test Counterparty Behavior for Delegated Accounts
+
+Tested Code that varies its behavior according to the presence of account code SHOULD be reviewed for correct behavior when the counterparty is an EIP-7702 delegated account.
+
+This applies in particular to recipient-callback paths gated on account code, including `onERC721Received`, `onERC1155Received`, `onERC1155BatchReceived`, and ERC-777 hooks, where a delegated account that does not implement the expected callback interface causes an otherwise valid transfer to revert. During delegated execution, `CODESIZE`/`CODECOPY` observe the delegate's code while `EXTCODESIZE`/`EXTCODECOPY` on the authority return the 23-byte delegation indicator, so a check comparing self-observed to externally observed code is inconsistent by design.
+
+**Rationale:** this is a different failure class from `[S-v4-01]`/`[M-v4-01a]`. The introspection result is correct and the calling code behaves as written; what changed is the population of addresses that now hit the code-present branch, which can silently and reversibly break asset transfers to a delegated EOA.
 
 ### [Q-v4-02] Verify `tx.origin` Under Delegated Account Execution
 
@@ -86,7 +98,9 @@ Where `tx.origin` participates in authorization, reentrancy protection, flash-lo
 
 The existing `[S] No tx.origin` requirement remains the preferred baseline.
 
-**Rationale:** EIP-7702 explicitly changes the historical invariant around `tx.origin == msg.sender` and identifies consequences for atomic-sandwich and reentrancy assumptions.
+Tested Code **MUST NOT** rely on either of the following assumptions, both invalidated by EIP-7702: that an account's balance can only decrease as a result of a transaction originating from that account, or that an externally owned account's nonce cannot increase after transaction execution has begun. Where Tested Code snapshots a counterparty balance, or derives an address or ordering guarantee from an externally owned account's nonce, the review **MUST** test behavior when that account has delegated code.
+
+**Rationale:** EIP-7702 explicitly changes the historical invariant around `tx.origin == msg.sender` and identifies consequences for atomic-sandwich and reentrancy assumptions. Its Backwards Compatibility section also invalidates two further invariants (balance can only decrease from an own-transaction call; an EOA nonce cannot increase mid-execution) that an earlier draft of this requirement did not cover.
 
 ### [M-v4-03] Secure EIP-7702 Delegation Logic
 
@@ -130,13 +144,23 @@ For each transient storage value that affects authorization, reentrancy protecti
 
 Where a transient value is intended to be scoped to a call rather than to the transaction, Tested Code **MUST** explicitly restore or clear it before the relevant call completes.
 
+Tested Code **MUST** account for the revert semantics of transient storage: writes made within a frame that subsequently reverts are rolled back, including writes made in inner calls, in the same way as persistent storage. Where Tested Code handles a reverting call without propagating the revert, the review **MUST** establish which transient values survive that path.
+
+Tested Code **MUST NOT** use transient storage as a substitute for in-memory data structures. Transient storage is not discarded when a call returns, so a value written for the duration of one call remains readable by a later call in the same transaction, including a re-entrant one.
+
+**Rationale (added):** EIP-1153 states explicitly that transient-storage writes are reverted on frame revert "in the same way persistent storage is," and separately warns that developers may be tempted to use transient storage as an in-memory-mapping substitute without realizing it survives a returning call, creating an unintended same-transaction reentrancy channel. Neither case was covered by the original lifetime wording above.
+
 Reference: https://eips.ethereum.org/EIPS/eip-1153
 
 ### [M-v4-06] Verify Transient Storage Under `DELEGATECALL`
 
-Where Tested Code combines transient storage with `DELEGATECALL` or `CALLCODE`, the reviewer **MUST** verify transient-storage ownership and slot usage in the caller's context and **MUST** test for collisions or unsafe state sharing between delegated modules.
+`TSTORE` and `TLOAD` address the transient storage of the executing account. Under `DELEGATECALL` or `CALLCODE` that is the calling account, so all delegated modules executing in a given account share one transient-storage namespace.
+
+Where Tested Code combines transient storage with `DELEGATECALL` or `CALLCODE`, delegated modules **MUST NOT** share transient-storage slots unless the sharing is intended and documented, and slot derivation **MUST** be collision-resistant across modules.
 
 This requirement is related to v3 `[S] No delegatecall()`, `[M] Protect External Calls`, and `[Q] Verify External Calls`.
+
+**Rationale (revised):** the requirement previously stated the reviewer's obligation without first stating the EVM rule that produces it; the rule (shared namespace under `DELEGATECALL`/`CALLCODE`) is what makes the obligation a checkable fact rather than a judgment call.
 
 ---
 
@@ -194,7 +218,15 @@ Where Tested Code depends on a cryptographic precompile for authentication, auth
 - apply appropriate replay protection and domain separation to the signed message or proof context; and
 - document any curve-specific malleability or canonical-signature assumptions on which security depends.
 
-For EIP-7951 specifically, callers **MUST NOT** treat a successful `STATICCALL` alone as proof of a valid P-256 signature; invalid verification returns empty output rather than reverting.
+For EIP-7951 specifically, the precompile at address `0x100` returns a 32-byte value of `1` on successful verification and empty output on failure, and does not revert. Tested Code **MUST** treat empty output as verification failure, and **MUST NOT** treat successful `STATICCALL` execution alone as proof of a valid P-256 signature.
+
+Because secp256r1 signatures are not required to be non-malleable, Tested Code that uses a P-256 signature, or a hash of one, as a uniqueness or replay key **MUST** enforce a canonical `s` value or an equivalent application-layer non-malleability check. See also v3's `[M] No Improper Usage of Signatures for Replay Attack Protection` and `[Q] Intended Replay`.
+
+For EIP-2537 specifically, Tested Code **MUST NOT** assume that every BLS12-381 precompile validates subgroup membership. The G1 and G2 addition precompiles check only that inputs are on the curve or the point at infinity; multi-scalar multiplication and pairing check subgroup membership. Where Tested Code combines externally supplied points using the addition precompiles, it **MUST** perform its own subgroup check, or **MUST** establish that every such point has already been subgroup-checked.
+
+Tested Code **MUST NOT** rely on a scalar being reduced modulo the main subgroup order, and **MUST NOT** use an unreduced scalar encoding as a uniqueness key.
+
+**Rationale (added):** the original wording ("validate precompile-specific input encoding and bounds") was too abstract to catch the specific bugs EIP-2537 and EIP-7951 create: G1ADD/G2ADD are explicitly documented as not performing subgroup checks (small-subgroup attack surface for any contract accumulating attacker-supplied points before a pairing check), MSM scalars are not required to be reduced mod the subgroup order (two distinct encodings can produce the same result), and secp256r1/P-256 signatures are not required to be non-malleable per NIST FIPS 186-5, which matters for any passkey/WebAuthn-style replay key.
 
 References:
 - https://eips.ethereum.org/EIPS/eip-2537
@@ -206,18 +238,20 @@ References:
 
 Version 3 currently has `[GP] Check For and Address New Security Bugs`, directing reviewers to check for bugs announced after 1 November 2023. A certification standard should not make current compiler advisories optional merely because a static release cannot predict future bugs.
 
-### [S-v4-09] Check Current Compiler Security Advisories
+### [M-v4-09] Check Compiler Security Advisories at Certification Time
 
-At the time of certification, the reviewer **MUST** check the Solidity compiler version(s) used by the Tested Code against the current Solidity security advisory / known-bugs sources and **MUST** determine that no known applicable compiler vulnerability invalidates the certification requirements.
+The reviewer **MUST** check the Solidity compiler version(s) used by the Tested Code against Solidity security-advisory and known-bugs sources, and **MUST** determine that no applicable compiler vulnerability published on or before the date of that check invalidates the certification requirements.
 
 The certification record **MUST** identify:
 
-- the compiler version(s),
-- relevant compilation configuration,
-- the advisory source(s) checked, and
-- the date on which the check was performed.
+- the compiler version(s) used,
+- the relevant compilation configuration,
+- the advisory source(s) consulted, and
+- the date of consultation.
 
-This requirement is intended to make compiler-security review evergreen. Version-specific compiler requirements MAY remain where they provide automatable checks or useful historical coverage.
+Conformance under this requirement is assessed against advisories published on or before the recorded date.
+
+**Rationale (revised):** the original wording put a reviewer/record-keeping duty at `[S]`, the level v3 reserves for predicates an unguided static tool can evaluate; no tool can determine whether a human consulted an advisory feed. It also said "current," which makes conformance drift after certification with no code change, since the same bytecode could stop conforming the day a new advisory is published. Pinning to the certification date fixes both: the level now matches v3's own [M]-is-for-human-judgment pattern, and conformance is a fixed, re-verifiable fact about a point in time rather than a moving target. **Open question for Working Group review:** whether to also retain or extend v3's enumerated per-bug `[S]` requirements for issues found after the spec was frozen (a co-chair has proposed following the pattern of `w3c-cg/EthTrust#6` and `#8`); this candidate is compatible with keeping that list at `[S]` but does not itself resolve whether to extend it. This requirement is intended to make compiler-security review evergreen. Version-specific compiler requirements MAY remain where they provide automatable checks or useful historical coverage.
 
 ### [GP-v4-10] Reassess After Security-Relevant Network Upgrades
 
@@ -443,14 +477,16 @@ This draft SHOULD NOT become the public certification baseline until the followi
 
 ### New candidate requirements
 
-- `[S-v4-01] Do Not Use Account Code as a Security Boundary`
+- `[S-v4-01] No Account-Code Introspection`
+- `[M-v4-01a] Verify Account-Code Introspection` (Overriding Requirement for `[S-v4-01]`)
 - `[M-v4-03] Secure EIP-7702 Delegation Logic`
 - `[M-v4-04] Protect Delegated Account Initialization and Storage`
+- `[GP-v4-11] Test Counterparty Behavior for Delegated Accounts`
 - `[M-v4-05] Verify Transient Storage Lifetime`
 - `[M-v4-06] Verify Transient Storage Under DELEGATECALL`
 - `[M-v4-07] Bound Security-Critical Operations to the Transaction Gas Cap`
 - `[M-v4-08] Verify Cryptographic Precompile Results`
-- `[S-v4-09] Check Current Compiler Security Advisories`
+- `[M-v4-09] Check Compiler Security Advisories at Certification Time`
 - `[GP-v4-10] Reassess After Security-Relevant Network Upgrades`
 
 ### Updated candidate requirements
